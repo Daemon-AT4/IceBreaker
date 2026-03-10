@@ -85,7 +85,7 @@ echo $SHELL       # Should be /run/current-system/sw/bin/zsh
 **Cause:** Missing Nerd Font or terminal not configured for it.
 
 **Fix:**
-1. Ensure your terminal (Konsole) uses "JetBrainsMono Nerd Font"
+1. Ensure your terminal (Alacritty) uses "JetBrainsMono Nerd Font" (Stylix sets this automatically)
 2. If glyphs are boxes, the font isn't installed:
    ```bash
    fc-list | grep -i jetbrains
@@ -127,22 +127,19 @@ This creates `~/.target.env` which new shells auto-source.
 
 ## Theme Issues
 
-### KDE black screen after rebuild
+### Black screen after login (cursor visible, no desktop)
 
-**Cause:** Stylix's Qt target conflicting with KDE Plasma 6.
+**Cause:** Wrong hypervisor setting in `base.nix`, or VMware guest tools running on a KVM/QEMU machine (or vice versa).
 
-**Fix:** Ensure this is set in `modules/system/stylix.nix`:
-```nix
-targets.qt.enable = false;
-```
+**Fix:** Edit `modules/system/base.nix`, set the correct hypervisor option, set all others to `false`, rebuild (`nrs`), and reboot.
 
 ### Colours not applying
 
-**Cause:** Need to log out and back in for KDE to pick up changes.
+**Cause:** Need to log out and back in for GTK/XFCE to pick up changes.
 
 **Fix:**
 1. `exec zsh` — reloads shell colours
-2. Log out → log back in — applies KDE/GTK colours
+2. Log out → log back in — applies GTK/XFCE colours
 3. Reboot if still not working
 
 ### FZF colour conflict

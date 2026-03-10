@@ -11,158 +11,162 @@
     tuned to a dead channel."  — William Gibson, Neuromancer
 ```
 
-# IceBreaker
+---
 
-A fully modular NixOS pentesting environment built as a Nix flake. Your entire workstation — tools, shell, theme, aliases, workflow automation — declared in code.
+## // WHAT IS THIS
 
-One command rebuilds everything. One `git push` backs it all up. One `git clone` restores it on any machine.
+A fully modular NixOS pentesting environment built as a Nix flake. Your entire workstation — every tool, alias, function, theme, and keybinding — declared in code.
+
+One command rebuilds everything. One `git push` backs it all up. One `git clone` restores it anywhere.
+
+```
+> nrs                          # rebuild the entire system from ~/IceBreaker
+> newbox target 10.10.10.1     # scaffold a new engagement
+> htb-tmux                     # launch 3-pane workspace
+> revshell bash                # generate a payload with your VPN IP
+> flag HTB{owned} "root"       # log it
+```
 
 ---
 
-## Table of Contents
+## // TABLE OF CONTENTS
 
-- [What's Inside](#whats-inside)
-- [Requirements](#requirements)
-- [Before You Begin](#before-you-begin)
-  - [Choosing a Username](#choosing-a-username)
-  - [Choosing a Hypervisor](#choosing-a-hypervisor)
-- [Installation](#installation)
-  - [Step 1 — Install NixOS](#step-1--install-nixos)
-  - [Step 2 — Get a Shell with Git](#step-2--get-a-shell-with-git)
-  - [Step 3 — Clone IceBreaker](#step-3--clone-icebreaker)
-  - [Step 4 — Adjust Username (if needed)](#step-4--adjust-username-if-needed)
-  - [Step 5 — Run Setup](#step-5--run-setup)
-  - [Step 6 — Reboot and Log In](#step-6--reboot-and-log-in)
-  - [Step 7 — Install Pipx Tools](#step-7--install-pipx-tools)
-  - [Step 8 — Read the Guide](#step-8--read-the-guide)
-- [Building Directly from GitHub](#building-directly-from-github)
-- [If the Setup Script Fails](#if-the-setup-script-fails)
-- [Daily Usage](#daily-usage)
-- [Categories & Presets](#categories--presets)
-- [Architecture](#architecture)
-- [Troubleshooting](#troubleshooting)
-- [Documentation](#documentation)
+```
+ [00] PAYLOAD MANIFEST ................. what's inside
+ [01] SYSTEM REQUIREMENTS .............. what you need
+ [02] PRE-FLIGHT ....................... username + hypervisor
+ [03] INSTALLATION ..................... step by step
+ [04] DEPLOY FROM GITHUB ............... clone → build → hack
+ [05] WHEN THINGS BREAK ................ manual recovery
+ [06] DAILY OPS ........................ commands you'll use constantly
+ [07] ARSENAL .......................... categories & presets
+ [08] ADDING & REMOVING PACKAGES ....... make it yours
+ [09] ARCHITECTURE ..................... how it's wired
+ [10] TROUBLESHOOTING .................. flatline recovery
+ [11] DOCUMENTATION .................... full docs index
+```
 
 ---
 
-## What's Inside
+## [00] PAYLOAD MANIFEST
 
-- **12 pentesting categories** — toggle on/off individually or use presets
-- **Preset system** — `ctf`, `engagement`, `full`, `blue` profiles
-- **50+ shell aliases** — nix helpers, nmap presets, listeners, VPN shortcuts
-- **9 ZSH functions** — target management, nmap wrappers, hashcat reference, proxy config
-- **Reverse shell generator** — 14 payload types, auto-uses your VPN IP
-- **HTB tmux layout** — 3-pane workspace with notes + listener pane
-- **Rose Pine dark theme** — system-wide via Stylix (terminal, GTK, apps)
-- **Powerlevel10k prompt** — powerline style with VPN IP + ping latency segments
-- **Alacritty terminal** — fully configured, Nerd Font, Rose Pine colours
-- **Pipx installer script** — 25+ Python tools not in nixpkgs
-- **Multi-arch** — x86_64-linux and aarch64-linux outputs
-
----
-
-## Requirements
-
-- A NixOS installation (any starting channel — the flake pins nixos-unstable)
-- x86_64-linux or aarch64-linux
-- Internet connection during first build (can take 20–60 min depending on speed)
-- At least **20 GB** free disk space (50 GB+ recommended for `full` preset)
-- A hypervisor: VMware Workstation/Player, QEMU/KVM, VirtualBox, or bare metal
+```
+ OFFENSIVE                              ENVIRONMENT
+ ─────────────────────────────────      ─────────────────────────────────
+ 12 pentesting categories               Rose Pine dark — system-wide
+ 4 preset profiles                      Powerlevel10k powerline prompt
+ 14 reverse shell payload types         VPN IP + ping latency in prompt
+ 9 workflow shell functions             Alacritty terminal, Nerd Fonts
+ 50+ shell aliases                      15 tmux plugins, session persist
+ 25+ pipx tools                         XFCE desktop, LightDM greeter
+ HTB tmux 3-pane layout                 x86_64 + aarch64 outputs
+```
 
 ---
 
-## Before You Begin
+## [01] SYSTEM REQUIREMENTS
 
-Read this section **before** running anything. Two decisions need to be made upfront.
+- **NixOS** — any starting channel (the flake pins `nixos-unstable`)
+- **Architecture** — x86_64-linux or aarch64-linux
+- **Disk** — 20 GB minimum, 50 GB+ recommended for `full` preset
+- **RAM** — 4 GB minimum, 8 GB+ recommended
+- **Network** — internet connection during first build (20–60 min)
+- **Hypervisor** — VMware, QEMU/KVM, VirtualBox, or bare metal
 
-### Choosing a Username
+---
 
-IceBreaker creates a user called **`archangel`** by default. You have two options:
+## [02] PRE-FLIGHT
 
-**Option A — Keep `archangel` (easiest)**
+Read this **before** running anything.
 
-Do nothing. The NixOS user `archangel` will be created automatically with the password `icebreaker`. Just make sure you log in as `archangel` after setup. If you created a different user during the NixOS install, that user won't have the IceBreaker config — log in as `archangel` instead.
+### // USERNAME
+
+IceBreaker creates a user called **`archangel`** with default password **`icebreaker`**.
+
+**Option A — Keep `archangel` (path of least resistance)**
+
+Do nothing. Log in as `archangel` after setup. If you created a different user during NixOS install, ignore it — `archangel` is the user that gets the full IceBreaker config.
 
 **Option B — Use your own username**
 
-If you want a different username, edit these four files **before** running `setup.sh`:
+Edit these four files **before** running setup:
 
 | File | What to change |
 |------|----------------|
-| `modules/system/base.nix` | `users.users.archangel` → `users.users.YOURNAME` |
+| `modules/system/base.nix` | `users.users.archangel` → `users.users.YOURNAME` + `initialPassword` |
 | `modules/system/nix-helpers.nix` | `"archangel"` in `trusted-users` → `"YOURNAME"` |
-| `home/default.nix` | `home.username`, `home.homeDirectory`, git `user.name` / `user.email` |
+| `home/default.nix` | `home.username`, `home.homeDirectory`, `git user.name`, `git user.email` |
 | `flake.nix` | `users.archangel` → `users.YOURNAME` |
 
-Every occurrence of `archangel` in those files needs to become your chosen username. After setup, you must log in as that user — the config only applies to the user defined in these files.
+Every occurrence of `archangel` must become your chosen username. You can search for it:
 
-> **Why not just use the NixOS installer username?** NixOS creates a user during install, but IceBreaker defines its own user (`archangel`) in `base.nix`. Unless you customise the username to match your install user, you'll have two separate users on the system. The IceBreaker user is the one that gets all the tooling, ZSH config, and theme.
+```bash
+grep -rn "archangel" --include="*.nix" .
+```
 
-### Choosing a Hypervisor
+> IceBreaker defines its own user in `base.nix`. Unless you edit the username to match your NixOS install user, you'll have two separate accounts. The IceBreaker user is the one with all the tooling, aliases, prompt, and theme.
 
-VMware is enabled by default because it's the most common choice for pentesting VMs. If you're using something else, open `modules/system/base.nix` and look for the "Virtualisation / VM guest support" section. Comment out the VMware line and uncomment the appropriate block:
+### // HYPERVISOR
+
+VMware is enabled by default. If you're on something else, edit `modules/system/base.nix` — look for the virtualisation section:
 
 ```nix
-# VMware (default — most common for pentesting)
+# VMware (default)
 virtualisation.vmware.guest.enable = true;
 
-# QEMU/KVM — uncomment these and disable VMware above:
+# QEMU/KVM — uncomment these, set VMware to false:
 # services.qemuGuest.enable = true;
-# services.spice-vdagentd.enable = true;  # only if using SPICE display
+# services.spice-vdagentd.enable = true;  # only with SPICE display
 
-# VirtualBox — uncomment this and disable VMware above:
+# VirtualBox — uncomment this, set VMware to false:
 # virtualisation.virtualbox.guest.enable = true;
 ```
 
-If you're on bare metal, set all three to `false`.
+Bare metal: set all to `false`.
 
-> **Note:** Auto-detection of the hypervisor is not possible in Nix flakes. Flakes use pure evaluation, which prohibits reading `/sys/` paths at eval time. The commented blocks are the correct approach.
+> Auto-detection doesn't work in Nix flakes — pure evaluation prohibits reading `/sys/` paths.
+
+### // BOOTLOADER
+
+Default is GRUB MBR on `/dev/sda`. If you use UEFI or a different disk, edit `modules/system/base.nix`:
+
+```nix
+# MBR (default):
+boot.loader.grub.device = "/dev/sda";  # change to your disk
+
+# UEFI — replace the GRUB block with:
+# boot.loader.systemd-boot.enable = true;
+# boot.loader.efi.canTouchEfiVariables = true;
+```
 
 ---
 
-## Installation
+## [03] INSTALLATION
 
 ### Step 1 — Install NixOS
 
-Download the NixOS ISO from [nixos.org](https://nixos.org/download). Either the minimal or graphical installer works — IceBreaker replaces the desktop environment entirely.
+Download the ISO from [nixos.org/download](https://nixos.org/download). Minimal or graphical — doesn't matter. IceBreaker replaces the desktop entirely.
 
-Key decisions during install:
-- **Disk:** GRUB bootloader on `/dev/sda` (or update `boot.loader.grub.device` in `base.nix`)
-- **User:** Either create `archangel` as your user, or plan to use Option B above
-- **Desktop:** Doesn't matter — IceBreaker will replace it with XFCE
+### Step 2 — Get Git
 
-After the installer finishes and you reboot, you'll have a plain NixOS system. That's the starting point.
-
-### Step 2 — Get a Shell with Git
-
-On a fresh minimal NixOS install, `git` may not be available yet. Start a temporary shell with it:
+On a fresh minimal install, `git` won't be available. Drop into a temporary shell:
 
 ```bash
 nix-shell -p git
 ```
 
-This drops you into a shell with `git` available without installing it permanently.
-
 ### Step 3 — Clone IceBreaker
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/icebreaker.git ~/IceBreaker
+git clone https://github.com/YOUR_USERNAME/IceBreaker.git ~/IceBreaker
 cd ~/IceBreaker
 ```
 
-Replace `YOUR_USERNAME` with the actual GitHub username where you forked or own the repo. If you're cloning the original:
+> `hardware-configuration.nix` is **not** in the repo — it's machine-specific and gitignored. The setup script copies yours from `/etc/nixos/` automatically.
 
-```bash
-git clone https://github.com/archangel/icebreaker.git ~/IceBreaker
-```
+### Step 4 — Edit Username / Hypervisor (if needed)
 
-> **hardware-configuration.nix is not in the repo.** It's intentionally excluded from git (it's machine-specific). The setup script handles copying it from `/etc/nixos/` automatically — you don't need to create it manually.
-
-### Step 4 — Adjust Username (if needed)
-
-If you want to use a username other than `archangel`, make the four edits described in [Choosing a Username](#choosing-a-username) now, before running setup.
-
-If you're happy with `archangel`, skip this step entirely.
+See [PRE-FLIGHT](#02-pre-flight). If you're keeping `archangel` and on VMware, skip this.
 
 ### Step 5 — Run Setup
 
@@ -171,33 +175,19 @@ cd ~/IceBreaker
 ./scripts/setup.sh
 ```
 
-The setup script runs six steps:
+The script runs five steps:
 
 | Step | What it does |
 |------|-------------|
-| 1/6 | Copies `hardware-configuration.nix` from `/etc/nixos/` into `~/IceBreaker/` |
-| 2/6 | Makes all scripts in `scripts/` executable |
-| 3/6 | Creates `~/targets/`, `~/ctf/`, `~/vpn/` directories |
-| 4/6 | Runs `nix flake update` to fetch latest package versions |
-| 5/6 | Runs `sudo nixos-rebuild switch --flake ~/IceBreaker#icebreaker` to build and apply the config |
+| 1/5 | Copies `hardware-configuration.nix` from `/etc/nixos/` |
+| 2/5 | Makes all scripts in `scripts/` executable |
+| 3/5 | Creates `~/targets/`, `~/ctf/`, `~/vpn/` |
+| 4/5 | Runs `nix flake update` (fetches nixpkgs, home-manager, stylix) |
+| 5/5 | Runs `sudo nixos-rebuild switch --flake ~/IceBreaker#icebreaker` |
 
-**The rebuild step (5/6) will take the longest** — on first run it downloads and builds all packages. Expect 20–60 minutes depending on your internet connection and machine speed. This is normal.
+Step 5 takes the longest — 20–60 minutes on first run. It's downloading the entire package set. This is normal.
 
-> **On the bootstrap problem:** Fresh NixOS installs don't have flakes enabled yet. The `/etc/nix/nix.conf` file is a read-only symlink into the Nix store and cannot be edited. The setup script works around this by passing `--extra-experimental-features 'nix-command flakes'` to the `nix` command and `--option extra-experimental-features 'nix-command flakes'` to `nixos-rebuild`. After the first rebuild, `nix-helpers.nix` permanently enables flakes via `nix.settings.experimental-features` — no workarounds needed for future rebuilds.
-
-When setup completes successfully, you'll see a credentials box:
-
-```
-  ╔══════════════════════════════════════════════════════╗
-  ║  IMPORTANT: Default login credentials                ║
-  ╠══════════════════════════════════════════════════════╣
-  ║  Username: archangel                                 ║
-  ║  Password: icebreaker                                ║
-  ║                                                      ║
-  ║  Change the password after first login:              ║
-  ║    passwd                                            ║
-  ╚══════════════════════════════════════════════════════╝
-```
+> **The bootstrap problem:** Fresh NixOS doesn't have flakes enabled. `/etc/nix/nix.conf` is a read-only symlink into the Nix store — you literally cannot edit it. The setup script passes `--extra-experimental-features 'nix-command flakes'` to `nix` and `--option extra-experimental-features 'nix-command flakes'` to `nixos-rebuild` for the bootstrap. After the first rebuild, `nix-helpers.nix` permanently enables flakes and these flags are never needed again.
 
 ### Step 6 — Reboot and Log In
 
@@ -206,26 +196,27 @@ sudo reboot
 ```
 
 At the LightDM login screen:
-- Username: `archangel` (or your custom username)
-- Password: `icebreaker`
 
-After logging in, open Alacritty (or the XFCE terminal) and **immediately change your password**:
+```
+Username:  archangel
+Password:  icebreaker
+```
+
+Open a terminal and **immediately change your password**:
 
 ```bash
 passwd
 ```
 
-> **If the login screen says "Failed to start session":** This means the hypervisor selection in `base.nix` doesn't match your actual hypervisor. Also verify that `services.displayManager.defaultSession = "xfce"` is set in `base.nix`. See [Troubleshooting](#troubleshooting).
+> `initialPassword` only sets the password if none exists. Once you run `passwd`, it persists across rebuilds — NixOS won't overwrite it.
 
 ### Step 7 — Install Pipx Tools
 
-Some pentesting tools aren't packaged in nixpkgs, or were broken at the time of writing. These are installed via `pipx` (isolated Python virtualenvs) or `gem` (Ruby):
+Some tools aren't in nixpkgs or have broken builds. These are installed via pipx in isolated virtualenvs:
 
 ```bash
 ~/IceBreaker/scripts/install-pipx-tools.sh
 ```
-
-This installs tools including: `impacket`, `crackmapexec`, `bloodhound-python`, `netexec`, `certipy-ad`, `mitmproxy`, `xsstrike`, `shodan`, `manspider`, `cupp`, and more.
 
 ### Step 8 — Read the Guide
 
@@ -233,446 +224,561 @@ This installs tools including: `impacket`, `crackmapexec`, `bloodhound-python`, 
 guide
 ```
 
-This runs `scripts/icebreaker-guide.sh` — an interactive terminal walkthrough covering everything IceBreaker provides: categories, presets, aliases, functions, scripts, and tips.
+Interactive terminal walkthrough covering categories, aliases, functions, scripts, and tips.
 
 ---
 
-## Building Directly from GitHub
+## [04] DEPLOY FROM GITHUB
 
-This is the real power of a Nix flake: your entire environment can be restored on any machine from a single `git clone`.
+This is the real power of a Nix flake. Your entire environment — every tool, every alias, every theme colour — restores from a single `git clone`.
 
-### On a Fresh NixOS Machine
+### // Fresh NixOS Machine
 
 ```bash
-# 1. Install NixOS normally, then get git
+# 1. Get git
 nix-shell -p git
 
-# 2. Clone the repo into ~/IceBreaker
-git clone https://github.com/YOUR_USERNAME/icebreaker.git ~/IceBreaker
+# 2. Clone
+git clone https://github.com/YOUR_USERNAME/IceBreaker.git ~/IceBreaker
 
-# 3. (Optional) Edit username if you don't want to use 'archangel'
-#    Edit the 4 files listed in "Before You Begin" above
-
-# 4. Run setup — it handles hardware-configuration.nix automatically
+# 3. (Optional) Edit username — see PRE-FLIGHT
+# 4. Run setup
 cd ~/IceBreaker && ./scripts/setup.sh
 
-# 5. Reboot
+# 5. Reboot, log in as archangel / icebreaker
 sudo reboot
 
-# 6. Log in as archangel / icebreaker, open a terminal
-passwd          # change your password!
-exec zsh        # start the new shell (or open a new terminal)
-
-# 7. Install pipx tools
+# 6. Change password, start new shell, install pipx tools
+passwd
+exec zsh
 ~/IceBreaker/scripts/install-pipx-tools.sh
 ```
 
-That's it. Your complete pentesting environment is running.
-
-### On an Existing NixOS Machine (replacing the current config)
-
-If you already have NixOS with your own config and want to switch to IceBreaker:
+### // Existing NixOS Machine
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/icebreaker.git ~/IceBreaker
+git clone https://github.com/YOUR_USERNAME/IceBreaker.git ~/IceBreaker
 cd ~/IceBreaker
-
-# The setup script copies hardware-configuration.nix from /etc/nixos/ automatically
-./scripts/setup.sh
+./scripts/setup.sh     # copies hardware-configuration.nix from /etc/nixos/ automatically
 ```
 
-### Building a Specific Target (ARM64)
-
-If you're on an ARM64 machine (Apple Silicon via Asahi Linux, Raspberry Pi 4/5, etc.):
+### // ARM64 (aarch64)
 
 ```bash
 sudo nixos-rebuild switch --flake ~/IceBreaker#icebreaker-aarch64
 ```
 
-> **Note:** Some packages (burpsuite, metasploit) may not have ARM64 binaries. If the build fails on aarch64, comment out those packages in the relevant category files.
+Some packages (burpsuite, metasploit) may not have ARM64 binaries — comment them out in the relevant category file if the build fails.
 
-### Keeping Multiple Machines in Sync
+### // Keeping Multiple Machines in Sync
 
 ```bash
-# Machine A — make changes, push
-cd ~/IceBreaker
-git add -A
-git commit -m "Added evil-winrm to AD tools"
-git push
+# Machine A — change config, push
+cd ~/IceBreaker && git add -A && git commit -m "enabled AD tools" && git push
 
 # Machine B — pull and rebuild
-cd ~/IceBreaker
-git pull
-nrs
+cd ~/IceBreaker && git pull && nrs
 ```
+
+`hardware-configuration.nix` is gitignored — each machine generates its own. Everything else syncs.
 
 ---
 
-## If the Setup Script Fails
+## [05] WHEN THINGS BREAK
 
-The setup script is designed to be resilient — it tracks errors and prints full manual instructions if anything goes wrong. If you see the "Setup encountered errors" box, follow these manual steps:
+The setup script tracks errors and prints manual instructions if anything fails. If you see the red error box, follow these steps.
 
-### Manual Step 1 — Copy hardware-configuration.nix
+### // Manual Step 1 — Hardware Configuration
 
 ```bash
-# Check if it already exists
-ls ~/IceBreaker/hardware-configuration.nix
-
-# If not, copy from /etc/nixos/
+# Copy from /etc/nixos/
 sudo cp /etc/nixos/hardware-configuration.nix ~/IceBreaker/
 sudo chown $(id -u):$(id -g) ~/IceBreaker/hardware-configuration.nix
 
-# If /etc/nixos/ doesn't have it either, generate a fresh one
+# If /etc/nixos/ doesn't have it either:
 sudo nixos-generate-config --show-hardware-config > ~/IceBreaker/hardware-configuration.nix
 ```
 
-### Manual Step 2 — Update the Flake
+### // Manual Step 2 — Update the Flake
 
 ```bash
 cd ~/IceBreaker
-
-# The --extra-experimental-features flag is required on fresh NixOS
-# because flakes aren't enabled yet — /etc/nix/nix.conf is READ-ONLY
 nix --extra-experimental-features 'nix-command flakes' flake update
 ```
 
-> **Why not edit `/etc/nix/nix.conf`?** On NixOS, `/etc/nix/nix.conf` is a symlink into `/nix/store/`, which is a read-only, content-addressed filesystem. Even `sudo` cannot write to it — this is by design. The only way to enable flakes permanently is via `nix.settings.experimental-features` in the NixOS config (which `nix-helpers.nix` already does), but you need flakes enabled to do the first rebuild. The `--extra-experimental-features` flag breaks this chicken-and-egg problem.
+> **Why the flag?** `/etc/nix/nix.conf` on NixOS is a symlink into `/nix/store/` — a read-only, content-addressed, immutable filesystem. Even `sudo` can't write to it. This is by design. The `--extra-experimental-features` flag enables flakes for this single command. After the first rebuild, `nix-helpers.nix` enables flakes permanently.
 
-### Manual Step 3 — Rebuild the System
+### // Manual Step 3 — Rebuild
 
 ```bash
-# IMPORTANT: nixos-rebuild uses --option, NOT --extra-experimental-features
-# These are different commands with different flag syntax
+# CRITICAL: nixos-rebuild uses --option, NOT --extra-experimental-features
+# They are DIFFERENT commands with DIFFERENT flag syntax
 sudo nixos-rebuild switch \
   --flake ~/IceBreaker#icebreaker \
   --option extra-experimental-features "nix-command flakes"
 ```
 
-> **If this fails with a package error:** Read the error carefully — it will tell you which package doesn't exist in nixpkgs. Open the relevant file in `modules/pentesting/` and comment out the broken package. Then try again. Package names in nixpkgs-unstable change frequently. See the [DEVLOG](DEVLOG.md) for a running list of known naming issues.
+**If it fails with a package error:** The error names the package. Find it in `modules/pentesting/*.nix`, comment it out, try again. Package names in nixpkgs-unstable change frequently — check [DEVLOG.md](DEVLOG.md) for known renames.
 
-> **If this fails with "unrecognized arguments":** Make sure you're using `--option extra-experimental-features` and NOT `--extra-experimental-features` for `nixos-rebuild`. The two commands use different flag syntax.
+**If it fails with "unrecognized arguments":** You used `--extra-experimental-features` on `nixos-rebuild`. It's `--option extra-experimental-features` for that command.
 
-> **If this fails with "error: A definition for option ... is not of type":** There's a syntax or type error in a `.nix` file. The error message will include the file and option name. Fix it and retry.
-
-### Manual Step 4 — Start the New Shell
+### // Manual Step 4 — New Shell
 
 ```bash
 exec zsh
 ```
 
-If you get a `command not found` error, you're still in bash. Check that the rebuild completed successfully — `zsh` should now be installed.
-
-### Manual Step 5 — Install Pipx Tools
+### // Manual Step 5 — Pipx Tools
 
 ```bash
 ~/IceBreaker/scripts/install-pipx-tools.sh
 ```
 
-### Common Failure Causes
+### // Common Failures
 
-| Symptom | Likely Cause | Fix |
-|---------|-------------|-----|
-| `error: unrecognized arguments: --extra-experimental-features` | Used wrong flag on `nixos-rebuild` | Use `--option extra-experimental-features` for `nixos-rebuild` |
-| `error: cannot find attribute 'icebreaker'` | `flake.nix` not referencing your system correctly | Check `nixosConfigurations.icebreaker` exists in `flake.nix` |
-| `error: hardware-configuration.nix: No such file` | Hardware config missing | Run `sudo nixos-generate-config --show-hardware-config > ~/IceBreaker/hardware-configuration.nix` |
-| Build fails on a specific package | Package renamed or removed in nixpkgs | Comment out the package in its category `.nix` file |
-| `bash: nrs: command not found` | Still in bash, not zsh | Run `exec zsh` to switch shells |
-| Login screen "Failed to start session" | Missing `defaultSession` or wrong hypervisor | Add `services.displayManager.defaultSession = "xfce"` to `base.nix` |
-| Black screen after login | Wrong hypervisor in `base.nix` | Set correct hypervisor option and rebuild |
-| p10k prompt not showing | Not logged in as the IceBreaker user | Log in as `archangel` (or your configured username) |
-| Alacritty "conflicting definitions" | You set `colors`/`font`/`opacity` in alacritty settings | Stylix manages these — remove those settings from `home/default.nix` |
+| Symptom | Cause | Fix |
+|---------|-------|-----|
+| `unrecognized arguments: --extra-experimental-features` | Wrong flag on `nixos-rebuild` | Use `--option extra-experimental-features` |
+| `cannot find attribute 'icebreaker'` | Flake output mismatch | Check `nixosConfigurations.icebreaker` in `flake.nix` |
+| `hardware-configuration.nix: No such file` | Missing hardware config | Run `sudo nixos-generate-config --show-hardware-config > ~/IceBreaker/hardware-configuration.nix` |
+| Build fails on a package | Package renamed or removed | Comment it out in `modules/pentesting/*.nix`, rebuild |
+| `nrs: command not found` | Still in bash, not zsh | `exec zsh` |
+| "Failed to start session" at login | Missing `defaultSession` | Add `services.displayManager.defaultSession = "xfce";` to `base.nix` |
+| Black screen after login | Wrong hypervisor setting | Set correct hypervisor in `base.nix`, rebuild, reboot |
+| p10k prompt missing | Not logged in as IceBreaker user | Log in as `archangel` (or your configured username) |
+| Alacritty "conflicting definitions" | Manual colours/fonts set | Stylix manages colours/fonts/opacity — remove them from `home/default.nix` |
 
-### Rolling Back a Bad Rebuild
+### // Rolling Back
 
-NixOS creates a "generation" (snapshot) on every rebuild. If a rebuild breaks your system:
+NixOS keeps a snapshot of every rebuild. If something breaks:
 
-1. Reboot the machine
-2. At the GRUB menu, press a key to stop the countdown
-3. Select an older generation from the list (e.g., "NixOS generation 3")
-4. Log in, fix the config, then run `nrs` again
+1. Reboot
+2. In GRUB, select a previous generation
+3. Fix the config
+4. `nrs`
 
-To list and manage generations from a working shell:
+From a working shell:
 
 ```bash
 ngen    # list all generations
-nhc     # garbage collect, keeping 3 most recent
+nhc     # garbage collect, keep 3 most recent
 ```
 
 ---
 
-## Daily Usage
+## [06] DAILY OPS
 
-Once IceBreaker is running, these are the most important commands:
-
-### Rebuilding After Config Changes
+### // Rebuild Commands
 
 ```bash
-nrs     # nh os switch ~/IceBreaker  — build, switch, and start using immediately
-nrt     # nh os test ~/IceBreaker    — test without making it the boot default
-nrb     # nh os boot ~/IceBreaker    — build and set as boot default, but don't switch yet
-nfu     # nix flake update           — update all flake inputs (nixpkgs, HM, stylix)
-nfc     # nix flake check            — check for evaluation errors without building
+nrs     # nh os switch ~/IceBreaker  — rebuild + switch immediately
+nrt     # nh os test ~/IceBreaker    — test without boot entry
+nrb     # nh os boot ~/IceBreaker    — build + boot entry, don't switch yet
+nfu     # nix flake update           — update nixpkgs, home-manager, stylix
+nfc     # nix flake check            — check for eval errors without building
 ```
 
-After every `nrs`, your running system is updated live. No reboot needed (except for kernel updates).
+After `nrs`, the running system is updated live. No reboot needed (except kernel updates).
 
-### Starting an Engagement
+### // Engagement Workflow
 
 ```bash
-# Set up a new target
-newbox boxname 10.10.10.1      # Creates ~/targets/boxname/ with full scaffold
+htb                                # connect VPN
+newbox forest 10.10.10.161        # create target scaffold + set $TARGET/$LHOST
+htb-tmux                           # 3-pane tmux layout
 
-# Launch tmux workspace
-htb-tmux                       # 3-pane layout: terminal + notes + listener info
+nmap-init                          # quick scan → ./nmap/initial
+nmap-allports                      # all 65535 ports → ./nmap/allports
+nmap-targeted $TARGET 88,445      # deep scan specific ports
 
-# Run initial nmap scans
-nmap-init                      # Quick scan — saves to ./nmap/
-nmap-allports                  # Full port scan
-nmap-targeted <target> <ports> # Service/script scan on specific ports
+flag "HTB{fl4g_v4lu3}" "user"     # log flag with timestamp
+cred admin P@ssw0rd ssh            # log credentials
 
-# Capture flags
-flag "HTB{FLAG_VALUE}" "user flag"    # Logs to ~/targets/boxname/flags.txt
-cred admin Password123 ssh            # Logs to ~/targets/boxname/creds.txt
+revshell bash                      # generate reverse shell with $LHOST/$LPORT
+rlisten                            # nc -lvnp 4444 with readline
+
+vpnstop                            # kill VPN when done
 ```
 
-### VPN
+### // VPN
 
 ```bash
-htb     # Connect to HackTheBox (requires ~/vpn/htb.ovpn)
-thm     # Connect to TryHackMe (requires ~/vpn/thm.ovpn)
-vpnstop # Disconnect VPN
-vpnip   # Show current VPN IP (tun0 → tun1)
+htb         # sudo openvpn ~/vpn/htb.ovpn
+thm         # sudo openvpn ~/vpn/thm.ovpn
+vpnstop     # sudo pkill openvpn
+vpnip       # show tun0/tun1 IP
 ```
 
-### Listeners
+### // Updating
 
 ```bash
-rlisten    # nc -lvnp 4444 (rlwrap — readline-capable)
-rlisten2   # nc -lvnp 4445
-```
-
-### Reverse Shells
-
-```bash
-settarget 10.10.10.1 4444    # Set target IP and listener port
-revshell bash                 # Generate bash reverse shell using $LHOST/$LPORT
-revshell python3              # Python3 PTY shell
-revshell --list               # Show all 14 payload types
-revshell --all                # Print all payloads at once
-```
-
-### Updating the System
-
-```bash
-nfu && nrs     # Update all inputs + rebuild
+nfu && nrs     # update all inputs + rebuild
 ```
 
 ---
 
-## Categories & Presets
+## [07] ARSENAL — Categories & Presets
 
-Edit `configuration.nix` to toggle categories:
+Edit `configuration.nix` to arm your loadout:
 
 ```nix
-pentesting.categories = {
-  network          = true;   # nmap, masscan, rustscan, wireshark, dns tools
-  web              = true;   # burpsuite, ffuf, sqlmap, nuclei, nikto, dalfox
-  activeDirectory  = false;  # bloodhound, impacket, netexec, responder
-  password         = true;   # hashcat, john, hydra, seclists
-  wireless         = false;  # aircrack-ng, kismet, wifite2, reaver
-  forensics        = false;  # volatility3, binwalk, sleuthkit, steghide
-  reverseEng       = false;  # ghidra, radare2, gdb+gef, pwntools, angr
-  mitm             = false;  # bettercap, ettercap, dsniff
-  blueTeam         = false;  # suricata, snort, yara, zeek, chainsaw, hayabusa
-  exploitation     = true;   # metasploit, searchsploit/exploitdb
-  postExploitation = false;  # chisel, ligolo-ng, proxychains, havoc, villain
-  cloud            = false;  # awscli2, google-cloud-sdk, azure-cli, terraform
+pentesting = {
+  enable = true;
+
+  # ── Option A: Use a preset ────────────────────────
+  # preset = "ctf";         # network, web, password, forensics, reverseEngineering, exploitation
+  # preset = "engagement";  # network, web, AD, password, mitm, exploitation, postExploitation, cloud
+  # preset = "full";        # all 12 categories
+  # preset = "blue";        # network, forensics, blueTeam
+
+  # ── Option B: Toggle individually ─────────────────
+  categories = {
+    network            = true;   # nmap, masscan, rustscan, wireshark, dns tools
+    web                = true;   # burpsuite, ffuf, sqlmap, nuclei, nikto, dalfox
+    activeDirectory    = false;  # bloodhound, impacket, netexec, responder, evil-winrm
+    password           = true;   # hashcat, john, hydra, seclists
+    wireless           = false;  # aircrack-ng, kismet, wifite2, reaver
+    forensics          = false;  # volatility3, binwalk, sleuthkit, steghide
+    reverseEngineering = false;  # ghidra, radare2, gdb+gef, pwntools, angr
+    mitm               = false;  # bettercap, ettercap, dsniff
+    blueTeam           = false;  # suricata, snort, yara, zeek, chainsaw, hayabusa
+    exploitation       = false;  # metasploit, searchsploit/exploitdb
+    postExploitation   = false;  # chisel, ligolo-ng, proxychains, havoc, villain
+    cloud              = false;  # awscli2, google-cloud-sdk, azure-cli, terraform
+  };
 };
 ```
 
-Or use a preset to enable a curated group in one line:
+Presets use `mkDefault` — individual toggles **always** override:
 
 ```nix
-pentesting.preset = "ctf";         # network, web, password, forensics, reverseEng, exploitation
-pentesting.preset = "engagement";  # network, web, activeDirectory, password, mitm, exploitation, postExploitation, cloud
-pentesting.preset = "full";        # all 12 categories
-pentesting.preset = "blue";        # network, forensics, blueTeam
-```
-
-Presets use `mkDefault` — individual `categories.X = false` overrides always win. You can use a preset as a base and disable specific categories:
-
-```nix
+# Use full preset but drop wireless and cloud
 pentesting.preset = "full";
-pentesting.categories.cloud = false;      # too slow to build right now
-pentesting.categories.wireless = false;   # not needed in a VM
+pentesting.categories.wireless = false;
+pentesting.categories.cloud = false;
 ```
 
-Then rebuild:
-
-```bash
-nrs
-```
+Then rebuild: `nrs`
 
 See [docs/categories.md](docs/categories.md) for the full tool listing per category.
 
 ---
 
-## Architecture
+## [08] ADDING & REMOVING PACKAGES
 
-```
-flake.nix                         ← Entry point (inputs + nixosConfigurations.icebreaker)
-├── hardware-configuration.nix    ← Machine-specific, NOT in git (generated per host)
-├── configuration.nix             ← Toggle pentesting categories here
-│
-├── modules/system/
-│   ├── base.nix                  ← Boot, XFCE, LightDM, users, core packages, SUID wrappers
-│   ├── nix-helpers.nix           ← Flake tooling (nh, comma, nil, nix-index, formatters)
-│   └── stylix.nix                ← System-wide theming (Rose Pine dark, fonts, opacity)
-│
-├── modules/pentesting/
-│   ├── default.nix               ← Options tree (pentesting.enable + categories.*)
-│   ├── network.nix               ← nmap, masscan, rustscan, wireshark, dns tools
-│   ├── web.nix                   ← burpsuite, ffuf, sqlmap, nuclei, nikto, dalfox
-│   ├── active-directory.nix      ← bloodhound, impacket, netexec, responder
-│   ├── password.nix              ← hashcat, john, hydra, seclists
-│   ├── wireless.nix              ← aircrack-ng, kismet, wifite2, reaver
-│   ├── forensics.nix             ← volatility3, binwalk, sleuthkit, steghide
-│   ├── reverse-engineering.nix   ← ghidra, radare2, gdb+gef, pwntools, angr
-│   ├── mitm.nix                  ← bettercap, ettercap, dsniff, responder
-│   ├── blue-team.nix             ← suricata, snort, yara, zeek, chainsaw, hayabusa
-│   ├── exploitation.nix          ← metasploit, exploitdb/searchsploit
-│   ├── post-exploitation.nix     ← chisel, ligolo-ng, proxychains, havoc, villain
-│   ├── cloud.nix                 ← awscli2, google-cloud-sdk, azure-cli, terraform
-│   └── presets.nix               ← Preset system (ctf, engagement, full, blue)
-│
-├── home/
-│   ├── default.nix               ← Home-manager root (git, tmux, alacritty, fzf, etc.)
-│   ├── zsh.nix                   ← ZSH + oh-my-zsh + powerlevel10k + functions + plugins
-│   ├── aliases.nix               ← 50+ aliases (nix helpers, VPN, listeners, etc.)
-│   └── p10k.zsh                  ← Powerlevel10k prompt config (Rose Pine + VPN/ping segments)
-│
-└── scripts/
-    ├── setup.sh                  ← First-time setup (handles everything)
-    ├── install-pipx-tools.sh     ← Post-rebuild script for pipx/gem tools
-    ├── revshell.sh               ← Reverse shell payload generator (14 types)
-    ├── tmux-htb.sh               ← HTB/CTF tmux layout (3 panes)
-    └── icebreaker-guide.sh       ← Interactive terminal walkthrough
+### // Adding a Package to a Pentesting Category
+
+Open the relevant module in `modules/pentesting/`. Example — adding `whatweb` to web tools:
+
+```nix
+# modules/pentesting/web.nix
+environment.systemPackages = with pkgs; [
+  # ... existing tools ...
+  whatweb        # add your package here
+];
 ```
 
-### Key Design Decisions
+Rebuild: `nrs`
 
-**home-manager is embedded in the NixOS module** — not standalone. This means:
-- `nh os switch` rebuilds both system and home-manager config together
-- There is no separate `home-manager switch` step
-- `hms` is an alias for `nrs` — they do the same thing
+### // Removing a Package
 
-**Stylix injects into home-manager automatically** — never add it to `sharedModules`. The NixOS stylix module handles injection. Adding it again causes duplicate definition errors.
+Same file — delete or comment out the line:
 
-**ZSH EXTENDED_GLOB is disabled** — it makes `#` a glob operator, which breaks Nix flake refs like `~/IceBreaker#icebreaker`. Don't re-enable it.
+```nix
+# modules/pentesting/web.nix
+environment.systemPackages = with pkgs; [
+  # whatweb      # commented out — not needed for this engagement
+  ffuf
+  sqlmap
+  # ...
+];
+```
 
-**`hardware-configuration.nix` is gitignored** — it's machine-specific. Every machine generates its own from `/etc/nixos/hardware-configuration.nix` or `nixos-generate-config`.
+Rebuild: `nrs`. The package is removed from your system. NixOS doesn't leave orphans behind.
+
+### // Adding a Package to the Base System (always installed)
+
+Edit `modules/system/base.nix` — find the `environment.systemPackages` list and add your package:
+
+```nix
+environment.systemPackages = with pkgs; [
+  # ... existing packages ...
+  obsidian       # note-taking
+  flameshot      # screenshots
+  chromium       # browser
+];
+```
+
+These are installed regardless of which pentesting categories are enabled.
+
+### // Adding a Package via Home-Manager (user-level)
+
+Edit `home/default.nix`:
+
+```nix
+home.packages = with pkgs; [
+  # ... existing packages ...
+  my-tool
+];
+```
+
+Home-manager packages live in `~/.nix-profile/` instead of system-wide `/run/current-system/`. Use this for personal tools that don't need root.
+
+### // Finding Package Names
+
+```bash
+# Search nixpkgs for a package
+ns my-tool                     # alias for: nix search nixpkgs my-tool
+
+# Check if a specific package name exists
+nix eval nixpkgs#my-tool.name
+
+# Run a package without installing it (try before you buy)
+nrun my-tool                   # alias for: nix run nixpkgs#my-tool
+
+# Find which package provides a command you need
+, some-command                 # comma — finds and runs it, shows the package name
+```
+
+### // Package Name Pitfalls
+
+nixpkgs-unstable renames things frequently. Known gotchas:
+
+| You might try | Correct name | Notes |
+|---------------|-------------|-------|
+| `impacket` | `python3Packages.impacket` | Not a top-level package |
+| `noto-fonts-emoji` | `noto-fonts-color-emoji` | Renamed |
+| `du-dust` | `dust` | Alias is misleading |
+| `snmp` | `net-snmp` | Renamed |
+| `ldaputils` | `openldap` | Provides ldapsearch etc. |
+| `wifite` | `wifite2` | v1 removed |
+| `python3Packages.jwt` | `python3Packages.pyjwt` | jwt doesn't exist |
+| `hayabusa` | `hayabusa-sec` | `hayabusa` is an unrelated package |
+| `neofetch` | `fastfetch` | neofetch removed (unmaintained) |
+
+If a package doesn't exist at all, add it to `scripts/install-pipx-tools.sh` instead (for Python tools) or install it via `nix-shell -p` on demand.
+
+### // Creating a New Pentesting Category
+
+**1. Create the module** — use `cloud.nix` as a template:
+
+```nix
+# modules/pentesting/my-category.nix
+{ config, lib, pkgs, ... }:
+
+with lib;
+
+let cfg = config.pentesting; in
+
+{
+  config = mkIf (cfg.enable && cfg.categories.myCategory) {
+    environment.systemPackages = with pkgs; [
+      tool1
+      tool2
+    ];
+  };
+}
+```
+
+**2. Register the option** in `modules/pentesting/default.nix`:
+
+```nix
+imports = [
+  # ... existing imports ...
+  ./my-category.nix
+];
+
+options.pentesting.categories = {
+  # ... existing options ...
+  myCategory = mkEnableOption "my custom tools";
+};
+```
+
+**3. Add to presets** (optional) in `modules/pentesting/presets.nix`:
+
+```nix
+(mkIf (cfg.preset == "full") {
+  pentesting.categories.myCategory = mkDefault true;
+})
+```
+
+**4. Add toggle** in `configuration.nix`:
+
+```nix
+pentesting.categories.myCategory = true;
+```
+
+**5. Rebuild:** `nfc && nrs`
+
+### // Adding Aliases
+
+Edit `home/aliases.nix`:
+
+```nix
+programs.zsh.shellAliases = {
+  # ... existing aliases ...
+  "myalias" = "command --flag $HOME/path";
+};
+```
+
+Rules:
+- Use `$HOME` not `~` in paths (tilde doesn't expand in double quotes)
+- Escape special characters: `\\n` for newline
+- Test the command manually before adding
+
+### // Adding Shell Functions
+
+Edit `home/zsh.nix`, append to the string block in `initContent`:
+
+```nix
+''
+  myfunction() {
+    local arg="''${1:-default}"    # ''${} is Nix escaping for ${} in shell
+    echo "Working on $arg"
+  }
+''
+```
+
+Nix escaping rules for shell code:
+- `${var}` → write as `''${var}` inside `''...''` strings
+- `$VAR` (no braces) → safe as-is
+- `$(command)` → safe as-is
+
+### // Adding Pipx Tools
+
+Edit `scripts/install-pipx-tools.sh` and add under the relevant section:
+
+```bash
+pipx_install "package-name" "Display Name"
+```
 
 ---
 
-## Troubleshooting
+## [09] ARCHITECTURE
 
-### Login fails — "Failed to start session"
+```
+flake.nix                         <<< entry point — inputs + nixosConfigurations
+|
++-- hardware-configuration.nix    <<< machine-specific (NOT in git)
++-- configuration.nix             <<< toggle categories + presets here
+|
++-- modules/system/
+|   +-- base.nix                  <<< boot, XFCE, LightDM, users, core packages
+|   +-- nix-helpers.nix           <<< nh, comma, nil, nix-index, formatters
+|   +-- stylix.nix                <<< Rose Pine dark, fonts, opacity
+|
++-- modules/pentesting/
+|   +-- default.nix               <<< options tree (pentesting.enable + categories.*)
+|   +-- network.nix               <<< nmap, masscan, rustscan, wireshark
+|   +-- web.nix                   <<< burpsuite, ffuf, sqlmap, nuclei, nikto
+|   +-- active-directory.nix      <<< bloodhound, impacket, netexec, responder
+|   +-- password.nix              <<< hashcat, john, hydra, seclists
+|   +-- wireless.nix              <<< aircrack-ng, kismet, wifite2, reaver
+|   +-- forensics.nix             <<< volatility3, binwalk, sleuthkit, steghide
+|   +-- reverse-engineering.nix   <<< ghidra, radare2, gdb+gef, pwntools, angr
+|   +-- mitm.nix                  <<< bettercap, ettercap, dsniff
+|   +-- blue-team.nix             <<< suricata, snort, yara, zeek, chainsaw
+|   +-- exploitation.nix          <<< metasploit, exploitdb/searchsploit
+|   +-- post-exploitation.nix     <<< chisel, ligolo-ng, proxychains, havoc
+|   +-- cloud.nix                 <<< awscli2, gcloud, azure-cli, terraform
+|   +-- presets.nix               <<< preset system (ctf, engagement, full, blue)
+|
++-- home/
+|   +-- default.nix               <<< home-manager: git, tmux, alacritty, fzf, bat
+|   +-- zsh.nix                   <<< ZSH + oh-my-zsh + p10k + functions + plugins
+|   +-- aliases.nix               <<< 50+ aliases
+|   +-- p10k.zsh                  <<< powerlevel10k config (Rose Pine + VPN/ping)
+|
++-- scripts/
+    +-- setup.sh                  <<< first-time setup (5 steps)
+    +-- install-pipx-tools.sh     <<< 25+ Python tools not in nixpkgs
+    +-- revshell.sh               <<< reverse shell generator (14 types)
+    +-- tmux-htb.sh               <<< 3-pane HTB tmux layout
+    +-- icebreaker-guide.sh       <<< interactive terminal walkthrough
+```
 
-Cause: LightDM doesn't know which session to launch.
+### // Design Decisions
 
-Fix: Ensure `base.nix` contains:
+**home-manager is embedded** — not standalone. `nh os switch` rebuilds system + home together. There's no separate `home-manager switch` step. `hms` and `nrs` are the same command.
+
+**Stylix auto-injects into home-manager** — the NixOS module handles it. Never add stylix to `home-manager.sharedModules` — causes duplicate definition errors.
+
+**EXTENDED_GLOB is disabled in ZSH** — it makes `#` a glob operator, which breaks flake refs like `~/IceBreaker#icebreaker`. Don't re-enable it.
+
+**hardware-configuration.nix is gitignored** — it contains filesystem UUIDs and hardware specific to one machine. Each host generates its own.
+
+**Docker is always enabled** — with auto-prune. Available regardless of pentesting categories.
+
+---
+
+## [10] TROUBLESHOOTING
+
+### // "Failed to start session" at LightDM
+
+`base.nix` needs:
 ```nix
 services.displayManager.defaultSession = "xfce";
 ```
+Note: this is `services.displayManager.defaultSession`, **not** `services.xserver.displayManager.defaultSession` — the option moved namespaces.
 
-Note: This is `services.displayManager.defaultSession`, **not** `services.xserver.displayManager.defaultSession` — the option moved namespaces in recent NixOS versions.
+### // Black screen after login (cursor visible)
 
-### Black screen after login (cursor visible, no desktop)
+Wrong hypervisor. VMware guest tools on a KVM machine (or vice versa). Fix the hypervisor setting in `base.nix`, rebuild, reboot.
 
-Cause: Wrong hypervisor setting. VMware guest tools loaded on a KVM/QEMU machine (or vice versa).
+### // `nrs: command not found`
 
-Fix: Edit `modules/system/base.nix`, set the correct hypervisor block, set all others to `false`, then rebuild and reboot.
+You're in bash, not zsh: `exec zsh`
 
-### `nrs: command not found`
+### // Powerlevel10k prompt not showing
 
-Cause: You're still in bash, not zsh. Aliases are defined for zsh.
+Not logged in as the IceBreaker user, or Nerd Font not loaded. Log in as `archangel`, open Alacritty (Stylix configures the font automatically). If glyphs are boxes, log out and back in.
 
-Fix:
-```bash
-exec zsh
-```
+### // `experimental feature 'flakes' is disabled`
 
-If zsh still isn't available, the rebuild may not have completed. Rerun `setup.sh` or the manual rebuild step.
-
-### Powerlevel10k prompt not appearing
-
-Cause: Either you're not logged in as the IceBreaker user, or the Nerd Font isn't loaded yet.
-
-Fix:
-1. Make sure you're logged in as `archangel` (or your configured username)
-2. Open Alacritty — Stylix configures it with JetBrainsMono Nerd Font automatically
-3. If the font is a series of boxes/question marks, log out and back in to reload the Stylix font config
-
-### `nix flake update` fails with "experimental feature 'flakes' is disabled"
-
-Cause: Flakes not yet enabled (first run on fresh NixOS).
-
-Fix: Use the bootstrap flag:
+First run — use the bootstrap flag:
 ```bash
 nix --extra-experimental-features 'nix-command flakes' flake update
 ```
 
-After the first `nixos-rebuild switch`, flakes are permanently enabled by `nix-helpers.nix` and this flag is no longer needed.
+### // Package build failure
 
-### Package build failure during rebuild
+Package renamed or removed in nixpkgs-unstable. Read the error (it names the package), comment it out in `modules/pentesting/*.nix`, rebuild. Check [DEVLOG.md](DEVLOG.md) for known renames.
 
-Cause: A package was renamed, removed, or broken in nixpkgs-unstable.
+### // Stylix "conflicting definitions"
 
-Fix:
-1. Read the error output — it names the failing package
-2. Find it in the relevant `modules/pentesting/*.nix` file
-3. Comment it out
-4. Run `nrs` again
-5. Check the [DEVLOG](DEVLOG.md) — common renames are documented there
+You set `colors`, `font`, or `window.opacity` in Alacritty/FZF settings while Stylix also manages them. Remove those settings — Stylix owns all theming.
 
-### Stylix "conflicting definitions" errors
+### // System won't boot
 
-Cause: You set `colors`, `font`, or `window.opacity` in `programs.alacritty.settings` while Stylix also manages them.
-
-Fix: Remove those settings from `home/default.nix`. Stylix owns all colour/font/opacity settings for Alacritty. Set only non-theming settings there.
-
-### FZF colours wrong after changing theme
-
-Cause: You set a `colors` block in `programs.fzf` while Stylix is also setting FZF colours.
-
-Fix: Remove the `colors` block from `programs.fzf` in `home/default.nix`. Stylix handles FZF theming automatically.
-
-### `hms` (home-manager switch) fails with "flake does not provide attribute homeConfigurations"
-
-Cause: `hms` was set to `nh home switch`, which requires a standalone `homeConfigurations` flake output. IceBreaker uses home-manager as a NixOS module, not standalone.
-
-Fix: `hms` in IceBreaker is the same as `nrs` — both run `nh os switch ~/IceBreaker`. Use either one.
+Reboot → GRUB → select a previous generation → fix the config → `nrs`.
 
 ---
 
-## Documentation
+## [11] DOCUMENTATION
 
-| Guide | Description |
-|-------|-------------|
-| [Getting Started](docs/getting-started.md) | Installation, first rebuild, basic usage |
-| [GitHub Setup](docs/github-setup.md) | Upload to GitHub, rebuild from GitHub, secrets |
-| [Categories & Presets](docs/categories.md) | All 12 tool categories and preset profiles |
-| [Aliases Reference](docs/aliases.md) | Complete alias listing with descriptions |
-| [Shell Functions](docs/shell-functions.md) | Target management, nmap helpers, hcmode |
-| [Scripts](docs/scripts.md) | revshell, tmux layout, setup, pipx installer |
-| [Engagement Workflow](docs/workflow.md) | Step-by-step: box setup to flag capture |
-| [Customisation](docs/customisation.md) | Add packages, create categories, change theme |
-| [Theming](docs/theming.md) | Stylix, Rose Pine, fonts, prompt customisation |
-| [Troubleshooting](docs/troubleshooting.md) | Common issues and fixes |
-| [DEVLOG](DEVLOG.md) | Development history — issues encountered and how they were solved |
+```
+ docs/getting-started.md ......... installation, first rebuild, basic usage
+ docs/github-setup.md ............ push to GitHub, rebuild from GitHub
+ docs/categories.md .............. all 12 categories with tool tables
+ docs/aliases.md ................. complete alias listing
+ docs/shell-functions.md ......... settarget, newbox, flag, cred, nmap helpers
+ docs/scripts.md ................. revshell, htb-tmux, setup, pipx installer
+ docs/workflow.md ................ engagement workflow: box setup to flag capture
+ docs/customisation.md ........... add packages, create categories, change theme
+ docs/theming.md ................. Stylix, Rose Pine, fonts, prompt
+ docs/troubleshooting.md ......... common issues and fixes
+ DEVLOG.md ....................... development history — every bug and fix
+```
 
 ---
 
-## License
+```
+ ┌──────────────────────────────────────────────────────────┐
+ │  "We have no future because our present is too volatile. │
+ │   We only have risk management."                         │
+ │                              — William Gibson, Pattern   │
+ │                                Recognition               │
+ └──────────────────────────────────────────────────────────┘
 
-Do whatever you want with it. Hack the planet.
+ LICENSE: Do whatever you want with it. Hack the planet.
+```

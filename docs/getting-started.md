@@ -8,24 +8,24 @@
 
 # Getting Started
 
-This guide walks you through setting up IceBreaker from scratch on a fresh NixOS installation, or rebuilding it on an existing system.
+This guide walks you through setting up IceBreaker from scratch on a fresh NixOS installation, or deploying it on an existing system.
 
 ## Prerequisites
 
 - A NixOS installation (any channel — the flake pins nixos-unstable)
-- x86_64-linux architecture
+- x86_64-linux or aarch64-linux
 - Internet connection
-- At least 20GB free disk space (full preset needs more)
+- At least 20 GB free disk space (50 GB+ for `full` preset)
 
 ## Fresh Install
 
 ### 1. Install NixOS
 
-Use the standard NixOS installer. Minimal or graphical — doesn't matter. IceBreaker will configure everything.
+Use the standard NixOS installer. Minimal or graphical — doesn't matter. IceBreaker replaces the desktop entirely with XFCE.
 
 During installation:
-- Create a user called `archangel` (or change `users.users.archangel` in `base.nix`)
-- Use GRUB as bootloader on `/dev/sda` (or update `base.nix`)
+- Choose any username — IceBreaker creates its own user (`archangel`) unless you edit the config
+- Use GRUB as bootloader on `/dev/sda` (or update `boot.loader.grub.device` in `base.nix`)
 - Enable networking
 
 ### 2. Clone the Repository
@@ -35,42 +35,63 @@ During installation:
 nix-shell -p git
 
 # Clone
-git clone https://github.com/YOUR_USERNAME/icebreaker.git ~/IceBreaker
+git clone https://github.com/YOUR_USERNAME/IceBreaker.git ~/IceBreaker
 cd ~/IceBreaker
 ```
 
-### 3. Generate Hardware Configuration
+### 3. Pre-Flight Checks
 
-Every machine has different hardware. Generate yours:
+**Username:** IceBreaker defaults to user `archangel` with password `icebreaker`. If you want a different username, edit these files before running setup:
+- `modules/system/base.nix` — `users.users.archangel`
+- `modules/system/nix-helpers.nix` — `trusted-users`
+- `home/default.nix` — `home.username`, `home.homeDirectory`, git settings
+- `flake.nix` — `users.archangel`
 
-```bash
-sudo nixos-generate-config --show-hardware-config > hardware-configuration.nix
-```
+**Hypervisor:** VMware is the default. For QEMU/KVM or VirtualBox, edit `modules/system/base.nix` — comment out the VMware line and uncomment the correct block.
 
-This replaces the included `hardware-configuration.nix` with one matching your actual hardware.
+**Bootloader:** Default is GRUB MBR on `/dev/sda`. For UEFI, replace the GRUB block with `boot.loader.systemd-boot` in `base.nix`.
 
 ### 4. Run Setup
 
 ```bash
+cd ~/IceBreaker
 ./scripts/setup.sh
 ```
 
-This will:
-- Enable Nix flakes if not already enabled
-- Make all scripts executable
-- Create `~/targets`, `~/ctf`, `~/vpn` directories
-- Update flake inputs
-- Rebuild the system
+This handles everything:
+- Copies `hardware-configuration.nix` from `/etc/nixos/` into `~/IceBreaker/`
+- Makes all scripts executable
+- Creates `~/targets`, `~/ctf`, `~/vpn` directories
+- Updates flake inputs (bootstraps flakes on fresh NixOS automatically)
+- Rebuilds the entire NixOS system
 
-### 5. Start Your New Shell
+> **Note:** The first rebuild downloads the entire package set and can take 20–60 minutes. This is normal.
+
+### 5. Reboot and Log In
+
+```bash
+sudo reboot
+```
+
+At the LightDM login screen:
+- Username: `archangel` (or your custom username)
+- Password: `icebreaker`
+
+**Immediately change your password:**
+
+```bash
+passwd
+```
+
+### 6. Start Your New Shell
 
 ```bash
 exec zsh
 ```
 
-You should see the Powerlevel10k prompt with Rose Pine colours.
+You should see the Powerlevel10k prompt with Rose Pine colours and a powerline style.
 
-### 6. Install Pipx Tools
+### 7. Install Pipx Tools
 
 ```bash
 ~/IceBreaker/scripts/install-pipx-tools.sh
@@ -78,7 +99,7 @@ You should see the Powerlevel10k prompt with Rose Pine colours.
 
 These are Python/Ruby pentesting tools that are broken or missing in nixpkgs.
 
-### 7. Read the Guide
+### 8. Read the Guide
 
 ```bash
 guide
@@ -113,15 +134,27 @@ nrs
 
 See [Categories & Presets](categories.md) for full details.
 
+## Adding & Removing Packages
+
+To add a package, open the relevant `.nix` file, add the package name to the list, and run `nrs`. To remove one, delete or comment out the line and rebuild. See [Customisation](customisation.md) for the full guide.
+
+```bash
+# Search for a package
+ns my-tool
+
+# Try a package without installing
+nrun my-tool
+```
+
 ## Directory Layout
 
 After setup, your home directory will have:
 
 ```
-~/IceBreaker/     <- The flake (all your config)
-~/targets/        <- Engagement directories (created by newbox)
-~/ctf/            <- CTF work
-~/vpn/            <- VPN configs (htb.ovpn, thm.ovpn)
+~/IceBreaker/     <<< the flake (all your config)
+~/targets/        <<< engagement directories (created by newbox)
+~/ctf/            <<< CTF work
+~/vpn/            <<< VPN configs (htb.ovpn, thm.ovpn)
 ```
 
 ## VPN Setup
@@ -173,9 +206,11 @@ ngen   # List all generations
 nhc    # Garbage collect, keep 3 most recent
 ```
 
+See the main [README](../README.md) section [05] for detailed manual recovery steps.
+
 ## Next Steps
 
 - [Engagement Workflow](workflow.md) — How to use IceBreaker for a box
 - [Aliases Reference](aliases.md) — All 50+ aliases
 - [Shell Functions](shell-functions.md) — Target management, nmap wrappers
-- [Customisation](customisation.md) — Make it yours
+- [Customisation](customisation.md) — Add packages, create categories, change theme

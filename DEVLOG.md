@@ -825,4 +825,61 @@ The `github-setup.md` doc already mentioned adding `hardware-configuration.nix` 
 
 ---
 
+### 57. Pipx installer rewrite — verified tool names and Python 3.12+ compatibility
+
+**Problem:** The pipx installer had several issues:
+- `bloodhound` (PyPI) installs the legacy ingestor, not the BloodHound CE ingestor. The comment said "CE Python ingestor" but the package name was wrong.
+- `pwncat-cs` is broken on Python 3.12+ (unmaintained since 2022, no fix merged upstream).
+- `ciphey` fails on Python 3.12+ (developer is rewriting it in Rust as "Ares").
+- `sprayhound` last release was 2021 — extremely stale.
+- Missing several commonly-used tools: `dploot`, `pypykatz`, `mitm6`, `roadrecon`, `coercer`.
+
+**Research findings (verified via PyPI, GitHub, and pentesting docs):**
+
+| Tool | Issue | Fix |
+|------|-------|-----|
+| `bloodhound` | Legacy ingestor, not CE | Changed to `bloodhound-ce` |
+| `pwncat-cs` | Broken on Python 3.12+ | Replaced with `pwncat-vl` (community fork, Python 3.13+ support) |
+| `ciphey` | Broken on Python 3.12+, dev rewriting in Rust | Removed entirely |
+| `sprayhound` | Last release Aug 2021, effectively dead | Removed |
+| `crackmapexec` | Dead project, fails on Python 3.12 | Not included (use netexec) |
+| `certipy` vs `certipy-ad` | `certipy` on PyPI is unrelated | Verified using `certipy-ad` |
+
+**New tools added:**
+- `dploot` — SharpDPAPI rewrite in Python (DPAPI secret extraction)
+- `pypykatz` — Mimikatz in pure Python (LSASS dump parsing)
+- `mitm6` — IPv6 MITM for WPAD/DHCPv6 abuse (pairs with ntlmrelayx)
+- `roadrecon` — Azure AD / Entra ID reconnaissance (ROADtools suite)
+
+**Script restructure:**
+- Each section now documents both the nix equivalent and when to use the pipx fallback
+- Added install/skip/fail counters in the summary
+- Added troubleshooting hints for common failures (missing Rust, Python version)
+- Less noisy output — skipped tools show a dim "skip" line instead of a yellow warning
+- Removed `set -e` to prevent the script from aborting on the first failed tool
+
+---
+
+### 58. setup.sh step count fix
+
+**Problem:** After removing the claude-code install step (Step 6/6), the setup script only had 5 actual steps but all the headers still said `/6`.
+
+**Fix:** Updated all step headers from `X/6` to `X/5` and the header comment from 6 steps to 5.
+
+---
+
+### 59. Documentation audit — outdated KDE/SDDM/Konsole references
+
+**Problem:** Several docs files still referenced KDE Plasma, SDDM, and Konsole from before Session 7 (when the desktop was switched to XFCE/LightDM/Alacritty).
+
+**Files fixed:**
+- `docs/theming.md` — Konsole → Alacritty, SDDM → LightDM, KDE section → XFCE section
+- `docs/troubleshooting.md` — Konsole → Alacritty, KDE black screen → hypervisor mismatch
+- `docs/scripts.md` — setup step count updated to 5
+- `docs/getting-started.md` — removed manual hardware-config step (setup.sh handles it), added pre-flight checks, fixed step count
+- `docs/customisation.md` — added "Removing Packages" section, fixed username change to list all 4 files
+- `docs/README.md` — refreshed to match cyberpunk style, updated architecture tree
+
+---
+
 *Last updated: 2026-03-10*

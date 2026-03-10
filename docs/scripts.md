@@ -8,7 +8,7 @@
 
 # Scripts
 
-IceBreaker includes standalone scripts in the `scripts/` directory. These handle tasks that don't need to modify the current shell's environment.
+Standalone scripts in the `scripts/` directory. These handle tasks that don't modify the current shell's environment.
 
 ## Reverse Shell Generator
 
@@ -37,7 +37,7 @@ revshell                # Interactive — prompts for type
 | `python3` | Includes PTY upgrade instructions |
 | `perl` | Standard perl reverse shell |
 | `php` | CLI + web shell one-liner |
-| `powershell` | Standard + base64-encoded (AV bypass) |
+| `powershell` | Standard + base64-encoded (bypass) |
 | `nc` | Standard + mkfifo fallback |
 | `ncat` | Standard + SSL variant |
 | `ruby` | Ruby socket reverse shell |
@@ -52,7 +52,6 @@ revshell                # Interactive — prompts for type
 - Run `settarget <IP>` first to set `$LHOST`/`$LPORT`
 - If not set, the script auto-detects your VPN IP or prompts
 - Copy payloads directly — they include your actual IP and port
-- The powershell base64 variant requires `iconv` (available in base system)
 
 ## HTB Tmux Layout
 
@@ -64,15 +63,15 @@ Creates a 3-pane tmux session optimised for HackTheBox/CTF work.
 ### Layout
 
 ```
-┌──────────────────────────────────────────┐
-│                                          │
-│           Main Terminal (60%)            │
-│                                          │
-├─────────────────────┬────────────────────┤
-│                     │                    │
-│   Notes (nvim)      │  Listener Info     │
-│     (20%)           │    (20%)           │
-└─────────────────────┴────────────────────┘
++------------------------------------------+
+|                                          |
+|           Main Terminal (60%)            |
+|                                          |
++---------------------+--------------------+
+|                     |                    |
+|   Notes (nvim)      |  Listener Info     |
+|     (20%)           |    (20%)           |
++---------------------+--------------------+
 ```
 
 ### Behaviour
@@ -94,31 +93,21 @@ htb-tmux                       # Launch the layout
 # - Bottom-right: start rlisten when ready
 ```
 
-### Tmux Keybindings
-
-IceBreaker uses `Ctrl+a` as the tmux prefix (not the default `Ctrl+b`):
-
-| Key | Action |
-|-----|--------|
-| `Ctrl+a \|` | Split pane vertically |
-| `Ctrl+a -` | Split pane horizontally |
-| `Ctrl+a r` | Reload tmux config |
-| `Ctrl+a [` | Enter copy mode (vi keys) |
-
 ## Setup Script
 
 **File:** `scripts/setup.sh`
 
-First-time setup for a fresh NixOS installation.
+First-time setup for a fresh NixOS installation. Handles everything so users never need to touch `/etc/nixos/`.
 
 ### What It Does
 
-1. Enables Nix flakes in `/etc/nix/nix.conf` (if not already)
-2. Makes all scripts in `scripts/` executable
-3. Creates `~/targets`, `~/ctf`, `~/vpn` directories
-4. Runs `nix flake update`
-5. Runs `sudo nixos-rebuild switch --flake .#icebreaker`
-6. Prints next steps
+| Step | Action |
+|------|--------|
+| 1/5 | Copies `hardware-configuration.nix` from `/etc/nixos/` into `~/IceBreaker/` |
+| 2/5 | Makes all scripts in `scripts/` executable |
+| 3/5 | Creates `~/targets/`, `~/ctf/`, `~/vpn/` directories |
+| 4/5 | Updates flake inputs (bootstraps flakes with `--extra-experimental-features` on fresh NixOS) |
+| 5/5 | Runs `sudo nixos-rebuild switch --flake ~/IceBreaker#icebreaker` |
 
 ### Usage
 
@@ -127,7 +116,11 @@ cd ~/IceBreaker
 ./scripts/setup.sh
 ```
 
-Only needs to be run once after cloning.
+Only needs to be run once after cloning. If any step fails, the script prints full manual recovery instructions.
+
+### If It Fails
+
+See the main [README](../README.md) section [05] for detailed manual steps.
 
 ## Pipx Tool Installer
 
@@ -159,19 +152,13 @@ Installs Python/Ruby pentesting tools that are broken or missing in nixpkgs.
 
 ### Why Pipx?
 
-Some Python tools have conflicting dependencies that break the nixpkgs build. Pipx installs each tool in its own isolated virtualenv, avoiding conflicts.
-
-Tools are installed to `~/.local/bin/` (already in your `$PATH`).
+Some Python tools have conflicting dependencies that break the nixpkgs build. Pipx installs each tool in its own isolated virtualenv, avoiding conflicts. Tools are installed to `~/.local/bin/` (already in `$PATH`).
 
 ### Updating
 
 ```bash
-~/IceBreaker/scripts/install-pipx-tools.sh --update
-```
-
-Or update a single tool:
-```bash
-pipx upgrade mitmproxy
+~/IceBreaker/scripts/install-pipx-tools.sh --update    # update all
+pipx upgrade mitmproxy                                  # update one
 ```
 
 ## Interactive Guide
@@ -179,17 +166,16 @@ pipx upgrade mitmproxy
 **File:** `scripts/icebreaker-guide.sh`
 **Alias:** `guide`
 
-Terminal-based walkthrough of everything IceBreaker provides. Runs through 10 sections with coloured output:
+Terminal-based walkthrough with coloured output covering:
 
-1. Welcome
-2. What is NixOS?
-3. Flake structure
-4. Rebuilding
-5. Categories & presets
-6. Target management
-7. Shell functions
-8. Aliases reference
-9. Pipx tools
-10. Tips & tricks
+1. What is NixOS?
+2. Flake structure
+3. Rebuilding
+4. Categories & presets
+5. Target management
+6. Shell functions
+7. Aliases reference
+8. Pipx tools
+9. Tips & tricks
 
 Good for getting oriented or as a quick reference.

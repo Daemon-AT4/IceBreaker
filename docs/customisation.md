@@ -181,15 +181,48 @@ Edit `scripts/install-pipx-tools.sh`:
 pipx_install "package-name" "display-name"
 ```
 
+## Removing Packages
+
+Delete or comment out the package line from the relevant `.nix` file and rebuild:
+
+```nix
+# modules/pentesting/web.nix
+environment.systemPackages = with pkgs; [
+  # whatweb      # commented out — don't need it
+  ffuf
+  sqlmap
+];
+```
+
+```bash
+nrs
+```
+
+NixOS is declarative — if a package isn't in the config, it's not on the system. No orphans, no leftover files.
+
+### Removing an entire category
+
+Set the toggle to `false` in `configuration.nix`:
+
+```nix
+pentesting.categories.wireless = false;
+```
+
+All packages from that category are removed on the next rebuild. The module file stays in `modules/pentesting/` but has no effect when disabled.
+
 ## Changing the User
 
-The default user is `archangel`. To change it:
+The default user is `archangel`. To change it, edit these four files:
 
 1. **`modules/system/base.nix`** — Change `users.users.archangel` to your username
-2. **`home/default.nix`** — Change `home.username` and `home.homeDirectory`
-3. **`flake.nix`** — Check the home-manager user reference
+2. **`modules/system/nix-helpers.nix`** — Change `"archangel"` in `trusted-users`
+3. **`home/default.nix`** — Change `home.username`, `home.homeDirectory`, and git settings
+4. **`flake.nix`** — Change the home-manager user reference
 
-Search for `archangel` across all files to find every reference.
+Search for `archangel` across all files to find every reference:
+```bash
+grep -rn "archangel" --include="*.nix" .
+```
 
 ## Changing the Hostname
 

@@ -13,13 +13,13 @@ IceBreaker uses [Stylix](https://github.com/nix-community/stylix) for system-wid
 ## How Stylix Works
 
 Stylix takes a base16 colour scheme and applies it everywhere:
-- Terminal colours (Konsole)
-- GTK 3/4 apps (Firefox, file manager)
+- Terminal colours (Alacritty)
+- GTK 3/4 apps (Firefox, file manager, XFCE panels)
 - Bat (syntax highlighting)
 - FZF (fuzzy finder)
 - Shell prompt (via Powerlevel10k)
 - GRUB boot screen
-- SDDM login screen
+- LightDM login screen
 
 One config, consistent colours everywhere.
 
@@ -84,7 +84,7 @@ Use [base16-gallery](https://tinted-theming.github.io/base16-gallery/) to previe
 ```bash
 nrs              # Rebuild
 exec zsh         # Reload shell
-# Log out and back in for full KDE/GTK application
+# Log out and back in for full GTK/XFCE application
 ```
 
 ## Fonts
@@ -171,12 +171,12 @@ stylix.opacity = {
 };
 ```
 
-## KDE Plasma 6 Notes
+## XFCE Notes
 
-- `targets.qt.enable = false` is required — Stylix's Qt target conflicts with KDE Plasma 6 (causes black screen, upstream issue #1092)
-- KDE manages its own Qt theming — let it handle that
-- GTK theming works fine through Stylix
-- After rebuilding, log out and back in for KDE to pick up the new colours
+- XFCE is GTK-native, so Stylix applies cleanly with no workarounds
+- No need to disable any Stylix targets — everything works out of the box
+- After rebuilding, log out and back in for XFCE panels and GTK apps to pick up the new colours
+- XFCE was chosen over KDE Plasma 6 because Stylix's Qt/KDE targets conflict with Plasma's own theming stack (causes black screen after login)
 
 ## FZF and Bat
 

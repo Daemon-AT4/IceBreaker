@@ -9,7 +9,6 @@
 #   3. Creates user directories (~/targets, ~/ctf, ~/vpn)
 #   4. Updates flake inputs (bootstraps flakes if not yet enabled)
 #   5. Rebuilds the entire NixOS system from this flake
-#   6. Installs pipx tools (prompts user to run the script)
 #
 # IMPORTANT: On NixOS, /etc/nix/nix.conf is a symlink into /nix/store/ and
 # is READ-ONLY — you CANNOT write to it, even with sudo. Flakes are enabled
@@ -80,7 +79,7 @@ echo ""
 # ==========================================================================
 # Step 1: Copy hardware-configuration.nix
 # ==========================================================================
-echo -e "${BOLD}─── Step 1/6: Hardware configuration ───${NC}"
+echo -e "${BOLD}─── Step 1/5: Hardware configuration ───${NC}"
 HW_SRC="/etc/nixos/hardware-configuration.nix"
 HW_DST="$FLAKE_DIR/hardware-configuration.nix"
 
@@ -127,7 +126,7 @@ echo ""
 # ==========================================================================
 # Step 2: Make scripts executable
 # ==========================================================================
-echo -e "${BOLD}─── Step 2/6: Script permissions ───${NC}"
+echo -e "${BOLD}─── Step 2/5: Script permissions ───${NC}"
 chmod +x "$SCRIPT_DIR"/*.sh 2>/dev/null || true
 info "All scripts in scripts/ are now executable"
 echo ""
@@ -135,7 +134,7 @@ echo ""
 # ==========================================================================
 # Step 3: Create user directories
 # ==========================================================================
-echo -e "${BOLD}─── Step 3/6: Create user directories ───${NC}"
+echo -e "${BOLD}─── Step 3/5: Create user directories ───${NC}"
 mkdir -p "$HOME/targets" "$HOME/ctf" "$HOME/vpn"
 info "Created ~/targets, ~/ctf, ~/vpn"
 echo ""
@@ -150,7 +149,7 @@ echo ""
 # After the first successful rebuild, nix-helpers.nix permanently enables
 # flakes via nix.settings.experimental-features.
 # ==========================================================================
-echo -e "${BOLD}─── Step 4/6: Update flake inputs ───${NC}"
+echo -e "${BOLD}─── Step 4/5: Update flake inputs ───${NC}"
 cd "$FLAKE_DIR"
 info "Running nix flake update in $FLAKE_DIR..."
 info "(Using --extra-experimental-features for bootstrap — flakes may not be enabled yet)"
@@ -174,7 +173,7 @@ echo ""
 # After this rebuild completes, flakes are permanently enabled system-wide
 # (set in modules/system/nix-helpers.nix via nix.settings.experimental-features).
 # ==========================================================================
-echo -e "${BOLD}─── Step 5/6: Rebuild NixOS system ───${NC}"
+echo -e "${BOLD}─── Step 5/5: Rebuild NixOS system ───${NC}"
 info "Building and switching to IceBreaker configuration..."
 info "This may take a while on first run (downloading packages)..."
 echo ""
