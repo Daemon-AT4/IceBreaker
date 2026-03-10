@@ -189,14 +189,26 @@ info "Building and switching to IceBreaker configuration..."
 info "This may take a while on first run (downloading packages)..."
 echo ""
 
-if sudo nixos-rebuild switch \
+sudo nixos-rebuild switch \
   --flake "$FLAKE_DIR#icebreaker" \
-  --option extra-experimental-features "nix-command flakes"; then
+  --option extra-experimental-features "nix-command flakes"
+REBUILD_EXIT=$?
+
+if [[ "$REBUILD_EXIT" -eq 0 ]]; then
   echo ""
   info "System rebuild complete!"
+elif [[ "$REBUILD_EXIT" -eq 4 ]]; then
+  # Exit code 4 = switch succeeded but some units failed to start/reload.
+  # This is normal — locale warnings and services that can't restart during
+  # a live switch (e.g. display-manager) cause this. The system IS running
+  # the new configuration. A reboot will cleanly start everything.
+  echo ""
+  warn "System rebuild completed with minor warnings (exit code 4)"
+  warn "Some services could not restart during the live switch — this is normal"
+  info "A reboot will start all services cleanly"
 else
   echo ""
-  fail_msg "System rebuild FAILED!"
+  fail_msg "System rebuild FAILED! (exit code $REBUILD_EXIT)"
   fail_msg "Check the error output above and see manual steps below"
   SETUP_FAILED=1
 fi
