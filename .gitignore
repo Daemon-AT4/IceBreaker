@@ -1,0 +1,43 @@
+# ─── Nix build results ───────────────────────────────────────────────────────
+result
+result-*
+
+# ─── Hardware configuration (machine-specific, generate per host) ─────────────
+hardware-configuration.nix
+hardware-configuration.nix.bak
+
+# ─── Secrets — NEVER commit these ────────────────────────────────────────────
+*.ovpn
+*.pem
+*.key
+*.crt
+*.pfx
+*.p12
+secrets/
+.env
+.env.*
+
+# ─── Editor / IDE ─────────────────────────────────────────────────────────────
+*~
+*.swp
+*.swo
+.vscode/
+.idea/
+*.orig
+
+# ─── OS files ─────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ─── Python / pipx artefacts ──────────────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.venv/
+
+# ─── Local session files (not for public repo) ────────────────────────────────
+CLAUDE.md
+
+# ─── Logs ─────────────────────────────────────────────────────────────────────
+*.log
