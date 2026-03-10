@@ -81,19 +81,13 @@ Read this **before** running anything.
 
 ### // USERNAME
 
-IceBreaker creates a user called **`archangel`** with default password **`icebreaker`**.
+IceBreaker defaults to a user called **`archangel`**. You should change this to match the username you created during NixOS installation — that way your existing password and home directory just work.
 
-**Option A — Keep `archangel` (path of least resistance)**
-
-Do nothing. Log in as `archangel` after setup. If you created a different user during NixOS install, ignore it — `archangel` is the user that gets the full IceBreaker config.
-
-**Option B — Use your own username**
-
-Edit these four files **before** running setup:
+Edit these four files (before or after running setup, then rebuild):
 
 | File | What to change |
 |------|----------------|
-| `modules/system/base.nix` | `users.users.archangel` → `users.users.YOURNAME` + `initialPassword` |
+| `modules/system/base.nix` | `users.users.archangel` → `users.users.YOURNAME` |
 | `modules/system/nix-helpers.nix` | `"archangel"` in `trusted-users` → `"YOURNAME"` |
 | `home/default.nix` | `home.username`, `home.homeDirectory`, `git user.name`, `git user.email` |
 | `flake.nix` | `users.archangel` → `users.YOURNAME` |
@@ -189,26 +183,13 @@ Step 5 takes the longest — 20–60 minutes on first run. It's downloading the 
 
 > **The bootstrap problem:** Fresh NixOS doesn't have flakes enabled. `/etc/nix/nix.conf` is a read-only symlink into the Nix store — you literally cannot edit it. The setup script passes `--extra-experimental-features 'nix-command flakes'` to `nix` and `--option extra-experimental-features 'nix-command flakes'` to `nixos-rebuild` for the bootstrap. After the first rebuild, `nix-helpers.nix` permanently enables flakes and these flags are never needed again.
 
-### Step 6 — Reboot and Log In
+### Step 6 — Reboot
 
 ```bash
 sudo reboot
 ```
 
-At the LightDM login screen:
-
-```
-Username:  archangel
-Password:  icebreaker
-```
-
-Open a terminal and **immediately change your password**:
-
-```bash
-passwd
-```
-
-> `initialPassword` only sets the password if none exists. Once you run `passwd`, it persists across rebuilds — NixOS won't overwrite it.
+Log in at the LightDM screen with the username and password you set during NixOS installation (or `archangel` if you haven't changed it yet).
 
 ### Step 7 — Install Pipx Tools
 

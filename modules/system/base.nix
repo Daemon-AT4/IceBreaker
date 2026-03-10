@@ -165,12 +165,9 @@
     isNormalUser = true;
     description  = "archangel";
     shell        = pkgs.zsh;
-    # Default password for first login — CHANGE THIS after setup!
-    # Run:  passwd
-    # This is set via initialPassword so it only applies if no password
-    # has been set yet. Once you change it with passwd, NixOS won't
-    # overwrite it on rebuild.
-    initialPassword = "icebreaker";
+    # No password is set here — change "archangel" to match the
+    # username you created during NixOS installation so your
+    # existing password and home directory just work.
     extraGroups  = [
       "wheel"           # sudo access
       "networkmanager"  # manage wifi/vpn

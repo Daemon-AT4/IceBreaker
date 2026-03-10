@@ -18,15 +18,15 @@
 ```bash
 nix-shell -p git                                          # get git on fresh NixOS
 git clone https://github.com/YOUR_USERNAME/IceBreaker.git ~/IceBreaker
+# Change "archangel" to your NixOS username in: base.nix, nix-helpers.nix, home/default.nix, flake.nix
 cd ~/IceBreaker && ./scripts/setup.sh                     # handles everything
 sudo reboot                                               # reboot into IceBreaker
-passwd                                                    # change default password
 exec zsh                                                  # start configured shell
 ~/IceBreaker/scripts/install-pipx-tools.sh                # install pipx tools
 guide                                                     # interactive walkthrough
 ```
 
-Default login: `archangel` / `icebreaker` — change password immediately.
+Default user is `archangel` — change it to match the username you created during NixOS installation.
 
 ---
 
