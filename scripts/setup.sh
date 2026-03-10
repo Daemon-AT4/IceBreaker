@@ -121,6 +121,17 @@ else
     SETUP_FAILED=1
   fi
 fi
+
+# Nix flakes only include git-tracked files. hardware-configuration.nix is
+# gitignored (machine-specific), so we must force-stage it for Nix to see it.
+# It won't be committed/pushed (gitignore still blocks commits), but staged
+# files ARE included in flake source evaluation.
+if [[ -f "$HW_DST" ]]; then
+  cd "$FLAKE_DIR"
+  git add -f hardware-configuration.nix 2>/dev/null \
+    && info "Staged hardware-configuration.nix for Nix flake evaluation" \
+    || warn "Could not git-add hardware-configuration.nix (is this a git repo?)"
+fi
 echo ""
 
 # ==========================================================================
