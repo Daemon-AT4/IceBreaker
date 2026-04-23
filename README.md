@@ -1,11 +1,16 @@
 <div align="center">
 
+![alt text](docs/images/graphics/icebreaker-social-preview.png)
+
 <!-- ════════════════════════════════════════════════════════════════════════ -->
 <!--  D Λ Σ M Ө П   // P R E S E N T S ::   I C E B R E A K E R              -->
 <!--  Neuromancer-grade NixOS pentest flake                                   -->
 <!-- ════════════════════════════════════════════════════════════════════════ -->
 
 ```
+
+
+
 ┌──────────────────────────────────────────────────────────────────────────────┐
 │ $: DΛΣMӨП                                         DAEMON-SEC // EYES ONLY   │
 └──────────────────────────────────────────────────────────────────────────────┘
@@ -189,7 +194,6 @@ The “ice” in cyberpunk slang refers to defensive countermeasures: intrusion 
 - **RAM** — 4 GB minimum, 8 GB+ recommended
 - **Network** — internet connection during first build (20–60 min)
 - **Hypervisor** — VMware, QEMU/KVM, VirtualBox, or bare metal
-
 ---
 
 ## [02] PRE-FLIGHT
@@ -1101,6 +1105,8 @@ All raw JSONL sample logs are retained in the repository's `bench-results/` layo
 <br/>
 
 <p align="center">
+  <img src="docs/images/graphics/icebreaker-icon.png" alt="icebreaker icon" width="400" height="400"/>
+  <br>
   <img src="https://img.shields.io/badge/%E2%97%8F-ALL_SYSTEMS_OPERATIONAL-cbf7ad?style=for-the-badge&labelColor=0a0e14" alt="All systems operational"/>
   <img src="https://img.shields.io/badge/STATUS-jacked_in-7ee8fa?style=for-the-badge&labelColor=0a0e14"/>
   <img src="https://img.shields.io/badge/ICE-broken-eb6f92?style=for-the-badge&labelColor=0a0e14"/>
@@ -1108,6 +1114,15 @@ All raw JSONL sample logs are retained in the repository's `bench-results/` layo
   <img src="https://img.shields.io/badge/SIGNATURE-%24%3A_D%CE%9B%CE%A3M%D3%A8%D0%9F-ffb347?style=for-the-badge&labelColor=0a0e14" alt="$: DΛΣMӨП"/>
 </p>
 
+
+
+
+<br>
+----------------------------------------------------------------------------------
+
+<p align="center">
+  <img src="docs/images/graphics/Avatar.jpg" alt="alt text" width="200" height="200"/>
+</p>
 <sub><i>▓▒░ built by <b>DΛΣMӨП</b> with Nix, black ice, and too much RedBull ░▒▓</i></sub>
 
 </div>
