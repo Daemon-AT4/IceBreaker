@@ -88,6 +88,13 @@ One command rebuilds everything. One `git push` backs it all up. One `git clone`
 
 IceBreaker is also the artefact of an empirical BSc (Hons) Ethical Hacking dissertation (Bruce, 2026) benchmarking a declarative NixOS flake against Kali Linux 2025.4 across deployment time, resource use, cryptographic throughput, a full HackTheBox Active Directory engagement, and usability. The headline numbers are at the bottom of this README under [[12] BENCHMARKING — NIXOS vs KALI](#12-benchmarking--nixos-vs-kali).
 
+## // The Name of the Project
+I named the project IceBreaker as a deliberate nod to cyberpunk, and especially to the world of Neuromancer, where the digital landscape is imagined as a dangerous, living frontier. In that setting, hackers are called [netrunners](https://cyberpunk.fandom.com/wiki/Netrunner): people who dive directly into the matrix, navigating systems, defences, and hostile code as if they were moving through physical cyberspace called the [net](https://cyberpunk.fandom.com/wiki/Net) in the cyberpunk universe. That imagery has always stuck with me because it makes computing feel cinematic — not just abstract logic, but an environment with tension, risk, and personality.
+
+The “ice” in cyberpunk slang refers to defensive countermeasures: intrusion prevention, security barriers, and hostile software designed to stop or punish unauthorized access. [Black ICE](https://cyberpunk.fandom.com/wiki/Black_ICE) is the most infamous version of that idea, usually portrayed as especially dangerous or lethal. I chose IceBreaker because it plays on that language in a way that feels fitting for a flake: something that helps you get past the cold, rigid barriers around a system, or simply makes the machine easier to approach and use. It carries both the cyberpunk atmosphere and the practical idea of breaking through hardened defences — a name that feels technical, thematic, and a little bit rebellious.
+
+
+
 ---
 
 <details>
