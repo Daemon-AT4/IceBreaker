@@ -1,3 +1,26 @@
+<div align="center">
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!--  I C E B R E A K E R   //   E M P I R I C A L   P R O O F               -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+
+```
+▓▒░ ─── I C E B R E A K E R  //  E M P I R I C A L   P R O O F ─── ░▒▓
+```
+
+<p align="center">
+  <img src="https://img.shields.io/badge/SECTION-11_of_11-c4a7e7?style=for-the-badge&labelColor=0a0e14"/>
+  <img src="https://img.shields.io/badge/BENCHMARK-methodology-ffb347?style=for-the-badge&labelColor=0a0e14"/>
+  <img src="https://img.shields.io/badge/DISSERTATION-BSc_Hons-ffb347?style=for-the-badge&labelColor=0a0e14"/>
+  <img src="https://img.shields.io/badge/vs_KALI-empirical-eb6f92?style=for-the-badge&labelColor=0a0e14"/>
+  <a href="README.md"><img src="https://img.shields.io/badge/%E2%86%A9_docs_index-cbf7ad?style=for-the-badge&labelColor=0a0e14"/></a>
+  <a href="../README.md"><img src="https://img.shields.io/badge/%E2%86%A9_main_README-eb6f92?style=for-the-badge&labelColor=0a0e14"/></a>
+</p>
+
+</div>
+
+---
+
 # Performance Benchmarking — Methodology
 
 This document describes the benchmark harness shipped with IceBreaker

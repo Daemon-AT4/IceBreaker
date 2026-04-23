@@ -1,3 +1,25 @@
+<div align="center">
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!--  I C E B R E A K E R   //   W E A P O N S   M A N I F E S T             -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+
+```
+▓▒░ ─── I C E B R E A K E R  //  W E A P O N S   M A N I F E S T ─── ░▒▓
+```
+
+<p align="center">
+  <img src="https://img.shields.io/badge/SECTION-03_of_11-c4a7e7?style=for-the-badge&labelColor=191724"/>
+  <img src="https://img.shields.io/badge/ARSENAL-12_categories-eb6f92?style=for-the-badge&labelColor=191724"/>
+  <img src="https://img.shields.io/badge/PRESETS-4-eb6f92?style=for-the-badge&labelColor=191724"/>
+  <a href="README.md"><img src="https://img.shields.io/badge/%E2%86%A9_docs_index-9ccfd8?style=for-the-badge&labelColor=191724"/></a>
+  <a href="../README.md"><img src="https://img.shields.io/badge/%E2%86%A9_main_README-eb6f92?style=for-the-badge&labelColor=191724"/></a>
+</p>
+
+</div>
+
+---
+
 ```
  ┌─────────────────────────────────────────────────────────┐
  │  ICEBREAKER // WEAPONS MANIFEST                         │
