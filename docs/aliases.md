@@ -1,3 +1,24 @@
+<div align="center">
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!--  I C E B R E A K E R   //   S H O R T H A N D                            -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+
+```
+▓▒░ ─── I C E B R E A K E R  //  S H O R T H A N D ─── ░▒▓
+```
+
+<p align="center">
+  <img src="https://img.shields.io/badge/SECTION-04_of_11-c4a7e7?style=for-the-badge&labelColor=191724"/>
+  <img src="https://img.shields.io/badge/SHELL-50%2B_aliases-9ccfd8?style=for-the-badge&labelColor=191724"/>
+  <a href="README.md"><img src="https://img.shields.io/badge/%E2%86%A9_docs_index-9ccfd8?style=for-the-badge&labelColor=191724"/></a>
+  <a href="../README.md"><img src="https://img.shields.io/badge/%E2%86%A9_main_README-eb6f92?style=for-the-badge&labelColor=191724"/></a>
+</p>
+
+</div>
+
+---
+
 ```
  ┌─────────────────────────────────────────────────────────┐
  │  ICEBREAKER // HOTKEY NEURAL MAP                        │

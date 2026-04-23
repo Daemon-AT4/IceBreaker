@@ -1,3 +1,24 @@
+<div align="center">
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!--  I C E B R E A K E R   //   B O O T   S E Q U E N C E                    -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+
+```
+▓▒░ ─── I C E B R E A K E R  //  B O O T   S E Q U E N C E ─── ░▒▓
+```
+
+<p align="center">
+  <img src="https://img.shields.io/badge/SECTION-01_of_11-c4a7e7?style=for-the-badge&labelColor=191724"/>
+  <img src="https://img.shields.io/badge/INSTALL-boot_sequence-c4a7e7?style=for-the-badge&labelColor=191724"/>
+  <a href="README.md"><img src="https://img.shields.io/badge/%E2%86%A9_docs_index-9ccfd8?style=for-the-badge&labelColor=191724"/></a>
+  <a href="../README.md"><img src="https://img.shields.io/badge/%E2%86%A9_main_README-eb6f92?style=for-the-badge&labelColor=191724"/></a>
+</p>
+
+</div>
+
+---
+
 ```
  ┌─────────────────────────────────────────────────────────┐
  │  ICEBREAKER // INITIALIZATION PROTOCOL                  │

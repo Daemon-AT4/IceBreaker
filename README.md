@@ -1,15 +1,74 @@
-```
-    _______________  ____  ____  ______ ___    __ __ ______ ____
-   /  _/ ____/ __ )/ __ \/ __ \/ ____//   |  / //_// ____// __ \
-   / // /   / __  / /_/ / /_/ / __/  / /| | / ,<  / __/  / /_/ /
- _/ // /___/ /_/ / _, _/ ____/ /___ / ___ |/ /| |/ /___ / _, _/
-/___/\____/_____/_/ |_/_/   /_____//_/  |_/_/ |_/_____//_/ |_|
+<div align="center">
 
-  ///  N I X O S   P E N T E S T I N G   E N V I R O N M E N T  ///
-  -------------------------------------------------------------------
-   "The sky above the port was the colour of television,
-    tuned to a dead channel."  — William Gibson, Neuromancer
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!--  D Λ Σ M Ө П   // P R E S E N T S ::   I C E B R E A K E R              -->
+<!--  Neuromancer-grade NixOS pentest flake                                   -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+
 ```
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ $: DΛΣMӨП                                         DAEMON-SEC // EYES ONLY   │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+▓▒░ ──────────────────────────────────────────────────────────────────── ░▒▓
+
+ ██╗ ██████╗███████╗██████╗ ██████╗ ███████╗ █████╗ ██╗  ██╗███████╗██████╗
+ ██║██╔════╝██╔════╝██╔══██╗██╔══██╗██╔════╝██╔══██╗██║ ██╔╝██╔════╝██╔══██╗
+ ██║██║     █████╗  ██████╔╝██████╔╝█████╗  ███████║█████╔╝ █████╗  ██████╔╝
+ ██║██║     ██╔══╝  ██╔══██╗██╔══██╗██╔══╝  ██╔══██║██╔═██╗ ██╔══╝  ██╔══██╗
+ ██║╚██████╗███████╗██████╔╝██║  ██║███████╗██║  ██║██║  ██╗███████╗██║  ██║
+ ╚═╝ ╚═════╝╚══════╝╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
+
+             V I S U A L   S T Y L E   R E F E R E N C E  ::  v2.6
+
+▓▒░ ─── N I X O S · P E N T E S T · D Λ Σ M Ө П · N E U R O M A N C E R ─── ░▒▓
+```
+
+<a href="https://github.com/daemonbreaker/IceBreaker"><img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=17&duration=4200&pause=1100&color=CBF7AD&center=true&vCenter=true&width=820&lines=%24%3A+D%CE%9B%CE%A3M%D3%A8%D0%9F+%2F%2F+presents+%3A%3A+IceBreaker;%22The+sky+above+the+port+was+the+colour+of+television.%22;%22Tuned+to+a+dead+channel.%22+%E2%80%94+W.+Gibson%2C+Neuromancer;daemon%40nixos%3A~%24+jacking+in...+rebuilding+reality+from+flake.lock;%3E+ALL+SYSTEMS+OPERATIONAL." alt="DAEMON / Gibson epigraph typewriter"/></a>
+
+<br/>
+
+<!--  ░▒▓  DAEMON PALETTE  ▓▒░  phosphor · cyan · amber · pink · iris · pale   -->
+
+<p align="center">
+  <img src="https://img.shields.io/badge/%20-cbf7ad?style=flat-square" alt="#cbf7ad phosphor"/>
+  <img src="https://img.shields.io/badge/%20-7ee8fa?style=flat-square" alt="#7ee8fa cyan"/>
+  <img src="https://img.shields.io/badge/%20-ffb347?style=flat-square" alt="#ffb347 amber"/>
+  <img src="https://img.shields.io/badge/%20-eb6f92?style=flat-square" alt="#eb6f92 pink"/>
+  <img src="https://img.shields.io/badge/%20-c4a7e7?style=flat-square" alt="#c4a7e7 iris"/>
+  <img src="https://img.shields.io/badge/%20-cbf7ed?style=flat-square" alt="#cbf7ed pale"/>
+</p>
+
+<br/>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/NIXOS-26.05-c4a7e7?style=for-the-badge&logo=nixos&logoColor=cbf7ad&labelColor=0a0e14" alt="NixOS 26.05"/>
+  <img src="https://img.shields.io/badge/FLAKE-pure_eval-cbf7ad?style=for-the-badge&labelColor=0a0e14" alt="Nix Flake"/>
+  <img src="https://img.shields.io/badge/ROSE_PINE-dark-eb6f92?style=for-the-badge&labelColor=0a0e14" alt="Rose Pine"/>
+  <img src="https://img.shields.io/badge/NEUROMANCER-online-cbf7ad?style=for-the-badge&labelColor=0a0e14" alt="Neuromancer online"/>
+  <img src="https://img.shields.io/badge/DISSERTATION-BSc_Hons-ffb347?style=for-the-badge&labelColor=0a0e14" alt="Dissertation: BSc (Hons)"/>
+  <br/>
+  <img src="https://img.shields.io/badge/x86__64-linux-7ee8fa?style=for-the-badge&labelColor=0a0e14" alt="x86_64-linux"/>
+  <img src="https://img.shields.io/badge/aarch64-linux-7ee8fa?style=for-the-badge&labelColor=0a0e14" alt="aarch64-linux"/>
+  <img src="https://img.shields.io/badge/CATEGORIES-12-c4a7e7?style=for-the-badge&labelColor=0a0e14" alt="12 categories"/>
+  <img src="https://img.shields.io/badge/PRESETS-4-c4a7e7?style=for-the-badge&labelColor=0a0e14" alt="4 presets"/>
+  <img src="https://img.shields.io/badge/ALIASES-50%2B-cbf7ad?style=for-the-badge&labelColor=0a0e14" alt="50+ aliases"/>
+  <img src="https://img.shields.io/badge/PIPX_TOOLS-25%2B-cbf7ad?style=for-the-badge&labelColor=0a0e14" alt="25+ pipx tools"/>
+  <br/>
+  <img src="https://img.shields.io/badge/vs_KALI-54%25_faster_deploy-eb6f92?style=for-the-badge&labelColor=0a0e14" alt="54% faster than Kali"/>
+  <img src="https://img.shields.io/badge/SUS_SCORE-82.5_excellent-ffb347?style=for-the-badge&labelColor=0a0e14" alt="SUS 82.5 excellent"/>
+  <img src="https://img.shields.io/badge/LICENCE-Hack_the_Planet-eb6f92?style=for-the-badge&labelColor=0a0e14" alt="Licence"/>
+</p>
+
+<p align="center">
+  <a href="docs/getting-started.md"><img src="https://img.shields.io/badge/%E2%96%B6_QUICK_START-cbf7ad?style=for-the-badge&labelColor=0a0e14" alt="Quick start"/></a>
+  <a href="docs/README.md"><img src="https://img.shields.io/badge/%F0%9F%93%96_DOCS-c4a7e7?style=for-the-badge&labelColor=0a0e14" alt="Docs"/></a>
+  <a href="docs/benchmarking.md"><img src="https://img.shields.io/badge/%F0%9F%93%8A_BENCHMARKS-ffb347?style=for-the-badge&labelColor=0a0e14" alt="Benchmarks"/></a>
+  <a href="docs/troubleshooting.md"><img src="https://img.shields.io/badge/%E2%9A%A0_FLATLINE-eb6f92?style=for-the-badge&labelColor=0a0e14" alt="Flatline recovery"/></a>
+  <a href="#12-benchmarking--nixos-vs-kali"><img src="https://img.shields.io/badge/vs_KALI-7ee8fa?style=for-the-badge&labelColor=0a0e14" alt="vs Kali"/></a>
+</p>
+
+</div>
 
 ---
 
@@ -31,39 +90,87 @@ IceBreaker is also the artefact of an empirical BSc (Hons) Ethical Hacking disse
 
 ---
 
-## // TABLE OF CONTENTS
+<details>
+<summary><b>// TABLE OF CONTENTS &nbsp; <code>[click to jack in]</code></b></summary>
+
+<br/>
 
 ```
- [00] PAYLOAD MANIFEST ................. what's inside
- [01] SYSTEM REQUIREMENTS .............. what you need
- [02] PRE-FLIGHT ....................... username + hypervisor
- [03] INSTALLATION ..................... step by step
- [04] DEPLOY FROM GITHUB ............... clone → build → hack
- [05] WHEN THINGS BREAK ................ manual recovery
- [06] DAILY OPS ........................ commands you'll use constantly
- [07] ARSENAL .......................... categories & presets
- [08] ADDING & REMOVING PACKAGES ....... make it yours
- [09] ARCHITECTURE ..................... how it's wired
- [10] TROUBLESHOOTING .................. flatline recovery
- [11] DOCUMENTATION .................... full docs index
- [12] BENCHMARKING — NIXOS vs KALI ..... empirical results from the dissertation
+ ╔══════════════════════════════════════════════════════════════════════╗
+ ║                    I C E B R E A K E R   //   T O C                  ║
+ ╠══════════════════════════════════════════════════════════════════════╣
+ ║ [00] PAYLOAD MANIFEST ................ what's inside                 ║
+ ║ [01] SYSTEM REQUIREMENTS ............. what you need                 ║
+ ║ [02] PRE-FLIGHT ...................... username + hypervisor         ║
+ ║ [03] INSTALLATION .................... step by step                  ║
+ ║ [04] DEPLOY FROM GITHUB .............. clone → build → hack          ║
+ ║ [05] WHEN THINGS BREAK ............... manual recovery               ║
+ ║ [06] DAILY OPS ....................... commands you'll use constantly║
+ ║ [07] ARSENAL ......................... categories & presets          ║
+ ║ [08] ADDING & REMOVING PACKAGES ...... make it yours                 ║
+ ║ [09] ARCHITECTURE .................... how it's wired                ║
+ ║ [10] TROUBLESHOOTING ................. flatline recovery             ║
+ ║ [11] DOCUMENTATION ................... full docs index               ║
+ ║ [12] BENCHMARKING — NIXOS vs KALI .... empirical dissertation data   ║
+ ╚══════════════════════════════════════════════════════════════════════╝
 ```
+
+| # | Section | Shortcut |
+|--:|---------|----------|
+| 00 | [Payload Manifest](#00-payload-manifest) | what's inside |
+| 01 | [System Requirements](#01-system-requirements) | what you need |
+| 02 | [Pre-Flight](#02-pre-flight) | username + hypervisor |
+| 03 | [Installation](#03-installation) | step by step |
+| 04 | [Deploy from GitHub](#04-deploy-from-github) | clone → build → hack |
+| 05 | [When Things Break](#05-when-things-break) | manual recovery |
+| 06 | [Daily Ops](#06-daily-ops) | the commands you'll use |
+| 07 | [Arsenal](#07-arsenal--categories--presets) | categories & presets |
+| 08 | [Adding & Removing Packages](#08-adding--removing-packages) | make it yours |
+| 09 | [Architecture](#09-architecture) | how it's wired |
+| 10 | [Troubleshooting](#10-troubleshooting) | flatline recovery |
+| 11 | [Documentation](#11-documentation) | full docs index |
+| 12 | [Benchmarking — NixOS vs Kali](#12-benchmarking--nixos-vs-kali) | empirical dissertation data |
+
+</details>
 
 ---
 
 ## [00] PAYLOAD MANIFEST
 
-```
- OFFENSIVE                              ENVIRONMENT
- ─────────────────────────────────      ─────────────────────────────────
- 12 pentesting categories               Rose Pine dark — system-wide
- 4 preset profiles                      Powerlevel10k powerline prompt
- 14 reverse shell payload types         VPN IP + ping latency in prompt
- 9 workflow shell functions             Alacritty terminal, Nerd Fonts
- 50+ shell aliases                      15 tmux plugins, session persist
- 25+ pipx tools                         XFCE desktop, LightDM greeter
- HTB tmux 3-pane layout                 x86_64 + aarch64 outputs
-```
+<table align="center">
+<tr>
+<td valign="top" width="50%">
+
+<h3 align="center">▓▒░ <code>OFFENSIVE</code> ░▒▓</h3>
+
+<p align="center">
+<img src="https://img.shields.io/badge/%E2%80%A2_12-pentesting_categories-eb6f92?style=flat-square&labelColor=0a0e14"/><br/>
+<img src="https://img.shields.io/badge/%E2%80%A2_4-preset_profiles-eb6f92?style=flat-square&labelColor=0a0e14"/><br/>
+<img src="https://img.shields.io/badge/%E2%80%A2_14-reverse_shell_payloads-eb6f92?style=flat-square&labelColor=0a0e14"/><br/>
+<img src="https://img.shields.io/badge/%E2%80%A2_9-workflow_shell_functions-eb6f92?style=flat-square&labelColor=0a0e14"/><br/>
+<img src="https://img.shields.io/badge/%E2%80%A2_50%2B-shell_aliases-eb6f92?style=flat-square&labelColor=0a0e14"/><br/>
+<img src="https://img.shields.io/badge/%E2%80%A2_25%2B-pipx_tools-eb6f92?style=flat-square&labelColor=0a0e14"/><br/>
+<img src="https://img.shields.io/badge/%E2%80%A2_HTB_tmux-3--pane_layout-eb6f92?style=flat-square&labelColor=0a0e14"/>
+</p>
+
+</td>
+<td valign="top" width="50%">
+
+<h3 align="center">▓▒░ <code>ENVIRONMENT</code> ░▒▓</h3>
+
+<p align="center">
+<img src="https://img.shields.io/badge/%E2%80%A2_Rose_Pine-system--wide_dark-c4a7e7?style=flat-square&labelColor=0a0e14"/><br/>
+<img src="https://img.shields.io/badge/%E2%80%A2_Powerlevel10k-powerline_prompt-c4a7e7?style=flat-square&labelColor=0a0e14"/><br/>
+<img src="https://img.shields.io/badge/%E2%80%A2_Prompt-VPN_IP_%2B_ping-c4a7e7?style=flat-square&labelColor=0a0e14"/><br/>
+<img src="https://img.shields.io/badge/%E2%80%A2_Alacritty-Nerd_Fonts-c4a7e7?style=flat-square&labelColor=0a0e14"/><br/>
+<img src="https://img.shields.io/badge/%E2%80%A2_tmux-15_plugins_%2B_persist-c4a7e7?style=flat-square&labelColor=0a0e14"/><br/>
+<img src="https://img.shields.io/badge/%E2%80%A2_XFCE-LightDM_greeter-c4a7e7?style=flat-square&labelColor=0a0e14"/><br/>
+<img src="https://img.shields.io/badge/%E2%80%A2_flake-x86__64_%2B_aarch64-c4a7e7?style=flat-square&labelColor=0a0e14"/>
+</p>
+
+</td>
+</tr>
+</table>
 
 ---
 
@@ -215,6 +322,22 @@ Interactive terminal walkthrough covering categories, aliases, functions, script
 ## [04] DEPLOY FROM GITHUB
 
 This is the real power of a Nix flake. Your entire environment — every tool, every alias, every theme colour — restores from a single `git clone`.
+
+```
+ ░▒▓ J A C K - I N   F L O W ▓▒░
+
+   ┌─────────────┐  nix   ┌─────────────┐  nh   ┌─────────────┐  ssh  ┌─────────────┐
+   │  git clone  │ ─────▶ │  flake.nix  │ ────▶ │   rebuild   │ ────▶ │   jack in   │
+   │ ~/IceBreaker│        │ flake.lock  │       │nixos-rebuild│       │archangel@ice│
+   └─────────────┘        └─────────────┘       └─────────────┘       └─────────────┘
+         │                       │                     │                     │
+         ▼                       ▼                     ▼                     ▼
+    ░  payload  ░           ░ dependency ░        ░  atomic   ░         ░ rose-pine ░
+    ░  manifest ░           ░  content-  ░        ░generation ░         ░  + p10k   ░
+    ░ 20 GB min ░           ░ addressed  ░        ░ rollback? ░         ░  + tmux   ░
+    ░           ░           ░reproducible░        ░ one flag  ░         ░  + vpn-ip ░
+```
+
 
 ### // Fresh NixOS Machine
 
@@ -402,6 +525,38 @@ nfu && nrs     # update all inputs + rebuild
 ---
 
 ## [07] ARSENAL — Categories & Presets
+
+```
+ ░▒▓ A R S E N A L   C O N S T E L L A T I O N ▓▒░
+
+   ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐
+   │  ░ NETWORK ░ │  │  ░   WEB   ░ │  │  ░    AD   ░ │  │  ░ PASSWORD ░│
+   │   nmap/mass  │  │  burp/ffuf  │  │ bloodhound  │  │ hashcat/john │
+   │  rustscan/   │  │  sqlmap/    │  │  impacket/  │  │  hydra/      │
+   │  wireshark   │  │  nuclei     │  │  netexec    │  │  seclists    │
+   └──────────────┘  └──────────────┘  └──────────────┘  └──────────────┘
+   ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐
+   │ ░ WIRELESS ░ │  │░ FORENSICS ░ │  │  ░   REV  ░  │  │  ░  MITM   ░ │
+   │ aircrack-ng  │  │ volatility3 │  │ ghidra/r2   │  │ bettercap/   │
+   │  kismet/     │  │  binwalk/   │  │  gef/       │  │  ettercap/   │
+   │  wifite2     │  │  steghide   │  │  pwntools   │  │  dsniff      │
+   └──────────────┘  └──────────────┘  └──────────────┘  └──────────────┘
+   ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐
+   │ ░ BLUE-TEAM ░│  │ ░ EXPLOIT  ░ │  │ ░ POST-EXP ░ │  │  ░  CLOUD  ░ │
+   │ suricata/    │  │ metasploit/ │  │ chisel/     │  │ awscli2/     │
+   │ yara/zeek/   │  │ searchsploit│  │ ligolo-ng/  │  │ gcloud/      │
+   │ hayabusa     │  │  exploitdb  │  │ havoc/villain│  │ terraform   │
+   └──────────────┘  └──────────────┘  └──────────────┘  └──────────────┘
+
+         ▓▒░ 4 presets: [ctf] · [engagement] · [full] · [blue] ░▒▓
+```
+
+<p align="center">
+  <img src="https://img.shields.io/badge/preset-ctf-eb6f92?style=for-the-badge&labelColor=0a0e14"/>
+  <img src="https://img.shields.io/badge/preset-engagement-ffb347?style=for-the-badge&labelColor=0a0e14"/>
+  <img src="https://img.shields.io/badge/preset-full-c4a7e7?style=for-the-badge&labelColor=0a0e14"/>
+  <img src="https://img.shields.io/badge/preset-blue-cbf7ad?style=for-the-badge&labelColor=0a0e14"/>
+</p>
 
 Edit `configuration.nix` to arm your loadout:
 
@@ -641,44 +796,49 @@ pipx_install "package-name" "Display Name"
 ## [09] ARCHITECTURE
 
 ```
-flake.nix                         <<< entry point — inputs + nixosConfigurations
-|
-+-- hardware-configuration.nix    <<< machine-specific (NOT in git)
-+-- configuration.nix             <<< toggle categories + presets here
-|
-+-- modules/system/
-|   +-- base.nix                  <<< boot, XFCE, LightDM, users, core packages
-|   +-- nix-helpers.nix           <<< nh, comma, nil, nix-index, formatters
-|   +-- stylix.nix                <<< Rose Pine dark, fonts, opacity
-|
-+-- modules/pentesting/
-|   +-- default.nix               <<< options tree (pentesting.enable + categories.*)
-|   +-- network.nix               <<< nmap, masscan, rustscan, wireshark
-|   +-- web.nix                   <<< burpsuite, ffuf, sqlmap, nuclei, nikto
-|   +-- active-directory.nix      <<< bloodhound, impacket, netexec, responder
-|   +-- password.nix              <<< hashcat, john, hydra, seclists
-|   +-- wireless.nix              <<< aircrack-ng, kismet, wifite2, reaver
-|   +-- forensics.nix             <<< volatility3, binwalk, sleuthkit, steghide
-|   +-- reverse-engineering.nix   <<< ghidra, radare2, gdb+gef, pwntools, angr
-|   +-- mitm.nix                  <<< bettercap, ettercap, dsniff
-|   +-- blue-team.nix             <<< suricata, snort, yara, zeek, chainsaw
-|   +-- exploitation.nix          <<< metasploit, exploitdb/searchsploit
-|   +-- post-exploitation.nix     <<< chisel, ligolo-ng, proxychains, havoc
-|   +-- cloud.nix                 <<< awscli2, gcloud, azure-cli, terraform
-|   +-- presets.nix               <<< preset system (ctf, engagement, full, blue)
-|
-+-- home/
-|   +-- default.nix               <<< home-manager: git, tmux, alacritty, fzf, bat
-|   +-- zsh.nix                   <<< ZSH + oh-my-zsh + p10k + functions + plugins
-|   +-- aliases.nix               <<< 50+ aliases
-|   +-- p10k.zsh                  <<< powerlevel10k config (Rose Pine + VPN/ping)
-|
-+-- scripts/
-    +-- setup.sh                  <<< first-time setup (5 steps)
-    +-- install-pipx-tools.sh     <<< 25+ Python tools not in nixpkgs
-    +-- revshell.sh               <<< reverse shell generator (14 types)
-    +-- tmux-htb.sh               <<< 3-pane HTB tmux layout
-    +-- icebreaker-guide.sh       <<< interactive terminal walkthrough
+ ░▒▓ S Y S T E M   W I R I N G ▓▒░
+
+ flake.nix                             ◉  entry point — inputs + nixosConfigurations
+  │
+  ├── hardware-configuration.nix       ⚠  machine-specific (NOT in git)
+  ├── configuration.nix                ⚙  toggle categories + presets here
+  │
+  ├── modules/system/
+  │   ├── base.nix                     ▸  boot, XFCE, LightDM, users, core packages
+  │   ├── nix-helpers.nix              ▸  nh, comma, nil, nix-index, formatters
+  │   └── stylix.nix                   ▸  Rose Pine dark, fonts, opacity
+  │
+  ├── modules/pentesting/
+  │   ├── default.nix                  ☰  options tree (pentesting.enable + categories.*)
+  │   ├── network.nix                  ⚔  nmap, masscan, rustscan, wireshark
+  │   ├── web.nix                      ⚔  burpsuite, ffuf, sqlmap, nuclei, nikto
+  │   ├── active-directory.nix         ⚔  bloodhound, impacket, netexec, responder
+  │   ├── password.nix                 ⚔  hashcat, john, hydra, seclists
+  │   ├── wireless.nix                 ⚔  aircrack-ng, kismet, wifite2, reaver
+  │   ├── forensics.nix                ⚔  volatility3, binwalk, sleuthkit, steghide
+  │   ├── reverse-engineering.nix      ⚔  ghidra, radare2, gdb+gef, pwntools, angr
+  │   ├── mitm.nix                     ⚔  bettercap, ettercap, dsniff
+  │   ├── blue-team.nix                ⚔  suricata, snort, yara, zeek, chainsaw
+  │   ├── exploitation.nix             ⚔  metasploit, exploitdb/searchsploit
+  │   ├── post-exploitation.nix        ⚔  chisel, ligolo-ng, proxychains, havoc
+  │   ├── cloud.nix                    ⚔  awscli2, gcloud, azure-cli, terraform
+  │   └── presets.nix                  ☰  preset system (ctf, engagement, full, blue)
+  │
+  ├── home/
+  │   ├── default.nix                  ◈  home-manager: git, tmux, alacritty, fzf, bat
+  │   ├── zsh.nix                      ◈  ZSH + oh-my-zsh + p10k + functions + plugins
+  │   ├── aliases.nix                  ◈  50+ aliases
+  │   └── p10k.zsh                     ◈  powerlevel10k config (Rose Pine + VPN/ping)
+  │
+  └── scripts/
+      ├── setup.sh                     ▶  first-time setup (5 steps)
+      ├── install-pipx-tools.sh        ▶  25+ Python tools not in nixpkgs
+      ├── revshell.sh                  ▶  reverse shell generator (14 types)
+      ├── tmux-htb.sh                  ▶  3-pane HTB tmux layout
+      └── icebreaker-guide.sh          ▶  interactive terminal walkthrough
+
+ Legend:  ◉ root  ⚙ config  ▸ system module  ⚔ offensive module
+          ☰ options tree  ◈ user-level  ▶ executable  ⚠ local-only
 ```
 
 ### // Design Decisions
@@ -740,20 +900,24 @@ Reboot → GRUB → select a previous generation → fix the config → `nrs`.
 
 ## [11] DOCUMENTATION
 
-```
- docs/getting-started.md ......... installation, first rebuild, basic usage
- docs/github-setup.md ............ push to GitHub, rebuild from GitHub
- docs/categories.md .............. all 12 categories with tool tables
- docs/aliases.md ................. complete alias listing
- docs/shell-functions.md ......... settarget, newbox, flag, cred, nmap helpers
- docs/scripts.md ................. revshell, htb-tmux, setup, pipx installer
- docs/workflow.md ................ engagement workflow: box setup to flag capture
- docs/customisation.md ........... add packages, create categories, change theme
- docs/theming.md ................. Stylix, Rose Pine, fonts, prompt
- docs/troubleshooting.md ......... common issues and fixes
- docs/benchmarking.md ............ NixOS vs Kali performance methodology
- DEVLOG.md ....................... development history — every bug and fix
-```
+<div align="center">
+
+| # | Guide | What's inside |
+|--:|-------|---------------|
+| 01 | <a href="docs/getting-started.md"><img src="https://img.shields.io/badge/BOOT_SEQUENCE-install-c4a7e7?style=flat-square&labelColor=0a0e14"/></a> | installation, first rebuild, basic usage |
+| 02 | <a href="docs/github-setup.md"><img src="https://img.shields.io/badge/UPLINK-git-c4a7e7?style=flat-square&labelColor=0a0e14"/></a> | push to GitHub, rebuild from GitHub |
+| 03 | <a href="docs/categories.md"><img src="https://img.shields.io/badge/WEAPONS_MANIFEST-arsenal-eb6f92?style=flat-square&labelColor=0a0e14"/></a> | all 12 categories with tool tables |
+| 04 | <a href="docs/aliases.md"><img src="https://img.shields.io/badge/SHORTHAND-shell-cbf7ad?style=flat-square&labelColor=0a0e14"/></a> | complete alias listing |
+| 05 | <a href="docs/shell-functions.md"><img src="https://img.shields.io/badge/RUN_PROTOCOLS-shell-cbf7ad?style=flat-square&labelColor=0a0e14"/></a> | settarget, newbox, flag, cred, nmap helpers |
+| 06 | <a href="docs/scripts.md"><img src="https://img.shields.io/badge/PAYLOADS-scripts-eb6f92?style=flat-square&labelColor=0a0e14"/></a> | revshell, htb-tmux, setup, pipx installer |
+| 07 | <a href="docs/workflow.md"><img src="https://img.shields.io/badge/ENGAGEMENT-runbook-ffb347?style=flat-square&labelColor=0a0e14"/></a> | engagement workflow: box setup → flag capture |
+| 08 | <a href="docs/customisation.md"><img src="https://img.shields.io/badge/MODIFY_THE_RIG-config-c4a7e7?style=flat-square&labelColor=0a0e14"/></a> | add packages, create categories, change theme |
+| 09 | <a href="docs/theming.md"><img src="https://img.shields.io/badge/VISUAL_LAYER-theme-c4a7e7?style=flat-square&labelColor=0a0e14"/></a> | Stylix, Rose Pine, fonts, prompt |
+| 10 | <a href="docs/troubleshooting.md"><img src="https://img.shields.io/badge/FLATLINE_RECOVERY-rescue-eb6f92?style=flat-square&labelColor=0a0e14"/></a> | common issues and fixes |
+| 11 | <a href="docs/benchmarking.md"><img src="https://img.shields.io/badge/EMPIRICAL_PROOF-benchmark-ffb347?style=flat-square&labelColor=0a0e14"/></a> | NixOS vs Kali performance methodology |
+| ∙∙ | <a href="DEVLOG.md"><img src="https://img.shields.io/badge/DEVLOG-history-524f67?style=flat-square&labelColor=0a0e14"/></a> | development history — every bug and fix |
+
+</div>
 
 ---
 
@@ -764,6 +928,28 @@ IceBreaker was built, in part, as the practical artefact for a BSc (Hons) Ethica
 The headline numbers are summarised below; the full methodology, per-run JSON captures, and threats to validity are in [docs/benchmarking.md](docs/benchmarking.md) and the dissertation itself.
 
 ### // Headline Results
+
+```
+ ░▒▓ H E A D L I N E   D E L T A S ▓▒░  (█ = IceBreaker,  ▓ = Kali)
+
+ Deploy time       Ice ████████████░░░░░░░░░░░░░  12 min
+                   Kal ██████████████████████████  26 min     ▼ IceBreaker 54 % faster
+
+ Disk closure      Ice ████████████░░░░░░░░░░░░░  14.19 GB
+                   Kal █████████████████████████▓  27.51 GB   ▼ IceBreaker 49 % smaller
+
+ Idle RAM          Ice ███████████████████░░░░░░  1,149.6 MiB
+                   Kal ████████████████░░░░░░░░░  923.8 MiB   ▲ Kali 19.6 % leaner
+
+ Boot (systemd)    Ice ██████████████████████░░░  8.557 s
+                   Kal ████████████████████░░░░░  7.606 s     ≈ parity (~1 s)
+
+ HTB Pirate        Ice ██████████████░░░░░░░░░░░  746 s
+                   Kal █████████████████████████  1,334 s     ▼ IceBreaker 44.1 % faster
+
+ SUS usability     Ice █████████████████████████  82.5  (Excellent)
+                   Kal █████████████████████░░░░  72.5  (Acceptable)  +10 IceBreaker
+```
 
 | Dimension | IceBreaker (NixOS 26.05) | Kali Linux 2025.4 | Result |
 |---|---:|---:|---|
@@ -877,13 +1063,44 @@ All raw JSONL sample logs are retained in the repository's `bench-results/` layo
 
 ---
 
-```
- ┌──────────────────────────────────────────────────────────┐
- │  "We have no future because our present is too volatile. │
- │   We only have risk management."                         │
- │                              — William Gibson, Pattern   │
- │                                Recognition               │
- └──────────────────────────────────────────────────────────┘
+<div align="center">
 
- LICENSE: Do whatever you want with it. Hack the planet.
 ```
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ CLASSIFIED          ──────────────────          DECLASSIFIED                 │
+│                                                                              │
+│   TARGET  :  reader · operator · adversary                                   │
+│   THREAT  :  informational  ░▒▓  read, fork, rebuild, hack                   │
+│   STATUS  :  ████████ ██████ ████ ██████                                     │
+│                                                                              │
+│                          DAEMON-SEC // EYES ONLY                             │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+▓▒░ ═══════════════════════════════════════════════════════════════════ ░▒▓
+ ╔═══════════════════════════════════════════════════════════════════════╗
+ ║                                                                       ║
+ ║    "We have no future because our present is too volatile.            ║
+ ║     We only have risk management."                                    ║
+ ║                                                                       ║
+ ║                          — William Gibson, Pattern Recognition        ║
+ ║                                                                       ║
+ ╚═══════════════════════════════════════════════════════════════════════╝
+▓▒░ ═══════════════════════════════════════════════════════════════════ ░▒▓
+
+              ░░  LICENCE :: Hack the planet.  ░░
+              ░░  Do whatever you want with it. ░░
+```
+
+<br/>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/%E2%97%8F-ALL_SYSTEMS_OPERATIONAL-cbf7ad?style=for-the-badge&labelColor=0a0e14" alt="All systems operational"/>
+  <img src="https://img.shields.io/badge/STATUS-jacked_in-7ee8fa?style=for-the-badge&labelColor=0a0e14"/>
+  <img src="https://img.shields.io/badge/ICE-broken-eb6f92?style=for-the-badge&labelColor=0a0e14"/>
+  <img src="https://img.shields.io/badge/THE_MATRIX-has_you-c4a7e7?style=for-the-badge&labelColor=0a0e14"/>
+  <img src="https://img.shields.io/badge/SIGNATURE-%24%3A_D%CE%9B%CE%A3M%D3%A8%D0%9F-ffb347?style=for-the-badge&labelColor=0a0e14" alt="$: DΛΣMӨП"/>
+</p>
+
+<sub><i>▓▒░ built by <b>DΛΣMӨП</b> with Nix, black ice, and too much coffee ░▒▓</i></sub>
+
+</div>

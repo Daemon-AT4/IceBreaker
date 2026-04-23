@@ -1,3 +1,24 @@
+<div align="center">
+
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+<!--  I C E B R E A K E R   //   F L A T L I N E   R E C O V E R Y            -->
+<!-- ════════════════════════════════════════════════════════════════════════ -->
+
+```
+▓▒░ ─── I C E B R E A K E R  //  F L A T L I N E   R E C O V E R Y ─── ░▒▓
+```
+
+<p align="center">
+  <img src="https://img.shields.io/badge/SECTION-10_of_11-c4a7e7?style=for-the-badge&labelColor=0a0e14"/>
+  <img src="https://img.shields.io/badge/RESCUE-flatline_recovery-eb6f92?style=for-the-badge&labelColor=0a0e14"/>
+  <a href="README.md"><img src="https://img.shields.io/badge/%E2%86%A9_docs_index-cbf7ad?style=for-the-badge&labelColor=0a0e14"/></a>
+  <a href="../README.md"><img src="https://img.shields.io/badge/%E2%86%A9_main_README-eb6f92?style=for-the-badge&labelColor=0a0e14"/></a>
+</p>
+
+</div>
+
+---
+
 ```
  ┌─────────────────────────────────────────────────────────┐
  │  ICEBREAKER // FLATLINE RECOVERY                        │
