@@ -1101,6 +1101,6 @@ All raw JSONL sample logs are retained in the repository's `bench-results/` layo
   <img src="https://img.shields.io/badge/SIGNATURE-%24%3A_D%CE%9B%CE%A3M%D3%A8%D0%9F-ffb347?style=for-the-badge&labelColor=0a0e14" alt="$: DΛΣMӨП"/>
 </p>
 
-<sub><i>▓▒░ built by <b>DΛΣMӨП</b> with Nix, black ice, and too much coffee ░▒▓</i></sub>
+<sub><i>▓▒░ built by <b>DΛΣMӨП</b> with Nix, black ice, and too much RedBull ░▒▓</i></sub>
 
 </div>
