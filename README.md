@@ -775,6 +775,8 @@ The headline numbers are summarised below; the full methodology, per-run JSON ca
 | HackTheBox Pirate (soak, wall-clock) | **746 s** | 1,334 s | IceBreaker **44.1 % faster** |
 | SUS usability score (self-rated, n=1) | **82.5 — Excellent** | 72.5 — Acceptable | +10 points IceBreaker |
 
+![Headline Benchmarks](docs/images/charts/headline-benchmarks.png)
+
 **Verdict:** on identical hardware IceBreaker deploys materially faster, uses half the disk for a superset of packages, ties or wins on an end-to-end AD engagement, and scores higher on self-reported usability. Kali wins on steady-state idle RAM, documentation, and match-with-real-world — areas a decade of Debian lineage buys that three months of solo work cannot.
 
 ### // Deployment — 12 min vs 26 min
@@ -821,6 +823,7 @@ The splits trace to differing OpenSSL compile flags in nixpkgs vs Debian packagi
 For the per-tool micro-benchmarks that ran cleanly on IceBreaker only (hashcat MD5 at 3.14 MH/s, openssl AES-256-GCM at 5.06 GiB/s peak at 16 KiB block) the Kali runs were invalidated by harness-level cmdline errors. The cross-distribution crypto suite is the load-bearing source because it executed correctly on both hosts. See [docs/benchmarking.md](docs/benchmarking.md) and the dissertation's §4.3 / §5.2 for the full data-integrity callouts.
 
 ![icebreaker-bench workload output](docs/images/bench-output.png)
+![Cross-Distribution Cryptographic Throughput](docs/images/charts/Cross-Distribution%20Cryptographic%20Throughput.png)
 
 ### // End-to-End Engagement — HackTheBox Pirate (44 % faster)
 
