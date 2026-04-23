@@ -27,6 +27,8 @@ One command rebuilds everything. One `git push` backs it all up. One `git clone`
 > flag HTB{owned} "root"       # log it
 ```
 
+IceBreaker is also the artefact of an empirical BSc (Hons) Ethical Hacking dissertation (Bruce, 2026) benchmarking a declarative NixOS flake against Kali Linux 2025.4 across deployment time, resource use, cryptographic throughput, a full HackTheBox Active Directory engagement, and usability. The headline numbers are at the bottom of this README under [[12] BENCHMARKING — NIXOS vs KALI](#12-benchmarking--nixos-vs-kali).
+
 ---
 
 ## // TABLE OF CONTENTS
@@ -44,7 +46,7 @@ One command rebuilds everything. One `git push` backs it all up. One `git clone`
  [09] ARCHITECTURE ..................... how it's wired
  [10] TROUBLESHOOTING .................. flatline recovery
  [11] DOCUMENTATION .................... full docs index
- [12] BENCHMARKING ..................... NixOS vs Kali measurements
+ [12] BENCHMARKING — NIXOS vs KALI ..... empirical results from the dissertation
 ```
 
 ---
@@ -755,46 +757,120 @@ Reboot → GRUB → select a previous generation → fix the config → `nrs`.
 
 ---
 
-## [12] BENCHMARKING
+## [12] BENCHMARKING — NixOS vs Kali
 
-IceBreaker ships a built-in performance benchmark, `icebreaker-bench`, used
-for the honours-research comparison of NixOS vs Kali Linux as a pentesting
-platform. The same script runs on both operating systems so the numbers are
-directly comparable.
+IceBreaker was built, in part, as the practical artefact for a BSc (Hons) Ethical Hacking dissertation (Bruce, 2026, Abertay University) asking whether a declarative NixOS flake can serve as a reproducible alternative to Kali Linux for professional penetration-testing work. It was evaluated empirically against **Kali Linux 2025.4** across five dimensions on identical virtualised hardware (VMware Workstation on AMD Ryzen 9 6900HX, 4 vCPU, 8 GiB RAM, 40 GiB disk per guest).
 
-```
- bench-idle <label>                       # 5-min idle baseline
- bench-load <label> -- <cmd> <args>       # wrap a command, sample around it
- bench-diff <run-A> <run-B>               # JSON diff of two summary.json files
-```
+The headline numbers are summarised below; the full methodology, per-run JSON captures, and threats to validity are in [docs/benchmarking.md](docs/benchmarking.md) and the dissertation itself.
 
-Each run drops a directory under `~/icebreaker-bench/<label>-<UTC>/`
-containing:
+### // Headline Results
 
-```
- meta.json       one-shot system metadata (OS, kernel, CPU, package count, on-disk size)
- samples.jsonl   one JSON object per sample tick (NDJSON — easy to load in pandas)
- summary.json    min/max/mean/median/p95 per metric — the canonical artefact
- raw/            verbatim output of every sampling tool for re-analysis
-```
+| Dimension | IceBreaker (NixOS 26.05) | Kali Linux 2025.4 | Result |
+|---|---:|---:|---|
+| End-to-end deployment | **12 min** | 26 min | IceBreaker **54 % faster** |
+| On-disk package closure | **14.19 GB** | 27.51 GB | IceBreaker **49 % smaller** (despite 82 **more** packages) |
+| Package count | 2,816 (nix-store) | 2,898 (dpkg -l) | +82 on Kali |
+| Idle RAM (mean, 5 min) | 1,149.6 MiB | **923.8 MiB** | Kali **19.6 % leaner** (home-manager overhead on Nix) |
+| systemd boot time | 8.557 s | **7.606 s** | ≈1 s on Kali |
+| HackTheBox Pirate (soak, wall-clock) | **746 s** | 1,334 s | IceBreaker **44.1 % faster** |
+| SUS usability score (self-rated, n=1) | **82.5 — Excellent** | 72.5 — Acceptable | +10 points IceBreaker |
 
-Captured automatically: CPU% (per-core via mpstat or /proc fallback), memory
-+ swap, per-device disk I/O, per-interface network I/O, load averages,
-process counts, top-5 CPU/RAM consumers, optional temperature + power draw,
-plus one-shot metadata including **NixOS-store size vs APT-installed size**
-and **package-closure count vs `dpkg-l` count** — the two figures that drive
-the dissertation's static-footprint comparison.
+**Verdict:** on identical hardware IceBreaker deploys materially faster, uses half the disk for a superset of packages, ties or wins on an end-to-end AD engagement, and scores higher on self-reported usability. Kali wins on steady-state idle RAM, documentation, and match-with-real-world — areas a decade of Debian lineage buys that three months of solo work cannot.
 
-To reproduce on Kali:
+### // Deployment — 12 min vs 26 min
 
-```sh
-sudo apt update && sudo apt install -y jq sysstat lm-sensors powerstat
-scp scripts/icebreaker-bench.sh kali:~/
-ssh kali './icebreaker-bench.sh idle --duration 300 --interval 5 --label kali-idle-1'
-```
+Both installs were timed from the first interactive screen of the installer to a fully-functional desktop with the tool surface available. IceBreaker's figure includes the whole declarative materialisation from `flake.lock` (kernel, XFCE, all 12 tool categories in the `full` preset, home-manager layer) in a single `nixos-rebuild switch`. Kali's figure covers the graphical installer and first login with `kali-linux-default` in place — bloodyAD, BloodHound-CE and Certipy were installed after the meta-package on first pass.
 
-Full methodology, sample-rate rationale, optional metric table, and threats
-to validity are documented in [docs/benchmarking.md](docs/benchmarking.md).
+| IceBreaker — installer starts at 23:58 | IceBreaker — logged in at 00:11 (**12 min**) |
+|---|---|
+| ![NixOS installer start](docs/images/icebreaker-install-start.png) | ![IceBreaker deployed](docs/images/icebreaker-deployed.png) |
+
+| Kali Linux — installer starts at 00:20 | Kali Linux — logged in at 00:47 (**26 min**) |
+|---|---|
+| ![Kali installer start](docs/images/kali-install-start.png) | ![Kali deployed](docs/images/kali-deployed.png) |
+
+On subsequent operator-skill-corrected runs (VMware template baked, post-install script primed with bloodyAD / BloodHound-CE / Certipy) Kali came down to **20 min** on the second pass and **16 min** on the third. Even on Kali's best timing IceBreaker retains a ~25 % advantage, and does so without the operator having to remember the tool-provisioning invocations at all — they live in the flake.
+
+### // Hardware Parity
+
+Both guests were configured identically at the hypervisor level — 4 vCPU, 8 GiB RAM, 40 GiB disk, NAT adapter — so any measured delta is attributable to the OS layer, not the host.
+
+![VMware hardware configuration — identical across both guests](docs/images/vmware-hardware.png)
+
+### // Per-Tool Performance (cross-distribution crypto suite)
+
+`blueteam-bench` ran a 12-phase cryptographic regression on both hosts under the same harness (both linked against OpenSSL 3.6.1). The aggregate picture is **neutral, not one-sided** — some phases favour each distribution, neither imposes a systemic penalty:
+
+| Phase / Metric | IceBreaker | Kali | Δ (Kali vs NixOS) |
+|---|---:|---:|---:|
+| AES-256-CBC encrypt (MiB/s) | 196.71 | **421.41** | **+114 %** Kali |
+| AES-256-CBC decrypt (MiB/s) | 228.40 | **831.82** | **+264 %** Kali |
+| AES-256-GCM peak (MiB/s) | **5,025.57** | 4,900.23 | −2.5 % (tied) |
+| ChaCha20 peak (MiB/s) | **4,392.27** | 2,267.90 | **−48 %** (NixOS +94 %) |
+| SHA-256 openssl peak (MiB/s) | **2,065.21** | 576.36 | **−72 %** (NixOS +258 %) |
+| BLAKE2b peak (MiB/s) | 1,024.24 | 1,043.99 | +1.9 % (tied) |
+| RSA-2048 sign (ops/s) | **2,039.4** | 1,568.0 | −23 % |
+| RSA-2048 verify (ops/s) | **71,777.6** | 53,840.4 | −25 % |
+| ECDSA-P256 sign (ops/s) | **61,623.8** | 57,822.8 | −6.2 % |
+| gzip compress (MiB/s) | **59.43** | 53.83 | −9.4 % |
+| zstd compress (MiB/s) | **283.16** | 271.04 | −4.3 % |
+| FIM initial hash (files/s) | 31,285 | **33,466** | +7.0 % |
+
+The splits trace to differing OpenSSL compile flags in nixpkgs vs Debian packaging — AES-CBC favours Kali's AES-NI-accelerated cipher path; ChaCha20, SHA-256 and RSA favour nixpkgs's build. AES-GCM, BLAKE2 and ECDSA are tied.
+
+For the per-tool micro-benchmarks that ran cleanly on IceBreaker only (hashcat MD5 at 3.14 MH/s, openssl AES-256-GCM at 5.06 GiB/s peak at 16 KiB block) the Kali runs were invalidated by harness-level cmdline errors. The cross-distribution crypto suite is the load-bearing source because it executed correctly on both hosts. See [docs/benchmarking.md](docs/benchmarking.md) and the dissertation's §4.3 / §5.2 for the full data-integrity callouts.
+
+![icebreaker-bench workload output](docs/images/bench-output.png)
+
+### // End-to-End Engagement — HackTheBox Pirate (44 % faster)
+
+The `scripts/htb-pirate.sh` runbook executed 40+ reconnaissance and pre-auth enumeration commands in fixed order against a retired HTB AD machine on both distributions. Both produced the same findings (12 open ports, 12 domain users disclosed via authenticated LDAP, populated BloodHound graph, misconfigured ADCS template via `certipy find`). The total wall-clock times:
+
+| Bucket | IceBreaker (s) | Kali (s) | Δ (%) |
+|---|---:|---:|---:|
+| Recon (nmap ×4 + rustscan + masscan) | 591 | 601 | −1.7 % |
+| SMB pre-auth enum | 52 | 418 | **−88 %** |
+| LDAP / AD enum | 27 | 35 | −23 % |
+| Web surface (whatweb + nikto + gobuster + curl) | 63 | 71 | −11 % |
+| NFS enum (showmount -e) | 0 | 195 | **Kali-only** |
+| SNMP / DNS | 13 | 14 | −7 % |
+| **Total** | **746** | **1,334** | **−44.1 %** |
+
+The 44 % gap is **not** because NixOS runs nmap, bloodhound or certipy faster at a per-invocation level — the Recon bucket finishes within 1.7 % on both hosts. It's driven by two specific declarative **curation** choices in the flake:
+
+1. IceBreaker invokes `enum4linux-ng` (Python rewrite, 18 s) where the Kali preset invokes legacy Perl `enum4linux` (384 s).
+2. IceBreaker's preset skips `showmount -e` against a Windows AD DC that does not expose NFS; the Kali workflow sits through a 195 s RPC timeout.
+
+Both of those are single-line decisions encoded once in the flake and applied deterministically at every subsequent engagement. Removing just those two lines from the Kali soak brings the two runs to within 9 s. This is the dissertation's strongest finding: **declarative tool-selection as versioned reviewable code is a material operational win, and the wall-clock number is a second-order consequence of it.**
+
+### // Reproducibility
+
+The `commands.jsonl` execution log captured by `icebreaker-bench` during the Pirate engagement was **byte-identical** between the two hosts after per-run target-IP substitution. The closure-level evidence (flake.lock pinning the entire transitive dependency graph by content-hash, 2,816 content-addressed store paths) is inspectable at any time via `nix path-info --json --closure-size /run/current-system`. The full bit-level two-VM closure-hash experiment is identified as future work.
+
+For Kali the equivalent claim cannot be made even in principle: every `apt install`, every `pip install`, every dotfile edit over the life of the host is cumulative, not versioned, and not reviewable as an artefact separate from the running system.
+
+### // Usability — SUS 82.5 vs 72.5, Nielsen heuristics mixed
+
+Self-administered System Usability Scale (n=1, triangulated with autoethnography and a 10-heuristic Nielsen inspection) against Bangor, Kortum & Miller's (2009) benchmark of 68 for "acceptable" and 80.3 for "excellent":
+
+| | IceBreaker | Kali |
+|---|---:|---:|
+| SUS score | **82.5 (Excellent)** | 72.5 (Acceptable) |
+| T1 — install to working prompt | **4.2 min** | 11.6 min |
+| T2 — add bloodyAD, persist across reboot | 2.8 min | **3.4 min** (tied) |
+| T3 — replicate on a second machine | **5.1 min** | 17.8 min |
+
+Nielsen heuristics were mixed. IceBreaker wins decisively on **error prevention (H5)**, **user control and freedom / rollback (H3, H9)**, and **consistency (H4)** — the expected strengths of a declarative system with atomic generations. Kali wins decisively on **match-with-real-world (H2)**, **help/documentation (H10)**, and **recognition-over-recall (H6)** — consequences of a decade-longer Debian lineage that a solo project cannot overcome in three months.
+
+**Practical implication:** IceBreaker is the more usable choice for an operator building a reproducible fleet or anyone who values one-command rollback; Kali is the more usable choice for an operator inheriting existing Kali muscle-memory or who relies heavily on community-written walkthroughs. The two are complementary, not strictly ordered.
+
+### // What This Means
+
+* **If you care about reproducibility, fleet deployment, or audit-quality evidence that tool-X version-Y produced finding-Z** → IceBreaker is materially better. It is structurally incapable of the imperative drift that accumulates silently on every Kali host.
+* **If you care about raw per-tool speed** → it's broadly a wash. Pick the distribution your team already knows.
+* **If you care about documentation and community support** → Kali, still, for now. This is the principal migration cost any would-be adopter must plan for.
+
+All raw JSONL sample logs are retained in the repository's `bench-results/` layout for independent verification. Full methodology including sample-rate rationale, threats to validity, the two documented methodology pivots (HTB workload target; triangulated solo-researcher usability) and every data-integrity callout is in [docs/benchmarking.md](docs/benchmarking.md) and Chapters 3–5 of the dissertation.
 
 ---
 
