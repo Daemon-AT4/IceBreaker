@@ -7,15 +7,6 @@
 <!--  Neuromancer-grade NixOS pentest flake                                   -->
 <!-- ════════════════════════════════════════════════════════════════════════ -->
 
-```
-
-
-
-┌──────────────────────────────────────────────────────────────────────────────┐
-│ $: DΛΣMӨП                                         DAEMON-SEC // EYES ONLY   │
-└──────────────────────────────────────────────────────────────────────────────┘
-```
-
 <a href="https://github.com/daemonbreaker/IceBreaker"><img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=17&duration=4200&pause=1100&color=CBF7AD&center=true&vCenter=true&width=820&lines=%24%3A+D%CE%9B%CE%A3M%D3%A8%D0%9F+%2F%2F+presents+%3A%3A+IceBreaker;%22The+sky+above+the+port+was+the+colour+of+television.%22;%22Tuned+to+a+dead+channel.%22+%E2%80%94+W.+Gibson%2C+Neuromancer;daemon%40nixos%3A~%24+jacking+in...+rebuilding+reality+from+flake.lock;%3E+ALL+SYSTEMS+OPERATIONAL." alt="DAEMON / Gibson epigraph typewriter"/></a>
 
 <br/>
