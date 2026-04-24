@@ -17,7 +17,9 @@
 
 </div>
 
----
+<div align="center">
+  <img src="images/graphics/icebreaker-dividers/divider-d-minimal-phosphor.png" width="100%"/>
+</div>
 
 ```
  ┌─────────────────────────────────────────────────────────┐

@@ -18,7 +18,9 @@
 
 </div>
 
----
+<div align="center">
+  <img src="images/graphics/icebreaker-dividers/divider-e-dotmatrix-amber.png" width="100%"/>
+</div>
 
 ```
  ┌─────────────────────────────────────────────────────────┐
@@ -231,7 +233,9 @@ Cloud platform pentesting tools.
 | `azure-cli` | az CLI |
 | `terraform` | IaC enumeration & misconfiguration analysis |
 
----
+<div align="center">
+  <img src="images/graphics/icebreaker-dividers/divider-e-dotmatrix-amber.png" width="100%"/>
+</div>
 
 ## Presets
 

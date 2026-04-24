@@ -18,7 +18,9 @@
 
 </div>
 
----
+<div align="center">
+  <img src="images/graphics/icebreaker-dividers/divider-c-double-rose.png" width="100%"/>
+</div>
 
 ```
  ┌─────────────────────────────────────────────────────────┐

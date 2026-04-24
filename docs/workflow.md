@@ -17,7 +17,9 @@
 
 </div>
 
----
+<div align="center">
+  <img src="images/graphics/icebreaker-dividers/divider-e-dotmatrix-amber.png" width="100%"/>
+</div>
 
 ```
  ┌─────────────────────────────────────────────────────────┐

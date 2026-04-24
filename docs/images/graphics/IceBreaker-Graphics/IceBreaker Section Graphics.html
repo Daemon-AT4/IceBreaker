@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IceBreaker // Section & Animated Graphics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/gif.js@0.2.0/dist/gif.js"></script>
+<script src="https://unpkg.com/jszip@3.10.1/dist/jszip.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --base:#0a0e14;--surface:#191724;--overlay:#1f1d2e;
+  --text:#e0def4;--muted:#6e6a86;
+  --phosphor:#cbf7ad;--cyan:#7ee8fa;--amber:#ffb347;
+  --rose:#eb6f92;--iris:#c4a7e7;
+}
+html{background:var(--base);color:var(--text);font-family:'JetBrains Mono',monospace;min-height:100vh}
+body{max-width:1400px;margin:0 auto;padding:48px 60px 100px}
+
+header{margin-bottom:60px;padding-bottom:26px;border-bottom:1px solid var(--overlay)}
+.hdr-eyebrow{font-size:10px;letter-spacing:4px;color:var(--amber);text-shadow:0 0 12px #ffb34788;margin-bottom:10px}
+header h1{font-size:24px;font-weight:800;color:var(--phosphor);text-shadow:0 0 24px #cbf7ad55}
+header p{color:var(--muted);font-size:11px;margin-top:8px;line-height:1.9}
+header code{background:var(--overlay);padding:1px 5px;border-radius:2px;font-size:10px;color:var(--iris)}
+
+nav{display:flex;gap:6px;flex-wrap:wrap;margin-top:16px}
+.nav-pill{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:5px 14px;border:1px solid var(--overlay);
+  color:var(--muted);font-size:10px;letter-spacing:1.5px;cursor:pointer;
+  text-decoration:none;transition:border-color .15s,color .15s;
+}
+.nav-pill:hover{border-color:var(--phosphor);color:var(--phosphor)}
+
+.section{margin-bottom:80px;scroll-margin-top:30px}
+.section-meta{display:flex;align-items:baseline;gap:14px;margin-bottom:16px}
+.section-label{font-size:10px;letter-spacing:4px;color:var(--cyan);text-transform:uppercase}
+.section-dims{font-size:10px;color:var(--muted)}
+.section-desc{font-size:10px;color:var(--muted);margin-left:auto;opacity:.55}
+.section-note{
+  font-size:10px;color:var(--muted);line-height:1.8;
+  border-left:2px solid var(--overlay);padding-left:14px;margin-bottom:18px;
+}
+.section-note strong{color:var(--amber)}
+
+.subsection{margin-bottom:40px}
+.subsection-title{font-size:10px;letter-spacing:3px;color:var(--iris);text-transform:uppercase;margin-bottom:12px;opacity:.7}
+
+.canvas-frame{
+  position:relative;border:1px solid var(--overlay);
+  border-radius:3px;overflow:hidden;background:#0d0b12;line-height:0;
+}
+.canvas-frame canvas{display:block;width:100%;height:auto}
+.canvas-frame.divider canvas{width:auto;max-width:100%}
+
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;align-items:center}
+.btn{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:8px 18px;background:transparent;
+  border:1px solid var(--phosphor);color:var(--phosphor);
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  letter-spacing:2px;cursor:pointer;text-transform:uppercase;
+  transition:background .15s,box-shadow .15s;
+}
+.btn:hover{background:rgba(203,247,173,.08);box-shadow:0 0 14px rgba(203,247,173,.2)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.rose{border-color:var(--rose);color:var(--rose)}
+.btn.rose:hover{background:rgba(235,111,146,.08);box-shadow:0 0 14px rgba(235,111,146,.2)}
+.btn.iris{border-color:var(--iris);color:var(--iris)}
+.btn.iris:hover{background:rgba(196,167,231,.08);box-shadow:0 0 14px rgba(196,167,231,.2)}
+.btn.amber{border-color:var(--amber);color:var(--amber)}
+.btn.amber:hover{background:rgba(255,179,71,.08);box-shadow:0 0 14px rgba(255,179,71,.2)}
+
+/* Recording state */
+.rec-indicator{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:10px;color:var(--rose);letter-spacing:1px;
+}
+.rec-dot{width:8px;height:8px;border-radius:50%;background:var(--rose);
+  animation:blink 0.6s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+
+/* Section headers grid */
+.headers-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:1100px){.headers-grid{grid-template-columns:1fr}}
+.header-item{position:relative}
+.header-item .canvas-frame canvas{width:100%;height:auto;display:block}
+.header-actions{display:flex;justify-content:flex-end;margin-top:6px}
+
+/* Divider items */
+.divider-item{margin-bottom:20px}
+.divider-label{font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:8px;opacity:.6}
+.divider-wrap{max-width:860px}
+
+/* Hint text */
+.hint{font-size:10px;color:var(--muted);line-height:1.6}
+
+/* Section link */
+a.section-link{color:inherit;text-decoration:none}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hdr-eyebrow">DΛΣMӨП // SECTION GRAPHICS · EYES ONLY · v1.0</div>
+  <h1>IceBreaker — Animated &amp; Section Graphics</h1>
+  <p>
+    Animated canvas previews with <strong style="color:var(--phosphor)">GIF export</strong> ·
+    5 line-break dividers (860px) ·
+    14 README section headers (860×80px)<br>
+    Place exports in <code>docs/images/graphics/</code> · Reference with
+    <code>&lt;img src="docs/images/graphics/…" width="860"&gt;</code>
+  </p>
+  <nav>
+    <a class="nav-pill" href="#anim">⟶ Animated</a>
+    <a class="nav-pill" href="#dividers">⟶ Dividers</a>
+    <a class="nav-pill" href="#headers">⟶ Section Headers</a>
+    <a class="nav-pill" href="IceBreaker Graphics.html">← Static Graphics Kit</a>
+  </nav>
+</header>
+
+<!-- ═══════════════════════════ ANIMATED ══════════════════ -->
+<section class="section" id="anim">
+  <div class="section-meta">
+    <span class="section-label">Animated Graphics</span>
+    <span class="section-dims">Live canvas · GIF export</span>
+  </div>
+  <div class="section-note">
+    Animations run live in-browser. Click <strong>⏺ Record GIF</strong> to capture
+    a 3-second loop (36 frames @ 12 fps) — rendering may take 10–30 seconds after capture.
+    GIF quality is reduced vs canvas due to the 256-colour palette constraint.
+    For lossless quality, screen-record the canvas below.
+  </div>
+
+  <!-- Animated Social Preview -->
+  <div class="subsection">
+    <div class="subsection-title">Animated Social Preview — 1280 × 640</div>
+    <div class="canvas-frame"><canvas id="ca-social"></canvas></div>
+    <div class="actions">
+      <button class="btn rose" id="rec-social">⏺ Record GIF — 3s</button>
+      <span class="hint">Matrix rain · pulsing glow · scanline sweep · blinking cursor</span>
+    </div>
+  </div>
+
+  <!-- Animated Banner -->
+  <div class="subsection">
+    <div class="subsection-title">Animated Banner — 1200 × 340</div>
+    <div class="canvas-frame"><canvas id="ca-banner"></canvas></div>
+    <div class="actions">
+      <button class="btn rose" id="rec-banner">⏺ Record GIF — 3s</button>
+      <span class="hint">Floating particles · rotating nix flakes · breathing glow</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ DIVIDERS ══════════════════ -->
+<section class="section" id="dividers">
+  <div class="section-meta">
+    <span class="section-label">Line Break Dividers</span>
+    <span class="section-dims">860 × variable px</span>
+    <span class="section-desc">Use between README sections</span>
+  </div>
+
+  <div class="divider-item">
+    <div class="divider-label">A — Noise block · ICEBREAKER centre · iris glow</div>
+    <div class="divider-wrap"><div class="canvas-frame divider"><canvas id="d-a"></canvas></div></div>
+    <div class="actions"><button class="btn" onclick="dlDiv('d-a','icebreaker-div-a.png')">↓ PNG</button></div>
+  </div>
+
+  <div class="divider-item">
+    <div class="divider-label">B — PCB circuit trace · nodes · cyan</div>
+    <div class="divider-wrap"><div class="canvas-frame divider"><canvas id="d-b"></canvas></div></div>
+    <div class="actions"><button class="btn" onclick="dlDiv('d-b','icebreaker-div-b.png')">↓ PNG</button></div>
+  </div>
+
+  <div class="divider-item">
+    <div class="divider-label">C — Double rule + diamonds · rose</div>
+    <div class="divider-wrap"><div class="canvas-frame divider"><canvas id="d-c"></canvas></div></div>
+    <div class="actions"><button class="btn" onclick="dlDiv('d-c','icebreaker-div-c.png')">↓ PNG</button></div>
+  </div>
+
+  <div class="divider-item">
+    <div class="divider-label">D — Minimal neon rule · phosphor</div>
+    <div class="divider-wrap"><div class="canvas-frame divider"><canvas id="d-d"></canvas></div></div>
+    <div class="actions"><button class="btn" onclick="dlDiv('d-d','icebreaker-div-d.png')">↓ PNG</button></div>
+  </div>
+
+  <div class="divider-item">
+    <div class="divider-label">E — Dot matrix ellipsis · amber</div>
+    <div class="divider-wrap"><div class="canvas-frame divider"><canvas id="d-e"></canvas></div></div>
+    <div class="actions"><button class="btn" onclick="dlDiv('d-e','icebreaker-div-e.png')">↓ PNG</button></div>
+  </div>
+
+  <div class="actions" style="margin-top:8px">
+    <button class="btn iris" onclick="dlAllDividers()">↓ Download All Dividers — ZIP</button>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ SECTION HEADERS ═══════════ -->
+<section class="section" id="headers">
+  <div class="section-meta">
+    <span class="section-label">Section Headers</span>
+    <span class="section-dims">860 × 80 px each</span>
+    <span class="section-desc">14 headers · one per README section</span>
+  </div>
+  <div class="section-note">
+    Place above each section heading in your README with
+    <code>&lt;img src="docs/images/graphics/00-what-is-this.png" width="860"&gt;</code>.
+    Each header matches the section's accent colour from the palette.
+  </div>
+
+  <div class="headers-grid" id="headers-grid">
+    <!-- Populated by JS -->
+  </div>
+
+  <div class="actions" style="margin-top:20px">
+    <button class="btn amber" onclick="dlAllHeaders()">↓ Download All Section Headers — ZIP</button>
+    <span class="hint">14 PNGs · ~860×80px each · numbered for easy sorting</span>
+  </div>
+</section>
+
+<!-- Scripts — order matters: core first, then modules -->
+<script src="sg-core.js"></script>
+<script src="sg-dividers.js"></script>
+<script src="sg-headers.js"></script>
+<script src="sg-anim.js"></script>
+<script>
+document.fonts.ready.then(()=>{
+
+  // Build section headers grid
+  const grid = document.getElementById('headers-grid');
+  SECTIONS.forEach(sec=>{
+    const item = document.createElement('div');
+    item.className = 'header-item';
+    item.innerHTML = `
+      <div class="canvas-frame"><canvas id="${sec.id}"></canvas></div>
+      <div class="header-actions">
+        <button class="btn" style="font-size:9px;padding:5px 12px"
+          onclick="dlHeader('${sec.id}')">↓ PNG</button>
+      </div>`;
+    grid.appendChild(item);
+  });
+
+  // Draw everything
+  initDividers();
+  initHeaders();
+  initAnim();
+});
+</script>
+</body>
+</html>

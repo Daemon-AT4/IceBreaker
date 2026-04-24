@@ -17,7 +17,9 @@
 
 </div>
 
----
+<div align="center">
+  <img src="images/graphics/icebreaker-dividers/divider-b-circuit-cyan.png" width="100%"/>
+</div>
 
 ```
  ┌─────────────────────────────────────────────────────────┐

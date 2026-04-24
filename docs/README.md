@@ -11,7 +11,7 @@
 ╚══════════════════════════════════════════════════════════════════════════╝
 ```
 <p align="center">
-  <img src="images/graphics/icebreaker-banner.png" alt="icebreaker banner"/>
+  <img src="images/graphics/banner2readme-docs.gif" alt="IceBreaker Docs"/>
 </p>
 
 <p align="center">
@@ -50,7 +50,9 @@
 
 </div>
 
----
+<div align="center">
+  <img src="images/graphics/icebreaker-dividers/divider-b-circuit-cyan.png" width="100%"/>
+</div>
 
 ## // QUICK START
 
@@ -67,7 +69,9 @@ guide                                                     # interactive walkthro
 
 Default user is `archangel` — change it to match the username you created during NixOS installation.
 
----
+<div align="center">
+  <img src="images/graphics/icebreaker-dividers/divider-b-circuit-cyan.png" width="100%"/>
+</div>
 
 ## // WHAT'S INSIDE
 
@@ -106,7 +110,9 @@ Default user is `archangel` — change it to match the username you created duri
 </tr>
 </table>
 
----
+<div align="center">
+  <img src="images/graphics/icebreaker-dividers/divider-b-circuit-cyan.png" width="100%"/>
+</div>
 
 ## // DOCUMENTATION INDEX
 
@@ -129,7 +135,9 @@ Default user is `archangel` — change it to match the username you created duri
 
 </div>
 
----
+<div align="center">
+  <img src="images/graphics/icebreaker-dividers/divider-b-circuit-cyan.png" width="100%"/>
+</div>
 
 ## // ARCHITECTURE
 
@@ -160,7 +168,9 @@ Default user is `archangel` — change it to match the username you created duri
       └── icebreaker-guide.sh          ▶  interactive guide
 ```
 
----
+<div align="center">
+  <img src="images/graphics/icebreaker-dividers/divider-b-circuit-cyan.png" width="100%"/>
+</div>
 
 ## // REQUIREMENTS
 
@@ -177,7 +187,9 @@ Default user is `archangel` — change it to match the username you created duri
 - VMware, QEMU/KVM, VirtualBox, or bare metal
 - Internet connection for first build
 
----
+<div align="center">
+  <img src="images/graphics/icebreaker-dividers/divider-b-circuit-cyan.png" width="100%"/>
+</div>
 
 <div align="center">
 

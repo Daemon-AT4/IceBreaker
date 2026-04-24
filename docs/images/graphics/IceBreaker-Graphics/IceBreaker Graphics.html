@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IceBreaker // Graphics Kit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --base:#0a0e14;--surface:#191724;--overlay:#1f1d2e;
+  --text:#e0def4;--muted:#6e6a86;
+  --phosphor:#cbf7ad;--cyan:#7ee8fa;--amber:#ffb347;
+  --rose:#eb6f92;--iris:#c4a7e7;--pale:#cbf7ed;
+}
+html{background:var(--base);color:var(--text);font-family:'JetBrains Mono',monospace;min-height:100vh}
+body{max-width:1400px;margin:0 auto;padding:48px 60px 80px}
+
+header{margin-bottom:64px;padding-bottom:28px;border-bottom:1px solid #1f1d2e}
+.hdr-eyebrow{font-size:10px;letter-spacing:4px;color:var(--amber);text-shadow:0 0 12px #ffb34788;margin-bottom:10px}
+header h1{font-size:26px;font-weight:800;color:var(--phosphor);text-shadow:0 0 24px #cbf7ad55;letter-spacing:-0.5px}
+header p{color:var(--muted);font-size:11px;margin-top:6px;line-height:1.7}
+
+.section{margin-bottom:80px}
+.section-meta{display:flex;align-items:baseline;gap:14px;margin-bottom:14px}
+.section-label{font-size:10px;letter-spacing:4px;color:var(--cyan);text-transform:uppercase}
+.section-dims{font-size:10px;color:var(--muted)}
+.section-desc{font-size:10px;color:var(--muted);margin-left:auto;opacity:.6}
+
+.canvas-frame{
+  position:relative;
+  border:1px solid #1f1d2e;
+  border-radius:3px;
+  overflow:hidden;
+  background:#0d0b12;
+  line-height:0;
+}
+.canvas-frame canvas{display:block;width:100%;height:auto}
+
+.actions{display:flex;gap:12px;margin-top:14px;align-items:center}
+.dl-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 20px;
+  background:transparent;
+  border:1px solid var(--phosphor);
+  color:var(--phosphor);
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:2px;
+  cursor:pointer;text-transform:uppercase;
+  transition:background .15s,box-shadow .15s;
+}
+.dl-btn:hover{background:#cbf7ad18;box-shadow:0 0 14px #cbf7ad33}
+.dl-btn.rose{border-color:var(--rose);color:var(--rose)}
+.dl-btn.rose:hover{background:#eb6f9218;box-shadow:0 0 14px #eb6f9233}
+.hint{font-size:10px;color:var(--muted);line-height:1.6;margin-top:2px}
+
+/* Icon section special layout */
+.icon-layout{display:flex;gap:40px;align-items:flex-start}
+.icon-frame{max-width:320px;flex-shrink:0}
+.icon-variants{display:flex;flex-direction:column;gap:16px;flex:1}
+.variant-row{display:flex;gap:12px;align-items:center}
+.variant-canvas{border:1px solid #1f1d2e;border-radius:3px;background:#0d0b12;line-height:0}
+.variant-canvas canvas{display:block;width:80px;height:80px}
+.variant-info{font-size:10px;color:var(--muted);line-height:1.8}
+.variant-name{color:var(--iris);margin-bottom:2px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hdr-eyebrow">DΛΣMӨП // GRAPHICS KIT · EYES ONLY</div>
+  <h1>IceBreaker — Cyberpunk Graphics</h1>
+  <p>Three export-ready assets for the GitHub repository · Rose Pine dark palette · JetBrains Mono · Neuromancer aesthetic<br>
+  Download each as a high-resolution PNG. Social preview: place under <code>docs/images/</code> and add to repo Settings → Social preview.</p>
+</header>
+
+<!-- ═══════════════════════════════════ SOCIAL PREVIEW ══ -->
+<section class="section">
+  <div class="section-meta">
+    <span class="section-label">Social Preview</span>
+    <span class="section-dims">1280 × 640 px</span>
+    <span class="section-desc">GitHub OG card · shown when sharing the repo link</span>
+  </div>
+  <div class="canvas-frame"><canvas id="c-social"></canvas></div>
+  <div class="actions">
+    <button class="dl-btn" onclick="dl('social')">↓ Download PNG — 1280×640</button>
+    <span class="hint">Place in Settings → Social preview on the GitHub repo page</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ README BANNER ═══ -->
+<section class="section">
+  <div class="section-meta">
+    <span class="section-label">README Banner</span>
+    <span class="section-dims">1200 × 340 px</span>
+    <span class="section-desc">Top-of-README header image · wide format</span>
+  </div>
+  <div class="canvas-frame"><canvas id="c-banner"></canvas></div>
+  <div class="actions">
+    <button class="dl-btn" onclick="dl('banner')">↓ Download PNG — 1200×340</button>
+    <span class="hint">Add to README with <code>&lt;img src="docs/images/banner.png" width="100%"&gt;</code></span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════ ICON ═══════════ -->
+<section class="section">
+  <div class="section-meta">
+    <span class="section-label">Logo / Icon</span>
+    <span class="section-dims">500 × 500 px</span>
+    <span class="section-desc">Square logo · GitHub repo avatar · favicon source</span>
+  </div>
+  <div class="icon-layout">
+    <div class="icon-frame">
+      <div class="canvas-frame"><canvas id="c-icon"></canvas></div>
+      <div class="actions" style="margin-top:14px">
+        <button class="dl-btn rose" onclick="dl('icon')">↓ Download PNG — 500×500</button>
+      </div>
+    </div>
+    <div class="icon-variants">
+      <p style="font-size:10px;color:var(--muted);margin-bottom:4px">// Thumbnail previews at small sizes</p>
+      <div class="variant-row">
+        <div class="variant-canvas"><canvas id="c-t1"></canvas></div>
+        <div class="variant-info"><div class="variant-name">128 × 128</div>GitHub repo icon</div>
+      </div>
+      <div class="variant-row">
+        <div class="variant-canvas" style="width:48px;height:48px"><canvas id="c-t2" style="width:48px;height:48px"></canvas></div>
+        <div class="variant-info"><div class="variant-name">48 × 48</div>Favicon / tab icon</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+'use strict';
+
+// ══ PALETTE ═══════════════════════════════════════════════
+const C = {
+  base:    '#0a0e14',
+  surface: '#191724',
+  overlay: '#1f1d2e',
+  phosphor:'#cbf7ad',
+  cyan:    '#7ee8fa',
+  amber:   '#ffb347',
+  rose:    '#eb6f92',
+  iris:    '#c4a7e7',
+  subtle:  '#6e6a86',
+  pale:    '#cbf7ed',
+};
+
+// ══ UTILS ══════════════════════════════════════════════════
+function rgba(hex, a) {
+  const r = parseInt(hex.slice(1,3),16);
+  const g = parseInt(hex.slice(3,5),16);
+  const b = parseInt(hex.slice(5,7),16);
+  return `rgba(${r},${g},${b},${a})`;
+}
+
+// Seeded PRNG for reproducible patterns
+function makePRNG(seed=42){
+  let s=seed;
+  return ()=>{s=(s*1664525+1013904223)&0xffffffff;return(s>>>0)/0xffffffff};
+}
+
+// ══ BACKGROUND LAYERS ══════════════════════════════════════
+
+function fillBg(ctx,W,H){
+  ctx.fillStyle=C.base;
+  ctx.fillRect(0,0,W,H);
+}
+
+function drawScanlines(ctx,W,H){
+  ctx.save();
+  for(let y=0;y<H;y+=4){
+    ctx.fillStyle='rgba(0,0,0,0.10)';
+    ctx.fillRect(0,y,W,2);
+  }
+  ctx.restore();
+}
+
+function drawHexGrid(ctx,W,H,rand){
+  ctx.save();
+  ctx.strokeStyle=rgba(C.iris,0.04);
+  ctx.lineWidth=1;
+  const sz=44;
+  const hh=sz*Math.sqrt(3);
+  for(let row=-1;row<H/hh+2;row++){
+    for(let col=-1;col<W/(sz*1.5)+2;col++){
+      const x=col*sz*1.5;
+      const y=row*hh+(col%2)*hh/2;
+      ctx.beginPath();
+      for(let i=0;i<6;i++){
+        const ang=Math.PI/180*(60*i-30);
+        const px=x+sz*Math.cos(ang);
+        const py=y+sz*Math.sin(ang);
+        i===0?ctx.moveTo(px,py):ctx.lineTo(px,py);
+      }
+      ctx.closePath();
+      ctx.stroke();
+    }
+  }
+  ctx.restore();
+}
+
+function drawCircuits(ctx,W,H,count,rand){
+  ctx.save();
+  for(let i=0;i<count;i++){
+    const brightness=rand()*0.06+0.03;
+    ctx.strokeStyle=rgba(C.iris,brightness);
+    ctx.lineWidth=1;
+    let x=rand()*W, y=rand()*H;
+    ctx.beginPath();
+    ctx.moveTo(x,y);
+    for(let j=0;j<6;j++){
+      const dir=Math.floor(rand()*4);
+      const dist=50+rand()*140;
+      const nx=dir<2?x+(dir===0?dist:-dist):x;
+      const ny=dir>=2?y+(dir===2?dist:-dist):y;
+      ctx.lineTo(nx,y);
+      ctx.lineTo(nx,ny);
+      x=nx;y=ny;
+    }
+    ctx.stroke();
+    // Node dot
+    if(rand()>0.6){
+      ctx.fillStyle=rgba(C.iris,0.18);
+      ctx.beginPath();
+      ctx.arc(x,y,2,0,Math.PI*2);
+      ctx.fill();
+    }
+  }
+  ctx.restore();
+}
+
+function drawDataRain(ctx,W,H,density,rand){
+  ctx.save();
+  ctx.font='10px "JetBrains Mono"';
+  const glyphs='01アイウエカキケ∂∆∇∫≡≈[]{}|~^01';
+  for(let y=10;y<H;y+=14){
+    for(let x=0;x<W;x+=10){
+      if(rand()<density){
+        const alpha=rand()*0.04+0.02;
+        ctx.fillStyle=rgba(C.phosphor,alpha);
+        const ch=glyphs[Math.floor(rand()*glyphs.length)];
+        ctx.fillText(ch,x,y);
+      }
+    }
+  }
+  ctx.restore();
+}
+
+function drawVignette(ctx,W,H,strength=0.7){
+  const v=ctx.createRadialGradient(W/2,H/2,H*0.15,W/2,H/2,W*0.75);
+  v.addColorStop(0,'rgba(0,0,0,0)');
+  v.addColorStop(1,`rgba(0,0,0,${strength})`);
+  ctx.fillStyle=v;
+  ctx.fillRect(0,0,W,H);
+}
+
+function drawCenterGlow(ctx,W,H,cy,color,r=320,alpha=0.07){
+  const g=ctx.createRadialGradient(W/2,cy,0,W/2,cy,r);
+  g.addColorStop(0,rgba(color,alpha));
+  g.addColorStop(1,'rgba(0,0,0,0)');
+  ctx.fillStyle=g;
+  ctx.fillRect(0,0,W,H);
+}
+
+// ══ DECORATIVE ═════════════════════════════════════════════
+
+function drawBrackets(ctx,W,H,pad,sz,color,alpha=1){
+  ctx.save();
+  ctx.strokeStyle=rgba(color,alpha);
+  ctx.lineWidth=2;
+  ctx.shadowColor=color;
+  ctx.shadowBlur=14;
+  ctx.lineCap='square';
+  const corners=[
+    [pad,   pad,    1,  1],
+    [W-pad, pad,   -1,  1],
+    [pad,   H-pad,  1, -1],
+    [W-pad, H-pad, -1, -1],
+  ];
+  corners.forEach(([bx,by,dx,dy])=>{
+    ctx.beginPath();
+    ctx.moveTo(bx+dx*sz,by);
+    ctx.lineTo(bx,by);
+    ctx.lineTo(bx,by+dy*sz);
+    ctx.stroke();
+  });
+  ctx.restore();
+}
+
+function drawNixFlake(ctx,cx,cy,r,color,alpha=1){
+  ctx.save();
+  ctx.globalAlpha=alpha;
+  ctx.strokeStyle=color;
+  ctx.lineWidth=Math.max(1.5,r/22);
+  ctx.lineCap='round';
+  ctx.shadowColor=color;
+  ctx.shadowBlur=r*0.55;
+  for(let i=0;i<6;i++){
+    const ang=(i/6)*Math.PI*2;
+    const ex=cx+Math.cos(ang)*r;
+    const ey=cy+Math.sin(ang)*r;
+    ctx.beginPath();
+    ctx.moveTo(cx,cy);
+    ctx.lineTo(ex,ey);
+    ctx.stroke();
+    // Inner barb
+    const bLen=r*0.28;
+    const mx=cx+Math.cos(ang)*r*0.55;
+    const my=cy+Math.sin(ang)*r*0.55;
+    [ang+Math.PI/4,ang-Math.PI/4].forEach(ba=>{
+      ctx.beginPath();
+      ctx.moveTo(mx,my);
+      ctx.lineTo(mx+Math.cos(ba)*bLen,my+Math.sin(ba)*bLen);
+      ctx.stroke();
+    });
+    // Outer barb
+    const ox=cx+Math.cos(ang)*r*0.82;
+    const oy=cy+Math.sin(ang)*r*0.82;
+    const bLen2=r*0.18;
+    [ang+Math.PI/3.5,ang-Math.PI/3.5].forEach(ba=>{
+      ctx.beginPath();
+      ctx.moveTo(ox,oy);
+      ctx.lineTo(ox+Math.cos(ba)*bLen2,oy+Math.sin(ba)*bLen2);
+      ctx.stroke();
+    });
+  }
+  ctx.restore();
+}
+
+// ══ TEXT RENDERING ══════════════════════════════════════════
+
+function glowText(ctx,text,x,y,{
+  color=C.phosphor, size=80, weight=800,
+  align='center', baseline='middle',
+  outerGlow=60, innerGlow=15,
+  chromatic=false, glowColor=null,
+}={}){
+  ctx.save();
+  ctx.textAlign=align;
+  ctx.textBaseline=baseline;
+  ctx.font=`${weight} ${size}px 'JetBrains Mono',monospace`;
+  const gc=glowColor||color;
+
+  if(chromatic){
+    ctx.save();
+    ctx.globalAlpha=0.45;
+    ctx.fillStyle=C.rose;
+    ctx.shadowBlur=0;
+    ctx.fillText(text,x-4,y+2);
+    ctx.fillStyle=C.cyan;
+    ctx.fillText(text,x+4,y-2);
+    ctx.restore();
+  }
+
+  // Three-pass glow: outer → mid → core
+  ctx.shadowColor=gc;
+  ctx.shadowBlur=outerGlow*2.5;
+  ctx.fillStyle=gc;
+  ctx.fillText(text,x,y);
+
+  ctx.shadowBlur=outerGlow;
+  ctx.fillText(text,x,y);
+
+  ctx.shadowBlur=innerGlow;
+  ctx.fillStyle=color;
+  ctx.fillText(text,x,y);
+
+  ctx.restore();
+}
+
+function label(ctx,text,x,y,{color=C.subtle,size=11,weight=400,align='center',alpha=1,glow=false}={}){
+  ctx.save();
+  ctx.globalAlpha=alpha;
+  ctx.font=`${weight} ${size}px 'JetBrains Mono',monospace`;
+  ctx.textAlign=align;
+  ctx.textBaseline='middle';
+  ctx.fillStyle=color;
+  if(glow){ctx.shadowColor=color;ctx.shadowBlur=12;}
+  ctx.fillText(text,x,y);
+  ctx.restore();
+}
+
+// ══ DIVIDER LINE ═══════════════════════════════════════════
+
+function hRule(ctx,W,y,color,alpha=0.5,diamond=false){
+  ctx.save();
+  ctx.strokeStyle=rgba(color,alpha);
+  ctx.lineWidth=1;
+  ctx.shadowColor=color;
+  ctx.shadowBlur=8;
+  ctx.beginPath();
+  ctx.moveTo(W/2-260,y);
+  ctx.lineTo(W/2+260,y);
+  ctx.stroke();
+  if(diamond){
+    ctx.save();
+    ctx.translate(W/2,y);
+    ctx.rotate(Math.PI/4);
+    ctx.fillStyle=rgba(color,alpha+0.3);
+    ctx.shadowBlur=10;
+    ctx.fillRect(-4,-4,8,8);
+    ctx.restore();
+  }
+  ctx.restore();
+}
+
+// ══ STATUS BAR ══════════════════════════════════════════════
+
+function statusBar(ctx,W,H,text){
+  ctx.save();
+  const y=H-44;
+  ctx.fillStyle=rgba(C.overlay,0.9);
+  ctx.fillRect(0,y,W,44);
+  // top border
+  ctx.strokeStyle=rgba(C.iris,0.2);
+  ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();
+  // blink indicator
+  ctx.fillStyle=C.phosphor;
+  ctx.shadowColor=C.phosphor;ctx.shadowBlur=10;
+  ctx.fillRect(22,y+16,8,12);
+  ctx.shadowBlur=0;
+  label(ctx,text,40,y+22,{color:C.phosphor,size:11,weight:500,align:'left',glow:true});
+  label(ctx,'DAEMON-SEC // EYES ONLY',W-24,y+22,{color:rgba(C.subtle,0.8),size:10,align:'right'});
+  ctx.restore();
+}
+
+// ══ STAT PILLS ══════════════════════════════════════════════
+
+function statPills(ctx,W,cy,pills){
+  const PW=130,PH=56,GAP=16;
+  const TW=pills.length*PW+(pills.length-1)*GAP;
+  const sx=W/2-TW/2;
+  pills.forEach(({val,sub},i)=>{
+    const px=sx+i*(PW+GAP);
+    ctx.save();
+    ctx.fillStyle=rgba(C.overlay,0.65);
+    ctx.fillRect(px,cy,PW,PH);
+    ctx.strokeStyle=rgba(C.iris,0.35);
+    ctx.lineWidth=1;
+    ctx.shadowColor=C.iris;ctx.shadowBlur=10;
+    ctx.strokeRect(px,cy,PW,PH);
+    // top accent bar
+    ctx.fillStyle=rgba(C.iris,0.5);
+    ctx.shadowColor=C.iris;ctx.shadowBlur=6;
+    ctx.fillRect(px,cy,PW,2);
+    ctx.restore();
+    label(ctx,val,px+PW/2,cy+19,{color:C.iris,size:22,weight:700,glow:true});
+    label(ctx,sub,px+PW/2,cy+40,{color:C.subtle,size:9,weight:400});
+  });
+}
+
+// ══════════════════════════════════════════════════════════
+// GRAPHIC 1 — SOCIAL PREVIEW  1280 × 640
+// ══════════════════════════════════════════════════════════
+function drawSocial(canvas){
+  const W=1280,H=640;
+  canvas.width=W; canvas.height=H;
+  const ctx=canvas.getContext('2d');
+  const r=makePRNG(7);
+
+  fillBg(ctx,W,H);
+  drawHexGrid(ctx,W,H,r);
+  drawCircuits(ctx,W,H,22,r);
+  drawDataRain(ctx,W,H,0.006,r);
+  drawVignette(ctx,W,H,0.72);
+  drawScanlines(ctx,W,H);
+  drawCenterGlow(ctx,W,H,H/2-20,C.iris,380,0.08);
+
+  // ── Top border
+  ctx.save();
+  ctx.strokeStyle=rgba(C.iris,0.18);
+  ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(W,0);ctx.stroke();
+  ctx.restore();
+
+  // ── Corner brackets
+  drawBrackets(ctx,W,H,38,58,C.rose,0.8);
+
+  // ── Top-left eyebrow
+  label(ctx,'DΛΣMӨП // PRESENTS :',72,70,{color:C.amber,size:12,weight:600,align:'left',glow:true});
+
+  // ── Top-right tag
+  label(ctx,'NEUROMANCER-GRADE NIXOS',W-72,62,{color:rgba(C.subtle,0.55),size:10,weight:400,align:'right'});
+  label(ctx,'PENTEST ENVIRONMENT',W-72,78,{color:rgba(C.subtle,0.55),size:10,weight:400,align:'right'});
+
+  // ── NixOS flake watermark (bottom-right)
+  drawNixFlake(ctx,W-105,H-105,68,C.iris,0.1);
+
+  // ── Main title
+  glowText(ctx,'ICEBREAKER',W/2,H/2-30,{
+    color:C.phosphor,size:134,weight:800,
+    outerGlow:55,innerGlow:14,chromatic:true,
+  });
+
+  // ── Divider + diamond
+  hRule(ctx,W,H/2+55,C.rose,0.5,true);
+
+  // ── Subtitle
+  glowText(ctx,'// NEUROMANCER-GRADE NIXOS PENTEST FLAKE',W/2,H/2+90,{
+    color:C.cyan,size:18,weight:500,outerGlow:22,innerGlow:6,
+  });
+
+  // ── Stat pills
+  statPills(ctx,W,H/2+135,[
+    {val:'12',sub:'CATEGORIES'},
+    {val:'54%',sub:'FASTER DEPLOY'},
+    {val:'82.5',sub:'SUS EXCELLENT'},
+    {val:'50+',sub:'ALIASES'},
+  ]);
+
+  // ── Status bar
+  statusBar(ctx,W,H,'▌  ALL SYSTEMS OPERATIONAL   ·   jacking in...');
+}
+
+// ══════════════════════════════════════════════════════════
+// GRAPHIC 2 — README BANNER  1200 × 340
+// ══════════════════════════════════════════════════════════
+function drawBanner(canvas){
+  const W=1200,H=340;
+  canvas.width=W; canvas.height=H;
+  const ctx=canvas.getContext('2d');
+  const r=makePRNG(13);
+
+  // Subtle horizontal gradient bg
+  const bg=ctx.createLinearGradient(0,0,W,0);
+  bg.addColorStop(0,'#0e0c18'); bg.addColorStop(.5,'#0a0e14'); bg.addColorStop(1,'#0e0c18');
+  ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
+
+  drawHexGrid(ctx,W,H,r);
+  drawCircuits(ctx,W,H,14,r);
+  drawDataRain(ctx,W,H,0.005,r);
+  drawScanlines(ctx,W,H);
+
+  // Side gradient panels
+  const lp=ctx.createLinearGradient(0,0,220,0);
+  lp.addColorStop(0,rgba(C.iris,0.07)); lp.addColorStop(1,'rgba(0,0,0,0)');
+  ctx.fillStyle=lp; ctx.fillRect(0,0,220,H);
+  const rp=ctx.createLinearGradient(W-220,0,W,0);
+  rp.addColorStop(0,'rgba(0,0,0,0)'); rp.addColorStop(1,rgba(C.iris,0.07));
+  ctx.fillStyle=rp; ctx.fillRect(W-220,0,220,H);
+
+  drawVignette(ctx,W,H,0.52);
+  drawCenterGlow(ctx,W,H,H/2,C.iris,280,0.07);
+
+  // Corner brackets
+  drawBrackets(ctx,W,H,24,42,C.rose,0.75);
+
+  // Side nix flakes
+  drawNixFlake(ctx,80,H/2,48,C.iris,0.22);
+  drawNixFlake(ctx,W-80,H/2,48,C.iris,0.22);
+
+  // Dashed vertical dividers
+  ctx.save();
+  ctx.setLineDash([4,8]);
+  ctx.strokeStyle=rgba(C.iris,0.12);
+  ctx.lineWidth=1;
+  [[190,30,190,H-30],[W-190,30,W-190,H-30]].forEach(([x1,y1,x2,y2])=>{
+    ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+  });
+  ctx.restore();
+
+  // DΛΣMӨП
+  label(ctx,'D Λ Σ M Ө П',W/2,H/2-82,{color:C.amber,size:13,weight:600,glow:true});
+  label(ctx,'presents ::',W/2,H/2-64,{color:rgba(C.subtle,0.45),size:10,weight:400});
+
+  // Main title
+  glowText(ctx,'ICEBREAKER',W/2,H/2-12,{
+    color:C.phosphor,size:92,weight:800,
+    outerGlow:48,innerGlow:12,chromatic:true,
+  });
+
+  // Bottom rule (gradient)
+  const rg=ctx.createLinearGradient(0,0,W,0);
+  rg.addColorStop(0,'rgba(0,0,0,0)');
+  rg.addColorStop(.25,rgba(C.rose,0.35));
+  rg.addColorStop(.5,rgba(C.rose,0.6));
+  rg.addColorStop(.75,rgba(C.rose,0.35));
+  rg.addColorStop(1,'rgba(0,0,0,0)');
+  ctx.save();
+  ctx.strokeStyle=rg;ctx.lineWidth=1;ctx.shadowColor=C.rose;ctx.shadowBlur=8;
+  ctx.beginPath();ctx.moveTo(0,H-52);ctx.lineTo(W,H-52);ctx.stroke();
+  ctx.restore();
+
+  // Tagline above bottom bar
+  glowText(ctx,'NixOS Pentesting Environment  //  Modular Flake  //  Rose Pine',W/2,H/2+58,{
+    color:C.cyan,size:13,weight:400,outerGlow:16,innerGlow:4,
+  });
+
+  // Bottom label row
+  const tags=['x86_64-linux','aarch64-linux','Rose Pine Dark','JetBrains Mono','Neuromancer'];
+  const tw=W/tags.length;
+  tags.forEach((t,i)=>{
+    label(ctx,t,tw*i+tw/2,H-28,{color:rgba(C.subtle,0.38),size:9,weight:400});
+  });
+
+  // Nix flake top-right watermark
+  drawNixFlake(ctx,W-38,38,22,C.iris,0.2);
+}
+
+// ══════════════════════════════════════════════════════════
+// GRAPHIC 3 — ICON / LOGO  500 × 500
+// ══════════════════════════════════════════════════════════
+function drawIcon(canvas){
+  const W=500,H=500;
+  canvas.width=W; canvas.height=H;
+  const ctx=canvas.getContext('2d');
+  const r=makePRNG(21);
+
+  // Slightly lighter bg
+  ctx.fillStyle='#0d0b14'; ctx.fillRect(0,0,W,H);
+  drawHexGrid(ctx,W,H,r);
+  drawScanlines(ctx,W,H);
+  drawVignette(ctx,W,H,0.65);
+
+  // Centre glow
+  const cg=ctx.createRadialGradient(W/2,H/2-18,0,W/2,H/2-18,210);
+  cg.addColorStop(0,rgba(C.iris,0.09));
+  cg.addColorStop(1,'rgba(0,0,0,0)');
+  ctx.fillStyle=cg; ctx.fillRect(0,0,W,H);
+
+  // ── Outer hex ring
+  ctx.save();
+  const hexR=188;
+  ctx.strokeStyle=rgba(C.iris,0.55);
+  ctx.lineWidth=2;
+  ctx.shadowColor=C.iris;ctx.shadowBlur=22;
+  ctx.beginPath();
+  for(let i=0;i<6;i++){
+    const ang=Math.PI/180*(60*i-30);
+    const px=W/2+hexR*Math.cos(ang);
+    const py=H/2+hexR*Math.sin(ang);
+    i===0?ctx.moveTo(px,py):ctx.lineTo(px,py);
+  }
+  ctx.closePath();ctx.stroke();
+  ctx.restore();
+
+  // ── Inner hex ring
+  ctx.save();
+  const hexR2=155;
+  ctx.strokeStyle=rgba(C.rose,0.3);
+  ctx.lineWidth=1;
+  ctx.shadowColor=C.rose;ctx.shadowBlur=12;
+  ctx.beginPath();
+  for(let i=0;i<6;i++){
+    const ang=Math.PI/180*(60*i-30);
+    const px=W/2+hexR2*Math.cos(ang);
+    const py=H/2+hexR2*Math.sin(ang);
+    i===0?ctx.moveTo(px,py):ctx.lineTo(px,py);
+  }
+  ctx.closePath();ctx.stroke();
+  ctx.restore();
+
+  // ── Ice crack lines (fixed angles, branching)
+  const crackDefs=[
+    {ang:10, r1:70, r2:130, br:30},
+    {ang:68, r1:75, r2:120, br:26},
+    {ang:128,r1:72, r2:135, br:28},
+    {ang:190,r1:68, r2:128, br:32},
+    {ang:252,r1:74, r2:122, br:25},
+    {ang:315,r1:70, r2:132, br:29},
+  ];
+  const flakeCY=H/2-18;
+  crackDefs.forEach(({ang,r1,r2,br})=>{
+    const a=ang*Math.PI/180;
+    ctx.save();
+    ctx.strokeStyle=rgba(C.cyan,0.3);
+    ctx.lineWidth=1;
+    ctx.shadowColor=C.cyan;ctx.shadowBlur=7;
+    ctx.beginPath();
+    ctx.moveTo(W/2+Math.cos(a)*r1,flakeCY+Math.sin(a)*r1);
+    ctx.lineTo(W/2+Math.cos(a)*r2,flakeCY+Math.sin(a)*r2);
+    ctx.stroke();
+    // Branch
+    const bx=W/2+Math.cos(a)*(r1+r2)*0.52;
+    const by=flakeCY+Math.sin(a)*(r1+r2)*0.52;
+    const ba=a+(r1%2===0?0.45:-0.45);
+    ctx.beginPath();
+    ctx.moveTo(bx,by);
+    ctx.lineTo(bx+Math.cos(ba)*br,by+Math.sin(ba)*br);
+    ctx.stroke();
+    ctx.restore();
+  });
+
+  // ── Nix flake (main)
+  drawNixFlake(ctx,W/2,flakeCY,80,C.phosphor,0.95);
+
+  // ── Separator above text
+  ctx.save();
+  ctx.strokeStyle=rgba(C.rose,0.45);
+  ctx.lineWidth=1;
+  ctx.shadowColor=C.rose;ctx.shadowBlur=8;
+  ctx.beginPath();
+  ctx.moveTo(W/2-110,H/2+112);
+  ctx.lineTo(W/2+110,H/2+112);
+  ctx.stroke();
+  ctx.restore();
+
+  // ── ICEBREAKER text
+  glowText(ctx,'ICEBREAKER',W/2,H/2+138,{
+    color:C.phosphor,size:38,weight:800,
+    outerGlow:28,innerGlow:8,chromatic:false,
+  });
+
+  // ── Sub-label
+  label(ctx,'NixOS Pentest Flake',W/2,H/2+168,{color:rgba(C.cyan,0.65),size:11,weight:400});
+
+  // ── DΛΣMӨП top label
+  label(ctx,'DΛΣMӨП',W/2,38,{color:rgba(C.amber,0.65),size:11,weight:600,glow:true});
+
+  // ── Corner brackets (tighter)
+  drawBrackets(ctx,W,H,22,36,C.rose,0.55);
+}
+
+// ══════════════════════════════════════════════════════════
+// DOWNLOAD  — redraws at native resolution
+// ══════════════════════════════════════════════════════════
+const drawFns={social:drawSocial,banner:drawBanner,icon:drawIcon};
+const dlNames={
+  social:'icebreaker-social-preview.png',
+  banner:'icebreaker-banner.png',
+  icon:'icebreaker-icon.png',
+};
+
+function dl(key){
+  const off=document.createElement('canvas');
+  drawFns[key](off);
+  const a=document.createElement('a');
+  a.download=dlNames[key];
+  a.href=off.toDataURL('image/png');
+  a.click();
+}
+
+// ══════════════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════════════
+document.fonts.ready.then(()=>{
+  drawSocial(document.getElementById('c-social'));
+  drawBanner(document.getElementById('c-banner'));
+  drawIcon(document.getElementById('c-icon'));
+
+  // Thumbnail previews
+  const t1=document.getElementById('c-t1');
+  t1.width=128;t1.height=128;
+  const t2=document.getElementById('c-t2');
+  t2.width=48;t2.height=48;
+
+  // Draw icon into thumbnail canvases via drawIcon + ctx.drawImage
+  const tmp=document.createElement('canvas');
+  drawIcon(tmp);
+  [t1,t2].forEach(tc=>{
+    const tctx=tc.getContext('2d');
+    tctx.drawImage(tmp,0,0,tc.width,tc.height);
+  });
+});
+</script>
+</body>
+</html>

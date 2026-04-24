@@ -1,6 +1,6 @@
 <div align="center">
 
-![alt text](docs/images/graphics/icebreaker-social-preview.png)
+<img src="docs/images/graphics/MainBannerForMainREADME.gif" alt="IceBreaker"/>
 
 <!-- ════════════════════════════════════════════════════════════════════════ -->
 <!--  D Λ Σ M Ө П   // P R E S E N T S ::   I C E B R E A K E R              -->
@@ -53,9 +53,14 @@
 
 </div>
 
----
+<div align="center">
+  <img src="docs/images/graphics/icebreaker-dividers/divider-d-minimal-phosphor.png" width="600"/>
+</div>
 
-## // WHAT IS THIS
+<a id="what-is-this"></a>
+<div align="center">
+  <img src="docs/images/graphics/section-headers/00-what-is-this.png" width="800"/>
+</div>
 
 A fully modular NixOS pentesting environment built as a Nix flake. Your entire workstation — every tool, alias, function, theme, and keybinding — declared in code.
 
@@ -78,7 +83,9 @@ The “ice” in cyberpunk slang refers to defensive countermeasures: intrusion 
 
 
 
----
+<div align="center">
+  <img src="docs/images/graphics/icebreaker-dividers/divider-d-minimal-phosphor.png" width="600"/>
+</div>
 
 <details>
 <summary><b>// TABLE OF CONTENTS &nbsp; <code>[click to jack in]</code></b></summary>
@@ -123,9 +130,11 @@ The “ice” in cyberpunk slang refers to defensive countermeasures: intrusion 
 
 </details>
 
----
 
-## [00] PAYLOAD MANIFEST
+<a id="00-payload-manifest"></a>
+<div align="center">
+  <img src="docs/images/graphics/section-headers/01-payload-manifest.png" width="800"/>
+</div>
 
 <table align="center">
 <tr>
@@ -162,9 +171,11 @@ The “ice” in cyberpunk slang refers to defensive countermeasures: intrusion 
 </tr>
 </table>
 
----
 
-## [01] SYSTEM REQUIREMENTS
+<a id="01-system-requirements"></a>
+<div align="center">
+  <img src="docs/images/graphics/section-headers/02-system-requirements.png" width="800"/>
+</div>
 
 - **NixOS** — any starting channel (the flake pins `nixos-unstable`)
 - **Architecture** — x86_64-linux or aarch64-linux
@@ -172,9 +183,12 @@ The “ice” in cyberpunk slang refers to defensive countermeasures: intrusion 
 - **RAM** — 4 GB minimum, 8 GB+ recommended
 - **Network** — internet connection during first build (20–60 min)
 - **Hypervisor** — VMware, QEMU/KVM, VirtualBox, or bare metal
----
 
-## [02] PRE-FLIGHT
+
+<a id="02-pre-flight"></a>
+<div align="center">
+  <img src="docs/images/graphics/section-headers/03-pre-flight.png" width="800"/>
+</div>
 
 Read this **before** running anything.
 
@@ -232,9 +246,11 @@ boot.loader.grub.device = "/dev/sda";  # change to your disk
 # boot.loader.efi.canTouchEfiVariables = true;
 ```
 
----
 
-## [03] INSTALLATION
+<a id="03-installation"></a>
+<div align="center">
+  <img src="docs/images/graphics/section-headers/04-installation.png" width="800"/>
+</div>
 
 ### Step 1 — Install NixOS
 
@@ -306,9 +322,11 @@ guide
 
 Interactive terminal walkthrough covering categories, aliases, functions, scripts, and tips.
 
----
 
-## [04] DEPLOY FROM GITHUB
+<a id="04-deploy-from-github"></a>
+<div align="center">
+  <img src="docs/images/graphics/section-headers/05-deploy-from-github.png" width="800"/>
+</div>
 
 This is the real power of a Nix flake. Your entire environment — every tool, every alias, every theme colour — restores from a single `git clone`.
 
@@ -378,9 +396,11 @@ cd ~/IceBreaker && git pull && nrs
 
 `hardware-configuration.nix` is gitignored — each machine generates its own. Everything else syncs.
 
----
 
-## [05] WHEN THINGS BREAK
+<a id="05-when-things-break"></a>
+<div align="center">
+  <img src="docs/images/graphics/section-headers/06-when-things-break.png" width="800"/>
+</div>
 
 The setup script tracks errors and prints manual instructions if anything fails. If you see the red error box, follow these steps.
 
@@ -460,9 +480,11 @@ ngen    # list all generations
 nhc     # garbage collect, keep 3 most recent
 ```
 
----
 
-## [06] DAILY OPS
+<a id="06-daily-ops"></a>
+<div align="center">
+  <img src="docs/images/graphics/section-headers/07-daily-ops.png" width="800"/>
+</div>
 
 ### // Rebuild Commands
 
@@ -511,9 +533,11 @@ vpnip       # show tun0/tun1 IP
 nfu && nrs     # update all inputs + rebuild
 ```
 
----
 
-## [07] ARSENAL — Categories & Presets
+<a id="07-arsenal--categories--presets"></a>
+<div align="center">
+  <img src="docs/images/graphics/section-headers/08-arsenal-categories-presets.png" width="800"/>
+</div>
 
 ```
  ░▒▓ A R S E N A L   C O N S T E L L A T I O N ▓▒░
@@ -590,9 +614,11 @@ Then rebuild: `nrs`
 
 See [docs/categories.md](docs/categories.md) for the full tool listing per category.
 
----
 
-## [08] ADDING & REMOVING PACKAGES
+<a id="08-adding--removing-packages"></a>
+<div align="center">
+  <img src="docs/images/graphics/section-headers/09-adding-removing-packages.png" width="800"/>
+</div>
 
 ### // Adding a Package to a Pentesting Category
 
@@ -780,9 +806,11 @@ Edit `scripts/install-pipx-tools.sh` and add under the relevant section:
 pipx_install "package-name" "Display Name"
 ```
 
----
 
-## [09] ARCHITECTURE
+<a id="09-architecture"></a>
+<div align="center">
+  <img src="docs/images/graphics/section-headers/10-architecture.png" width="800"/>
+</div>
 
 ```
  ░▒▓ S Y S T E M   W I R I N G ▓▒░
@@ -842,9 +870,11 @@ pipx_install "package-name" "Display Name"
 
 **Docker is always enabled** — with auto-prune. Available regardless of pentesting categories.
 
----
 
-## [10] TROUBLESHOOTING
+<a id="10-troubleshooting"></a>
+<div align="center">
+  <img src="docs/images/graphics/section-headers/11-troubleshooting.png" width="800"/>
+</div>
 
 ### // "Failed to start session" at LightDM
 
@@ -885,9 +915,11 @@ You set `colors`, `font`, or `window.opacity` in Alacritty/FZF settings while St
 
 Reboot → GRUB → select a previous generation → fix the config → `nrs`.
 
----
 
-## [11] DOCUMENTATION
+<a id="11-documentation"></a>
+<div align="center">
+  <img src="docs/images/graphics/section-headers/12-documentation.png" width="800"/>
+</div>
 
 <div align="center">
 
@@ -908,9 +940,11 @@ Reboot → GRUB → select a previous generation → fix the config → `nrs`.
 
 </div>
 
----
 
-## [12] BENCHMARKING — NixOS vs Kali
+<a id="12-benchmarking--nixos-vs-kali"></a>
+<div align="center">
+  <img src="docs/images/graphics/section-headers/13-benchmarking-nixos-vs-kali.png" width="800"/>
+</div>
 
 IceBreaker was built, in part, as the practical artefact for a BSc (Hons) Ethical Hacking dissertation (Bruce, 2026, Abertay University) asking whether a declarative NixOS flake can serve as a reproducible alternative to Kali Linux for professional penetration-testing work. It was evaluated empirically against **Kali Linux 2025.4** across five dimensions on identical virtualised hardware (VMware Workstation on AMD Ryzen 9 6900HX, 4 vCPU, 8 GiB RAM, 40 GiB disk per guest).
 
@@ -1050,7 +1084,9 @@ Nielsen heuristics were mixed. IceBreaker wins decisively on **error prevention 
 
 All raw JSONL sample logs are retained in the repository's `bench-results/` layout for independent verification. Full methodology including sample-rate rationale, threats to validity, the two documented methodology pivots (HTB workload target; triangulated solo-researcher usability) and every data-integrity callout is in [docs/benchmarking.md](docs/benchmarking.md) and Chapters 3–5 of the dissertation.
 
----
+<div align="center">
+  <img src="docs/images/graphics/icebreaker-dividers/divider-d-minimal-phosphor.png" width="600"/>
+</div>
 
 <div align="center">
 
@@ -1096,7 +1132,10 @@ All raw JSONL sample logs are retained in the repository's `bench-results/` layo
 
 
 <br>
-----------------------------------------------------------------------------------
+
+<div align="center">
+  <img src="docs/images/graphics/icebreaker-dividers/divider-d-minimal-phosphor.png" width="600"/>
+</div>
 
 <p align="center">
   <img src="docs/images/graphics/Avatar.jpg" alt="alt text" width="200" height="200"/>
