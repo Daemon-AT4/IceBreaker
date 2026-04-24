@@ -130,6 +130,9 @@ The “ice” in cyberpunk slang refers to defensive countermeasures: intrusion 
 
 </details>
 
+<div align="center">
+  <img src="docs/images/graphics/icebreaker-dividers/divider-d-minimal-phosphor.png" width="600"/>
+</div>
 
 <a id="00-payload-manifest"></a>
 <div align="center">
@@ -171,6 +174,9 @@ The “ice” in cyberpunk slang refers to defensive countermeasures: intrusion 
 </tr>
 </table>
 
+<div align="center">
+  <img src="docs/images/graphics/icebreaker-dividers/divider-d-minimal-phosphor.png" width="600"/>
+</div>
 
 <a id="01-system-requirements"></a>
 <div align="center">
@@ -184,6 +190,9 @@ The “ice” in cyberpunk slang refers to defensive countermeasures: intrusion 
 - **Network** — internet connection during first build (20–60 min)
 - **Hypervisor** — VMware, QEMU/KVM, VirtualBox, or bare metal
 
+<div align="center">
+  <img src="docs/images/graphics/icebreaker-dividers/divider-d-minimal-phosphor.png" width="600"/>
+</div>
 
 <a id="02-pre-flight"></a>
 <div align="center">
@@ -246,6 +255,9 @@ boot.loader.grub.device = "/dev/sda";  # change to your disk
 # boot.loader.efi.canTouchEfiVariables = true;
 ```
 
+<div align="center">
+  <img src="docs/images/graphics/icebreaker-dividers/divider-d-minimal-phosphor.png" width="600"/>
+</div>
 
 <a id="03-installation"></a>
 <div align="center">
@@ -322,6 +334,9 @@ guide
 
 Interactive terminal walkthrough covering categories, aliases, functions, scripts, and tips.
 
+<div align="center">
+  <img src="docs/images/graphics/icebreaker-dividers/divider-d-minimal-phosphor.png" width="600"/>
+</div>
 
 <a id="04-deploy-from-github"></a>
 <div align="center">
@@ -396,6 +411,9 @@ cd ~/IceBreaker && git pull && nrs
 
 `hardware-configuration.nix` is gitignored — each machine generates its own. Everything else syncs.
 
+<div align="center">
+  <img src="docs/images/graphics/icebreaker-dividers/divider-d-minimal-phosphor.png" width="600"/>
+</div>
 
 <a id="05-when-things-break"></a>
 <div align="center">
@@ -480,6 +498,9 @@ ngen    # list all generations
 nhc     # garbage collect, keep 3 most recent
 ```
 
+<div align="center">
+  <img src="docs/images/graphics/icebreaker-dividers/divider-d-minimal-phosphor.png" width="600"/>
+</div>
 
 <a id="06-daily-ops"></a>
 <div align="center">
@@ -533,6 +554,9 @@ vpnip       # show tun0/tun1 IP
 nfu && nrs     # update all inputs + rebuild
 ```
 
+<div align="center">
+  <img src="docs/images/graphics/icebreaker-dividers/divider-d-minimal-phosphor.png" width="600"/>
+</div>
 
 <a id="07-arsenal--categories--presets"></a>
 <div align="center">
@@ -614,6 +638,9 @@ Then rebuild: `nrs`
 
 See [docs/categories.md](docs/categories.md) for the full tool listing per category.
 
+<div align="center">
+  <img src="docs/images/graphics/icebreaker-dividers/divider-d-minimal-phosphor.png" width="600"/>
+</div>
 
 <a id="08-adding--removing-packages"></a>
 <div align="center">
@@ -806,6 +833,9 @@ Edit `scripts/install-pipx-tools.sh` and add under the relevant section:
 pipx_install "package-name" "Display Name"
 ```
 
+<div align="center">
+  <img src="docs/images/graphics/icebreaker-dividers/divider-d-minimal-phosphor.png" width="600"/>
+</div>
 
 <a id="09-architecture"></a>
 <div align="center">
@@ -870,6 +900,9 @@ pipx_install "package-name" "Display Name"
 
 **Docker is always enabled** — with auto-prune. Available regardless of pentesting categories.
 
+<div align="center">
+  <img src="docs/images/graphics/icebreaker-dividers/divider-d-minimal-phosphor.png" width="600"/>
+</div>
 
 <a id="10-troubleshooting"></a>
 <div align="center">
@@ -915,6 +948,9 @@ You set `colors`, `font`, or `window.opacity` in Alacritty/FZF settings while St
 
 Reboot → GRUB → select a previous generation → fix the config → `nrs`.
 
+<div align="center">
+  <img src="docs/images/graphics/icebreaker-dividers/divider-d-minimal-phosphor.png" width="600"/>
+</div>
 
 <a id="11-documentation"></a>
 <div align="center">
@@ -940,6 +976,9 @@ Reboot → GRUB → select a previous generation → fix the config → `nrs`.
 
 </div>
 
+<div align="center">
+  <img src="docs/images/graphics/icebreaker-dividers/divider-d-minimal-phosphor.png" width="600"/>
+</div>
 
 <a id="12-benchmarking--nixos-vs-kali"></a>
 <div align="center">
