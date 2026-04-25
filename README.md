@@ -563,30 +563,9 @@ nfu && nrs     # update all inputs + rebuild
   <img src="docs/images/graphics/section-headers/08-arsenal-categories-presets.png" width="800"/>
 </div>
 
-```
- ░▒▓ A R S E N A L   C O N S T E L L A T I O N ▓▒░
-
-   ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐
-   │  ░ NETWORK ░ │  │  ░   WEB   ░ │  │  ░    AD   ░ │  │  ░ PASSWORD ░│
-   │   nmap/mass  │  │  burp/ffuf  │  │ bloodhound  │  │ hashcat/john │
-   │  rustscan/   │  │  sqlmap/    │  │  impacket/  │  │  hydra/      │
-   │  wireshark   │  │  nuclei     │  │  netexec    │  │  seclists    │
-   └──────────────┘  └──────────────┘  └──────────────┘  └──────────────┘
-   ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐
-   │ ░ WIRELESS ░ │  │░ FORENSICS ░ │  │  ░   REV  ░  │  │  ░  MITM   ░ │
-   │ aircrack-ng  │  │ volatility3 │  │ ghidra/r2   │  │ bettercap/   │
-   │  kismet/     │  │  binwalk/   │  │  gef/       │  │  ettercap/   │
-   │  wifite2     │  │  steghide   │  │  pwntools   │  │  dsniff      │
-   └──────────────┘  └──────────────┘  └──────────────┘  └──────────────┘
-   ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐
-   │ ░ BLUE-TEAM ░│  │ ░ EXPLOIT  ░ │  │ ░ POST-EXP ░ │  │  ░  CLOUD  ░ │
-   │ suricata/    │  │ metasploit/ │  │ chisel/     │  │ awscli2/     │
-   │ yara/zeek/   │  │ searchsploit│  │ ligolo-ng/  │  │ gcloud/      │
-   │ hayabusa     │  │  exploitdb  │  │ havoc/villain│  │ terraform   │
-   └──────────────┘  └──────────────┘  └──────────────┘  └──────────────┘
-
-         ▓▒░ 4 presets: [ctf] · [engagement] · [full] · [blue] ░▒▓
-```
+<div align="center">
+<img src="docs/images/graphics/arsenal-constellation.png" width="70%"/>
+</div>
 
 <p align="center">
   <img src="https://img.shields.io/badge/preset-ctf-eb6f92?style=for-the-badge&labelColor=0a0e14"/>
