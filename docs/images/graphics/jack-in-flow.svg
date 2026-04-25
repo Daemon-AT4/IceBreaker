@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 540" width="1500" height="540" font-family="'JetBrains Mono','SFMono-Regular',ui-monospace,Menlo,Consolas,monospace" font-weight="500">
+  <defs>
+    <pattern id="halftone" width="6" height="6" patternUnits="userSpaceOnUse">
+      <rect width="6" height="6" fill="#0a0e14"/>
+      <circle cx="3" cy="3" r="1.1" fill="#cbf7ad" fill-opacity="0.55"/>
+    </pattern>
+    <pattern id="halftoneAmber" width="6" height="6" patternUnits="userSpaceOnUse">
+      <rect width="6" height="6" fill="#0a0e14"/>
+      <circle cx="3" cy="3" r="1.1" fill="#ffb347" fill-opacity="0.6"/>
+    </pattern>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#cbf7ad"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" fill="#0a0e14"/>
+
+  <!-- Title strip -->
+  <g transform="translate(40,28)">
+    <rect x="0" y="4" width="44" height="22" fill="url(#halftone)"/>
+    <text x="380" y="22" font-size="22" fill="#cbf7ed" letter-spacing="6" text-anchor="middle">J A C K - I N   F L O W</text>
+    <rect x="716" y="4" width="44" height="22" fill="url(#halftone)"/>
+  </g>
+
+  <!-- Boxes -->
+  <g font-size="22" fill="#cbf7ad" stroke="#cbf7ad" stroke-width="1.6">
+    <!-- Box 1 -->
+    <rect x="60"   y="92" width="270" height="120" fill="none"/>
+    <text x="195"  y="138" text-anchor="middle" stroke="none">git clone</text>
+    <text x="195"  y="172" text-anchor="middle" stroke="none">~/IceBreaker</text>
+    <!-- Box 2 -->
+    <rect x="430"  y="92" width="270" height="120" fill="none"/>
+    <text x="565"  y="138" text-anchor="middle" stroke="none">flake.nix</text>
+    <text x="565"  y="172" text-anchor="middle" stroke="none">flake.lock</text>
+    <!-- Box 3 -->
+    <rect x="800"  y="92" width="270" height="120" fill="none"/>
+    <text x="935"  y="138" text-anchor="middle" stroke="none">rebuild</text>
+    <text x="935"  y="172" text-anchor="middle" stroke="none">nixos-rebuild</text>
+    <!-- Box 4 -->
+    <rect x="1170" y="92" width="270" height="120" fill="none"/>
+    <text x="1305" y="138" text-anchor="middle" stroke="none">jack in</text>
+    <text x="1305" y="172" text-anchor="middle" stroke="none">archangel@ice</text>
+  </g>
+
+  <!-- Arrows + labels -->
+  <g stroke="#cbf7ad" stroke-width="1.6" fill="none">
+    <line x1="332" y1="152" x2="426" y2="152" marker-end="url(#arrow)"/>
+    <line x1="702" y1="152" x2="796" y2="152" marker-end="url(#arrow)"/>
+    <line x1="1072" y1="152" x2="1166" y2="152" marker-end="url(#arrow)"/>
+  </g>
+  <g font-size="18" fill="#ffb347" text-anchor="middle">
+    <text x="379" y="138">nix</text>
+    <text x="749" y="138">nh</text>
+    <text x="1119" y="138">ssh</text>
+  </g>
+
+  <!-- Drop arrows -->
+  <g stroke="#7ee8fa" stroke-width="1.4" fill="none">
+    <line x1="195"  y1="214" x2="195"  y2="276" marker-end="url(#arrow)"/>
+    <line x1="565"  y1="214" x2="565"  y2="276" marker-end="url(#arrow)"/>
+    <line x1="935"  y1="214" x2="935"  y2="276" marker-end="url(#arrow)"/>
+    <line x1="1305" y1="214" x2="1305" y2="276" marker-end="url(#arrow)"/>
+  </g>
+
+  <!-- Halftone tiles -->
+  <g font-size="20" fill="#cbf7ad" font-family="'JetBrains Mono',ui-monospace,Menlo,monospace">
+    <!-- Col 1 -->
+    <g transform="translate(60,288)">
+      <rect x="0"    y="0"  width="40" height="22" fill="url(#halftone)"/>
+      <rect x="230"  y="0"  width="40" height="22" fill="url(#halftone)"/>
+      <text x="135" y="18" text-anchor="middle">payload</text>
+      <rect x="0"    y="34" width="40" height="22" fill="url(#halftone)"/>
+      <rect x="230"  y="34" width="40" height="22" fill="url(#halftone)"/>
+      <text x="135" y="52" text-anchor="middle">manifest</text>
+      <rect x="0"    y="68" width="40" height="22" fill="url(#halftone)"/>
+      <rect x="230"  y="68" width="40" height="22" fill="url(#halftone)"/>
+      <text x="135" y="86" text-anchor="middle">20 GB min</text>
+      <rect x="0"    y="102" width="40" height="22" fill="url(#halftone)"/>
+      <rect x="230"  y="102" width="40" height="22" fill="url(#halftone)"/>
+    </g>
+    <!-- Col 2 -->
+    <g transform="translate(430,288)">
+      <rect x="0"    y="0"  width="40" height="22" fill="url(#halftone)"/>
+      <rect x="230"  y="0"  width="40" height="22" fill="url(#halftone)"/>
+      <text x="135" y="18" text-anchor="middle">dependency</text>
+      <rect x="0"    y="34" width="40" height="22" fill="url(#halftone)"/>
+      <rect x="230"  y="34" width="40" height="22" fill="url(#halftone)"/>
+      <text x="135" y="52" text-anchor="middle">content-</text>
+      <rect x="0"    y="68" width="40" height="22" fill="url(#halftone)"/>
+      <rect x="230"  y="68" width="40" height="22" fill="url(#halftone)"/>
+      <text x="135" y="86" text-anchor="middle">addressed</text>
+      <rect x="0"    y="102" width="40" height="22" fill="url(#halftone)"/>
+      <rect x="230"  y="102" width="40" height="22" fill="url(#halftone)"/>
+      <text x="135" y="120" text-anchor="middle">reproducible</text>
+    </g>
+    <!-- Col 3 -->
+    <g transform="translate(800,288)">
+      <rect x="0"    y="0"  width="40" height="22" fill="url(#halftone)"/>
+      <rect x="230"  y="0"  width="40" height="22" fill="url(#halftone)"/>
+      <text x="135" y="18" text-anchor="middle">atomic</text>
+      <rect x="0"    y="34" width="40" height="22" fill="url(#halftone)"/>
+      <rect x="230"  y="34" width="40" height="22" fill="url(#halftone)"/>
+      <text x="135" y="52" text-anchor="middle">generation</text>
+      <rect x="0"    y="68" width="40" height="22" fill="url(#halftone)"/>
+      <rect x="230"  y="68" width="40" height="22" fill="url(#halftone)"/>
+      <text x="135" y="86" text-anchor="middle">rollback?</text>
+      <rect x="0"    y="102" width="40" height="22" fill="url(#halftone)"/>
+      <rect x="230"  y="102" width="40" height="22" fill="url(#halftone)"/>
+      <text x="135" y="120" text-anchor="middle">one flag</text>
+    </g>
+    <!-- Col 4 -->
+    <g transform="translate(1170,288)">
+      <rect x="0"    y="0"  width="40" height="22" fill="url(#halftone)"/>
+      <rect x="230"  y="0"  width="40" height="22" fill="url(#halftone)"/>
+      <text x="135" y="18" text-anchor="middle">rose-pine</text>
+      <rect x="0"    y="34" width="40" height="22" fill="url(#halftone)"/>
+      <rect x="230"  y="34" width="40" height="22" fill="url(#halftone)"/>
+      <text x="135" y="52" text-anchor="middle">+ p10k</text>
+      <rect x="0"    y="68" width="40" height="22" fill="url(#halftone)"/>
+      <rect x="230"  y="68" width="40" height="22" fill="url(#halftone)"/>
+      <text x="135" y="86" text-anchor="middle">+ tmux</text>
+      <rect x="0"    y="102" width="40" height="22" fill="url(#halftone)"/>
+      <rect x="230"  y="102" width="40" height="22" fill="url(#halftone)"/>
+      <text x="135" y="120" text-anchor="middle">+ vpn-ip</text>
+    </g>
+  </g>
+</svg>

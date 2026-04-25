@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 760" width="1500" height="760" font-family="'JetBrains Mono','SFMono-Regular',ui-monospace,Menlo,Consolas,monospace">
+  <defs>
+    <pattern id="halftone" width="6" height="6" patternUnits="userSpaceOnUse">
+      <rect width="6" height="6" fill="#0a0e14"/>
+      <circle cx="3" cy="3" r="1.1" fill="#cbf7ad" fill-opacity="0.55"/>
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill="#0a0e14"/>
+
+  <text x="40" y="58" font-size="32" fill="#cbf7ed" font-weight="600">// HTB Pirate — Engagement Buckets (wall-clock seconds)</text>
+
+  <rect x="40" y="86" width="1420" height="660" fill="none" stroke="#1a2030" stroke-width="1.4"/>
+
+  <!-- Section bookend title -->
+  <g transform="translate(80,128)">
+    <rect x="0" y="0" width="44" height="22" fill="url(#halftone)"/>
+    <text x="320" y="18" font-size="20" fill="#cbf7ed" letter-spacing="6" text-anchor="middle">B U C K E T   B R E A K D O W N</text>
+    <rect x="596" y="0" width="44" height="22" fill="url(#halftone)"/>
+  </g>
+  <g transform="translate(820,128)" font-size="18" fill="#cbf7ed">
+    <rect x="0"   y="2" width="22" height="18" fill="#7ee8fa"/>
+    <text x="32"  y="18">= IceBreaker</text>
+    <rect x="220" y="2" width="22" height="18" fill="#eb6f92"/>
+    <text x="254" y="18">= Kali</text>
+  </g>
+
+  <!-- Plot: x-axis 360..1380 = 1020px. Max = 1334 s. Scale 0.765 px/s -->
+  <line x1="360" y1="660" x2="1380" y2="660" stroke="#cbf7ad" stroke-width="1.2"/>
+  <g font-size="14" fill="#cbf7ed" text-anchor="middle">
+    <g stroke="#1a2030" stroke-width="1">
+      <line x1="360"  y1="180" x2="360"  y2="660"/>
+      <line x1="513"  y1="180" x2="513"  y2="660"/>
+      <line x1="666"  y1="180" x2="666"  y2="660"/>
+      <line x1="819"  y1="180" x2="819"  y2="660"/>
+      <line x1="972"  y1="180" x2="972"  y2="660"/>
+      <line x1="1125" y1="180" x2="1125" y2="660"/>
+      <line x1="1278" y1="180" x2="1278" y2="660"/>
+    </g>
+    <text x="360"  y="684">0</text>
+    <text x="513"  y="684">200</text>
+    <text x="666"  y="684">400</text>
+    <text x="819"  y="684">600</text>
+    <text x="972"  y="684">800</text>
+    <text x="1125" y="684">1000</text>
+    <text x="1278" y="684">1200</text>
+    <text x="819"  y="722" font-size="16" fill="#cbf7ad">seconds — lower is better</text>
+  </g>
+
+  <!-- Rows. Row centre y at 200, 260, 320, 380, 440, 500, 580 (Total). 0.765 px/s -->
+  <g font-size="15">
+    <!-- Recon: 591, 601 -->
+    <text x="350" y="208" text-anchor="end" fill="#cbf7ed">Recon (nmap×4 + rustscan + masscan)</text>
+    <rect x="360" y="198" width="452" height="14" fill="#7ee8fa"/>
+    <text x="817" y="210" fill="#cbf7ad">591</text>
+    <rect x="360" y="216" width="460" height="14" fill="#eb6f92"/>
+    <text x="825" y="228" fill="#cbf7ad">601</text>
+
+    <!-- SMB pre-auth: 52, 418 -->
+    <text x="350" y="268" text-anchor="end" fill="#cbf7ed">SMB pre-auth enum</text>
+    <rect x="360" y="258" width="40" height="14" fill="#7ee8fa"/>
+    <text x="405" y="270" fill="#cbf7ad">52</text>
+    <rect x="360" y="276" width="320" height="14" fill="#eb6f92"/>
+    <text x="685" y="288" fill="#ffb347">418  ▼ −88 %</text>
+
+    <!-- LDAP / AD: 27, 35 -->
+    <text x="350" y="328" text-anchor="end" fill="#cbf7ed">LDAP / AD enum</text>
+    <rect x="360" y="318" width="21" height="14" fill="#7ee8fa"/>
+    <text x="386" y="330" fill="#cbf7ad">27</text>
+    <rect x="360" y="336" width="27" height="14" fill="#eb6f92"/>
+    <text x="392" y="348" fill="#cbf7ad">35</text>
+
+    <!-- Web surface: 63, 71 -->
+    <text x="350" y="388" text-anchor="end" fill="#cbf7ed">Web surface (whatweb + nikto + gobuster + curl)</text>
+    <rect x="360" y="378" width="48" height="14" fill="#7ee8fa"/>
+    <text x="413" y="390" fill="#cbf7ad">63</text>
+    <rect x="360" y="396" width="54" height="14" fill="#eb6f92"/>
+    <text x="419" y="408" fill="#cbf7ad">71</text>
+
+    <!-- NFS: 0, 195 -->
+    <text x="350" y="448" text-anchor="end" fill="#cbf7ed">NFS enum (showmount -e)</text>
+    <line x1="358" y1="445" x2="362" y2="445" stroke="#7ee8fa" stroke-width="2"/>
+    <text x="372" y="450" fill="#cbf7ad">0</text>
+    <rect x="360" y="456" width="149" height="14" fill="#eb6f92"/>
+    <text x="514" y="468" fill="#ffb347">195  ✕ Kali-only timeout</text>
+
+    <!-- SNMP / DNS: 13, 14 -->
+    <text x="350" y="508" text-anchor="end" fill="#cbf7ed">SNMP / DNS</text>
+    <rect x="360" y="498" width="10" height="14" fill="#7ee8fa"/>
+    <text x="375" y="510" fill="#cbf7ad">13</text>
+    <rect x="360" y="516" width="11" height="14" fill="#eb6f92"/>
+    <text x="376" y="528" fill="#cbf7ad">14</text>
+
+    <!-- Divider before total -->
+    <line x1="360" y1="555" x2="1380" y2="555" stroke="#cbf7ad" stroke-width="0.8" stroke-dasharray="4 4" opacity="0.5"/>
+
+    <!-- Total: 746, 1334 -->
+    <text x="350" y="600" text-anchor="end" fill="#cbf7ed" font-weight="700">TOTAL</text>
+    <rect x="360" y="588" width="571" height="18" fill="#7ee8fa"/>
+    <text x="938" y="602" fill="#cbf7ad" font-weight="700">746 s</text>
+    <rect x="360" y="610" width="1020" height="18" fill="#eb6f92"/>
+    <text x="1144" y="624" fill="#ffb347" font-weight="700">1,334 s  ▼ IceBreaker 44.1 % faster</text>
+  </g>
+</svg>

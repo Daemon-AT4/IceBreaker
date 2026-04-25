@@ -345,20 +345,9 @@ Interactive terminal walkthrough covering categories, aliases, functions, script
 
 This is the real power of a Nix flake. Your entire environment — every tool, every alias, every theme colour — restores from a single `git clone`.
 
-```
- ░▒▓ J A C K - I N   F L O W ▓▒░
-
-   ┌─────────────┐  nix   ┌─────────────┐  nh   ┌─────────────┐  ssh  ┌─────────────┐
-   │  git clone  │ ─────▶ │  flake.nix  │ ────▶ │   rebuild   │ ────▶ │   jack in   │
-   │ ~/IceBreaker│        │ flake.lock  │       │nixos-rebuild│       │archangel@ice│
-   └─────────────┘        └─────────────┘       └─────────────┘       └─────────────┘
-         │                       │                     │                     │
-         ▼                       ▼                     ▼                     ▼
-    ░  payload  ░           ░ dependency ░        ░  atomic   ░         ░ rose-pine ░
-    ░  manifest ░           ░  content-  ░        ░generation ░         ░  + p10k   ░
-    ░ 20 GB min ░           ░ addressed  ░        ░ rollback? ░         ░  + tmux   ░
-    ░           ░           ░reproducible░        ░ one flag  ░         ░  + vpn-ip ░
-```
+<div align="center">
+  <img src="docs/images/graphics/jack-in-flow.svg" alt="Jack-in flow: git clone → flake.nix → rebuild → jack in" width="1100"/>
+</div>
 
 
 ### // Fresh NixOS Machine
@@ -564,7 +553,7 @@ nfu && nrs     # update all inputs + rebuild
 </div>
 
 <div align="center">
-<img src="docs/images/graphics/arsenal-constellation.png" width="70%"/>
+<img src="docs/images/graphics/arsenal-constellation.png" width="860"/>
 </div>
 
 <p align="center">
@@ -1002,7 +991,7 @@ The headline numbers are summarised below; the full methodology, per-run JSON ca
 | HackTheBox Pirate (soak, wall-clock) | **746 s** | 1,334 s | IceBreaker **44.1 % faster** |
 | SUS usability score (self-rated, n=1) | **82.5 — Excellent** | 72.5 — Acceptable | +10 points IceBreaker |
 
-![Headline Benchmarks](docs/images/charts/headline-benchmarks.png)
+![Headline Benchmarks](docs/images/charts/headline-deltas.svg)
 
 **Verdict:** on identical hardware IceBreaker deploys materially faster, uses half the disk for a superset of packages, ties or wins on an end-to-end AD engagement, and scores higher on self-reported usability. Kali wins on steady-state idle RAM, documentation, and match-with-real-world — areas a decade of Debian lineage buys that three months of solo work cannot.
 
@@ -1050,7 +1039,8 @@ The splits trace to differing OpenSSL compile flags in nixpkgs vs Debian packagi
 For the per-tool micro-benchmarks that ran cleanly on IceBreaker only (hashcat MD5 at 3.14 MH/s, openssl AES-256-GCM at 5.06 GiB/s peak at 16 KiB block) the Kali runs were invalidated by harness-level cmdline errors. The cross-distribution crypto suite is the load-bearing source because it executed correctly on both hosts. See [docs/benchmarking.md](docs/benchmarking.md) and the dissertation's §4.3 / §5.2 for the full data-integrity callouts.
 
 ![icebreaker-bench workload output](docs/images/bench-output.png)
-![Cross-Distribution Cryptographic Throughput](docs/images/charts/Cross-Distribution%20Cryptographic%20Throughput.png)
+![Cross-Distribution Cryptographic Throughput](docs/images/charts/cross-distribution-throughput.svg)
+![Asymmetric Crypto & FIM throughput](docs/images/charts/rsa-ecdsa-throughput.svg)
 
 ### // End-to-End Engagement — HackTheBox Pirate (44 % faster)
 
@@ -1065,6 +1055,8 @@ The `scripts/htb-pirate.sh` runbook executed 40+ reconnaissance and pre-auth enu
 | NFS enum (showmount -e) | 0 | 195 | **Kali-only** |
 | SNMP / DNS | 13 | 14 | −7 % |
 | **Total** | **746** | **1,334** | **−44.1 %** |
+
+![HTB Pirate engagement bucket breakdown](docs/images/charts/htb-pirate-buckets.svg)
 
 The 44 % gap is **not** because NixOS runs nmap, bloodhound or certipy faster at a per-invocation level — the Recon bucket finishes within 1.7 % on both hosts. It's driven by two specific declarative **curation** choices in the flake:
 
@@ -1090,6 +1082,8 @@ Self-administered System Usability Scale (n=1, triangulated with autoethnography
 | T2 — add bloodyAD, persist across reboot | 2.8 min | **3.4 min** (tied) |
 | T3 — replicate on a second machine | **5.1 min** | 17.8 min |
 
+![SUS task timings — T1, T2, T3 (minutes)](docs/images/charts/sus-task-timings.svg)
+
 Nielsen heuristics were mixed. IceBreaker wins decisively on **error prevention (H5)**, **user control and freedom / rollback (H3, H9)**, and **consistency (H4)** — the expected strengths of a declarative system with atomic generations. Kali wins decisively on **match-with-real-world (H2)**, **help/documentation (H10)**, and **recognition-over-recall (H6)** — consequences of a decade-longer Debian lineage that a solo project cannot overcome in three months.
 
 **Practical implication:** IceBreaker is the more usable choice for an operator building a reproducible fleet or anyone who values one-command rollback; Kali is the more usable choice for an operator inheriting existing Kali muscle-memory or who relies heavily on community-written walkthroughs. The two are complementary, not strictly ordered.
@@ -1108,31 +1102,7 @@ All raw JSONL sample logs are retained in the repository's `bench-results/` layo
 
 <div align="center">
 
-```
-┌──────────────────────────────────────────────────────────────────────────────┐
-│ CLASSIFIED          ──────────────────          DECLASSIFIED                 │
-│                                                                              │
-│   TARGET  :  reader · operator · adversary                                   │
-│   THREAT  :  informational  ░▒▓  read, fork, rebuild, hack                   │
-│   STATUS  :  ████████ ██████ ████ ██████                                     │
-│                                                                              │
-│                          DAEMON-SEC // EYES ONLY                             │
-└──────────────────────────────────────────────────────────────────────────────┘
-
-▓▒░ ═══════════════════════════════════════════════════════════════════ ░▒▓
- ╔═══════════════════════════════════════════════════════════════════════╗
- ║                                                                       ║
- ║    "We have no future because our present is too volatile.            ║
- ║     We only have risk management."                                    ║
- ║                                                                       ║
- ║                          — William Gibson, Pattern Recognition        ║
- ║                                                                       ║
- ╚═══════════════════════════════════════════════════════════════════════╝
-▓▒░ ═══════════════════════════════════════════════════════════════════ ░▒▓
-
-              ░░  LICENCE :: Hack the planet.  ░░
-              ░░  Do whatever you want with it. ░░
-```
+<img src="docs/images/graphics/classified-licence.svg" alt="Classified / Declassified panel · Gibson — Pattern Recognition · Licence: Hack the planet." width="1100"/>
 
 <br/>
 

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 540" width="1500" height="540" font-family="'JetBrains Mono','SFMono-Regular',ui-monospace,Menlo,Consolas,monospace">
+  <defs>
+    <pattern id="halftone" width="6" height="6" patternUnits="userSpaceOnUse">
+      <rect width="6" height="6" fill="#0a0e14"/>
+      <circle cx="3" cy="3" r="1.1" fill="#cbf7ad" fill-opacity="0.55"/>
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill="#0a0e14"/>
+
+  <text x="40" y="58" font-size="30" fill="#cbf7ed" font-weight="600">// SUS — Task Timings (minutes, lower is better)</text>
+
+  <rect x="40" y="86" width="1420" height="420" fill="none" stroke="#1a2030" stroke-width="1.4"/>
+
+  <g transform="translate(80,128)">
+    <rect x="0" y="0" width="44" height="22" fill="url(#halftone)"/>
+    <text x="290" y="18" font-size="20" fill="#cbf7ed" letter-spacing="6" text-anchor="middle">T 1   ·   T 2   ·   T 3</text>
+    <rect x="536" y="0" width="44" height="22" fill="url(#halftone)"/>
+  </g>
+  <g transform="translate(760,128)" font-size="18" fill="#cbf7ed">
+    <rect x="0"   y="2" width="22" height="18" fill="#7ee8fa"/>
+    <text x="32"  y="18">= IceBreaker</text>
+    <rect x="220" y="2" width="22" height="18" fill="#eb6f92"/>
+    <text x="254" y="18">= Kali</text>
+  </g>
+
+  <!-- Plot: x-axis 360..1380 = 1020px. Max = 17.8 min. Scale = 57.3 px/min -->
+  <line x1="360" y1="450" x2="1380" y2="450" stroke="#cbf7ad" stroke-width="1.2"/>
+  <g font-size="14" fill="#cbf7ed" text-anchor="middle">
+    <g stroke="#1a2030" stroke-width="1">
+      <line x1="360"  y1="180" x2="360"  y2="450"/>
+      <line x1="647"  y1="180" x2="647"  y2="450"/>
+      <line x1="933"  y1="180" x2="933"  y2="450"/>
+      <line x1="1220" y1="180" x2="1220" y2="450"/>
+    </g>
+    <text x="360"  y="474">0</text>
+    <text x="647"  y="474">5 min</text>
+    <text x="933"  y="474">10 min</text>
+    <text x="1220" y="474">15 min</text>
+  </g>
+
+  <g font-size="16">
+    <!-- T1 install: Ice 4.2, Kal 11.6 -->
+    <text x="350" y="218" text-anchor="end" fill="#cbf7ed">T1 — install to working prompt</text>
+    <rect x="360" y="208" width="241" height="16" fill="#7ee8fa"/>
+    <text x="608" y="221" fill="#cbf7ad">4.2 min</text>
+    <rect x="360" y="228" width="664" height="16" fill="#eb6f92"/>
+    <text x="1031" y="241" fill="#ffb347">11.6 min  ▼ Ice 64 % faster</text>
+
+    <!-- T2 add bloodyAD: Ice 2.8, Kal 3.4 -->
+    <text x="350" y="298" text-anchor="end" fill="#cbf7ed">T2 — add bloodyAD, persist across reboot</text>
+    <rect x="360" y="288" width="160" height="16" fill="#7ee8fa"/>
+    <text x="528" y="301" fill="#cbf7ad">2.8 min</text>
+    <rect x="360" y="308" width="195" height="16" fill="#eb6f92"/>
+    <text x="563" y="321" fill="#cbf7ad">3.4 min  ≈ tied</text>
+
+    <!-- T3 replicate: Ice 5.1, Kal 17.8 -->
+    <text x="350" y="378" text-anchor="end" fill="#cbf7ed">T3 — replicate on a second machine</text>
+    <rect x="360" y="368" width="292" height="16" fill="#7ee8fa"/>
+    <text x="660" y="381" fill="#cbf7ad">5.1 min</text>
+    <rect x="360" y="388" width="1020" height="16" fill="#eb6f92"/>
+    <text x="1145" y="401" fill="#ffb347">17.8 min  ▼ Ice 71 % faster</text>
+  </g>
+</svg>

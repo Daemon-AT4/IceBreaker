@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 820" width="1500" height="820" font-family="'JetBrains Mono','SFMono-Regular',ui-monospace,Menlo,Consolas,monospace">
+  <rect width="100%" height="100%" fill="#0a0e14"/>
+
+  <!-- Title -->
+  <text x="750" y="56" text-anchor="middle" font-size="26" fill="#cbf7ed" font-weight="600">Cross-Distribution Cryptographic Throughput — blueteam-bench</text>
+
+  <!-- Legend -->
+  <g font-size="18">
+    <rect x="500" y="78" width="22" height="18" fill="#7ee8fa"/>
+    <text x="532" y="94" fill="#cbf7ed">IceBreaker (NixOS)</text>
+    <rect x="800" y="78" width="22" height="18" fill="#eb6f92"/>
+    <text x="832" y="94" fill="#cbf7ed">Kali Linux 2025.4</text>
+  </g>
+
+  <!-- Plot area: x = 360..1380 (1020px wide), max value scaled to 6000 MiB/s -->
+  <!-- Axis line -->
+  <line x1="360" y1="700" x2="1380" y2="700" stroke="#cbf7ad" stroke-width="1.2"/>
+  <!-- X-axis ticks 0,1000,2000,3000,4000,5000,6000 -->
+  <g font-size="14" fill="#cbf7ed" text-anchor="middle">
+    <g stroke="#1a2030" stroke-width="1">
+      <line x1="360"  y1="160" x2="360"  y2="700"/>
+      <line x1="530"  y1="160" x2="530"  y2="700"/>
+      <line x1="700"  y1="160" x2="700"  y2="700"/>
+      <line x1="870"  y1="160" x2="870"  y2="700"/>
+      <line x1="1040" y1="160" x2="1040" y2="700"/>
+      <line x1="1210" y1="160" x2="1210" y2="700"/>
+      <line x1="1380" y1="160" x2="1380" y2="700"/>
+    </g>
+    <text x="360"  y="724">0</text>
+    <text x="530"  y="724">1000</text>
+    <text x="700"  y="724">2000</text>
+    <text x="870"  y="724">3000</text>
+    <text x="1040" y="724">4000</text>
+    <text x="1210" y="724">5000</text>
+    <text x="1380" y="724">6000</text>
+    <text x="870"  y="760" font-size="16" fill="#cbf7ad">Throughput (MiB/s) — higher is better</text>
+  </g>
+
+  <!-- Rows: 8 metrics. Row height = 64px. y-start = 140. Each row has Ice bar (top) + Kal bar (bottom) -->
+  <!-- Scale: 1 MiB/s = 0.17 px (1020/6000) -->
+  <g font-size="15">
+    <!-- AES-256-CBC encrypt: Ice 196.71 (33), Kal 421.41 (72) -->
+    <text x="350" y="158" text-anchor="end" fill="#cbf7ed">AES-256-CBC encrypt</text>
+    <rect x="360" y="148" width="33" height="14" fill="#7ee8fa"/>
+    <text x="398" y="160" fill="#cbf7ad">196.71</text>
+    <rect x="360" y="166" width="72" height="14" fill="#eb6f92"/>
+    <text x="436" y="178" fill="#cbf7ad">421.41</text>
+
+    <!-- AES-256-CBC decrypt: Ice 228.4 (39), Kal 831.82 (141) -->
+    <text x="350" y="222" text-anchor="end" fill="#cbf7ed">AES-256-CBC decrypt</text>
+    <rect x="360" y="212" width="39" height="14" fill="#7ee8fa"/>
+    <text x="404" y="224" fill="#cbf7ad">228.4</text>
+    <rect x="360" y="230" width="141" height="14" fill="#eb6f92"/>
+    <text x="506" y="242" fill="#cbf7ad">831.82</text>
+
+    <!-- AES-256-GCM peak: Ice 5025.57 (854), Kal 4900.23 (833) -->
+    <text x="350" y="286" text-anchor="end" fill="#cbf7ed">AES-256-GCM peak</text>
+    <rect x="360" y="276" width="854" height="14" fill="#7ee8fa"/>
+    <text x="1219" y="288" fill="#cbf7ad">5025.57</text>
+    <rect x="360" y="294" width="833" height="14" fill="#eb6f92"/>
+    <text x="1198" y="306" fill="#cbf7ad">4900.23</text>
+
+    <!-- ChaCha20 peak: Ice 4392.27 (747), Kal 2267.9 (385) -->
+    <text x="350" y="350" text-anchor="end" fill="#cbf7ed">ChaCha20 peak</text>
+    <rect x="360" y="340" width="747" height="14" fill="#7ee8fa"/>
+    <text x="1112" y="352" fill="#cbf7ad">4392.27</text>
+    <rect x="360" y="358" width="385" height="14" fill="#eb6f92"/>
+    <text x="750" y="370" fill="#cbf7ad">2267.9</text>
+
+    <!-- SHA-256 peak: Ice 2065.21 (351), Kal 576.36 (98) -->
+    <text x="350" y="414" text-anchor="end" fill="#cbf7ed">SHA-256 peak</text>
+    <rect x="360" y="404" width="351" height="14" fill="#7ee8fa"/>
+    <text x="716" y="416" fill="#cbf7ad">2065.21</text>
+    <rect x="360" y="422" width="98" height="14" fill="#eb6f92"/>
+    <text x="463" y="434" fill="#cbf7ad">576.36</text>
+
+    <!-- BLAKE2b peak: Ice 1024.24 (174), Kal 1043.99 (177) -->
+    <text x="350" y="478" text-anchor="end" fill="#cbf7ed">BLAKE2b peak</text>
+    <rect x="360" y="468" width="174" height="14" fill="#7ee8fa"/>
+    <text x="539" y="480" fill="#cbf7ad">1024.24</text>
+    <rect x="360" y="486" width="177" height="14" fill="#eb6f92"/>
+    <text x="542" y="498" fill="#cbf7ad">1043.99</text>
+
+    <!-- gzip compress: Ice 59.43 (10), Kal 53.83 (9) -->
+    <text x="350" y="542" text-anchor="end" fill="#cbf7ed">gzip compress</text>
+    <rect x="360" y="532" width="10" height="14" fill="#7ee8fa"/>
+    <text x="375" y="544" fill="#cbf7ad">59.43</text>
+    <rect x="360" y="550" width="9" height="14" fill="#eb6f92"/>
+    <text x="374" y="562" fill="#cbf7ad">53.83</text>
+
+    <!-- zstd compress: Ice 283.16 (48), Kal 271.04 (46) -->
+    <text x="350" y="606" text-anchor="end" fill="#cbf7ed">zstd compress</text>
+    <rect x="360" y="596" width="48" height="14" fill="#7ee8fa"/>
+    <text x="413" y="608" fill="#cbf7ad">283.16</text>
+    <rect x="360" y="614" width="46" height="14" fill="#eb6f92"/>
+    <text x="411" y="626" fill="#cbf7ad">271.04</text>
+  </g>
+</svg>

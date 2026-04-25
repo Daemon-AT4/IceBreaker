@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 880" width="1500" height="880" font-family="'JetBrains Mono','SFMono-Regular',ui-monospace,Menlo,Consolas,monospace">
+  <defs>
+    <pattern id="halftone" width="6" height="6" patternUnits="userSpaceOnUse">
+      <rect width="6" height="6" fill="#0a0e14"/>
+      <circle cx="3" cy="3" r="1.1" fill="#cbf7ad" fill-opacity="0.55"/>
+    </pattern>
+    <pattern id="kalHatch" width="8" height="8" patternUnits="userSpaceOnUse">
+      <rect width="8" height="8" fill="#cbf7ad" fill-opacity="0.92"/>
+      <circle cx="4" cy="4" r="1.4" fill="#0a0e14"/>
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill="#0a0e14"/>
+
+  <!-- Title -->
+  <text x="40" y="58" font-size="32" fill="#cbf7ed" font-weight="600">// Headline Results</text>
+
+  <!-- Inner panel -->
+  <rect x="40" y="86" width="1420" height="770" fill="none" stroke="#1a2030" stroke-width="1.4"/>
+
+  <!-- Section title with halftone bookends -->
+  <g transform="translate(80,128)">
+    <rect x="0" y="0" width="44" height="22" fill="url(#halftone)"/>
+    <text x="290" y="18" font-size="20" fill="#cbf7ed" letter-spacing="6" text-anchor="middle">H E A D L I N E   D E L T A S</text>
+    <rect x="536" y="0" width="44" height="22" fill="url(#halftone)"/>
+  </g>
+  <!-- Legend -->
+  <g transform="translate(760,128)" font-size="18" fill="#cbf7ed">
+    <rect x="0" y="2" width="22" height="18" fill="#cbf7ad"/>
+    <text x="32" y="18">= IceBreaker,</text>
+    <rect x="220" y="2" width="22" height="18" fill="url(#kalHatch)"/>
+    <text x="254" y="18">= Kali</text>
+  </g>
+
+  <!-- Rows. Bar chart area: x=320 to x=1100, max width 780 -->
+  <!-- Row template: metric label x=60; Ice/Kal subs x=270; bar x=320; value x=1120; verdict x=1280 -->
+  <g font-size="18">
+    <!-- Deploy time -->
+    <text x="60" y="200" fill="#cbf7ed">Deploy time</text>
+    <text x="280" y="200" fill="#cbf7ad">Ice</text>
+    <rect x="320" y="186" width="360" height="18" fill="#cbf7ad"/>
+    <text x="700" y="200" fill="#cbf7ad">12 min</text>
+    <text x="280" y="226" fill="#eb6f92">Kal</text>
+    <rect x="320" y="212" width="780" height="18" fill="url(#kalHatch)"/>
+    <text x="1120" y="226" fill="#cbf7ad">26 min</text>
+    <text x="1200" y="226" fill="#cbf7ad">▼ IceBreaker 54 % faster</text>
+
+    <!-- Disk closure -->
+    <text x="60" y="288" fill="#cbf7ed">Disk closure</text>
+    <text x="280" y="288" fill="#cbf7ad">Ice</text>
+    <rect x="320" y="274" width="402" height="18" fill="#cbf7ad"/>
+    <text x="742" y="288" fill="#cbf7ad">14.19 GB</text>
+    <text x="280" y="314" fill="#eb6f92">Kal</text>
+    <rect x="320" y="300" width="780" height="18" fill="url(#kalHatch)"/>
+    <text x="1120" y="314" fill="#cbf7ad">27.51 GB</text>
+    <text x="1200" y="314" fill="#cbf7ad">▼ IceBreaker 49 % smaller</text>
+
+    <!-- Idle RAM -->
+    <text x="60" y="376" fill="#cbf7ed">Idle RAM</text>
+    <text x="280" y="376" fill="#cbf7ad">Ice</text>
+    <rect x="320" y="362" width="780" height="18" fill="#cbf7ad"/>
+    <text x="1120" y="376" fill="#cbf7ad">1,149.6 MiB</text>
+    <text x="280" y="402" fill="#eb6f92">Kal</text>
+    <rect x="320" y="388" width="627" height="18" fill="url(#kalHatch)"/>
+    <text x="967" y="402" fill="#cbf7ad">923.8 MiB</text>
+    <text x="1200" y="402" fill="#cbf7ad">▲ Kali 19.6 % leaner</text>
+
+    <!-- Boot -->
+    <text x="60" y="464" fill="#cbf7ed">Boot (systemd)</text>
+    <text x="280" y="464" fill="#cbf7ad">Ice</text>
+    <rect x="320" y="450" width="780" height="18" fill="#cbf7ad"/>
+    <text x="1120" y="464" fill="#cbf7ad">8.557 s</text>
+    <text x="280" y="490" fill="#eb6f92">Kal</text>
+    <rect x="320" y="476" width="694" height="18" fill="url(#kalHatch)"/>
+    <text x="1034" y="490" fill="#cbf7ad">7.606 s</text>
+    <text x="1200" y="490" fill="#cbf7ad">≈ parity (~1 s)</text>
+
+    <!-- HTB Pirate -->
+    <text x="60" y="552" fill="#cbf7ed">HTB Pirate</text>
+    <text x="280" y="552" fill="#cbf7ad">Ice</text>
+    <rect x="320" y="538" width="436" height="18" fill="#cbf7ad"/>
+    <text x="776" y="552" fill="#cbf7ad">746 s</text>
+    <text x="280" y="578" fill="#eb6f92">Kal</text>
+    <rect x="320" y="564" width="780" height="18" fill="url(#kalHatch)"/>
+    <text x="1120" y="578" fill="#cbf7ad">1,334 s</text>
+    <text x="1200" y="578" fill="#cbf7ad">▼ IceBreaker 44.1 % faster</text>
+
+    <!-- SUS usability -->
+    <text x="60" y="640" fill="#cbf7ed">SUS usability</text>
+    <text x="280" y="640" fill="#cbf7ad">Ice</text>
+    <rect x="320" y="626" width="780" height="18" fill="#cbf7ad"/>
+    <text x="1120" y="640" fill="#cbf7ad">82.5 (Excellent)</text>
+    <text x="280" y="666" fill="#eb6f92">Kal</text>
+    <rect x="320" y="652" width="686" height="18" fill="url(#kalHatch)"/>
+    <text x="1026" y="666" fill="#cbf7ad">72.5 (Acceptable)</text>
+    <text x="1280" y="666" fill="#cbf7ad">+10 IceBreaker</text>
+  </g>
+
+  <!-- Footer caption -->
+  <text x="40" y="826" font-size="14" fill="#7ee8fa" opacity="0.85">bars normalised within each metric · lower-is-better for time and disk · higher-is-better for SUS</text>
+</svg>
